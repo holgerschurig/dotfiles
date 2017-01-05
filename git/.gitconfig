@@ -1,0 +1,39 @@
+[user]
+        name = "Holger Schurig"
+
+[alias]
+	desc = describe --tags
+	st = status
+	co = checkout
+	qi = quiltimport --author 'Holger Schurig <$MAIL>'
+	wu = log --stat origin..@{0}
+	wup = log -p origin..@{0}
+	p = format-patch -o p
+	rlog = log --reverse --no-merges
+	#glog = log --graph --full-history --all --pretty=format:"%h%x09%d%x20%s"
+	glog =  log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"
+	overview = log --graph --simplify-by-decoration --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"
+
+[i18n]
+	commitencoding = ISO-8859-1
+	logoutputencoding = ISO-8859-1
+
+[sendemail]
+	smtpencryption = tls
+	smtpserver = smtp.gmail.com
+	smtpuser = holgerschurig@gmail.com
+	thread = no
+	smtpserverport = 587
+	aliasesfile = ~/.gitaliases
+	aliasfiletype = mailrc
+	chainreplyto = false
+	confirm = auto
+
+[push]
+	default = current
+[color]
+	ui = no
+[http]
+	sslverify = false
+[merge]
+	conflictstyle = diff3
