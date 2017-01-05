@@ -1,0 +1,7 @@
+[Unit]
+Description=Timer für Mittagspause
+
+[Timer]
+AccuracySec=1
+OnCalendar=Mon-Fri *-*-* 11:59:00
+Unit=alarm-start.service

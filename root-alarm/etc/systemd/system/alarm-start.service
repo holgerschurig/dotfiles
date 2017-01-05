@@ -1,0 +1,7 @@
+[Unit]
+Description=make a start alarm
+
+[Service]
+ExecStart=/usr/local/bin/beep start
+Type=oneshot
+User=schurig

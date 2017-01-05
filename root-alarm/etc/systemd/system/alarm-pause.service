@@ -1,0 +1,7 @@
+[Unit]
+Description=make a pause alarm
+
+[Service]
+ExecStart=/usr/local/bin/beep pause
+Type=oneshot
+User=schurig

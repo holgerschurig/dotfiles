@@ -1,0 +1,7 @@
+[Unit]
+Description=Timer für Feierabend
+
+[Timer]
+AccuracySec=1
+OnCalendar=Mon-Fri *-*-* 16:59:00
+Unit=alarm-pause.service
