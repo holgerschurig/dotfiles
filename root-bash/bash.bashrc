@@ -53,3 +53,27 @@ if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-no
 		fi
 	}
 fi
+
+alias copy="cp -i"
+alias del="rm -i"
+alias dir="ls"
+alias md="mkdir"
+alias move="mv -i"
+alias rd="rmdir"
+alias rm="rm -i"
+alias ren="mv -i"
+alias l="ls -lF"
+alias ll="ls -lAF"
+alias ls="ls -F"
+alias psg="ps auxww | grep"
+alias gdb="gdb --quiet"
+alias diff="diff -u"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias -- -="cd -"
+
+export LESS="-MSisch4R"
+export LESSCHARSET="utf-8"
+export NO_AT_BRIDGE=1
