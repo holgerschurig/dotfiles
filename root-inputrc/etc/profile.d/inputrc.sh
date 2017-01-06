@@ -1,0 +1,1 @@
+export INPUTRC=/etc/inputrc
