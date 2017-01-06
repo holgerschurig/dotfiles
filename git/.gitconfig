@@ -1,0 +1,32 @@
+[user]
+	# email comes as $EMAIL from /etc/profile.d/email.sh
+	name = "Holger Schurig"
+
+[alias]
+	st = status
+	co = checkout
+	qi = quiltimport --author 'Holger Schurig <holgerschurig@gmail.de>'
+	wu = log --stat origin..@{0}
+	wup = log -p origin..@{0}
+	p = format-patch -o p
+	news = log --reverse -p ORIG_HEAD..HEAD
+	rlog = log --reverse
+	glog =  log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"
+	overview = log --graph --simplify-by-decoration --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"
+
+[sendemail]
+	smtpencryption = tls
+	smtpserver = smtp.gmail.com
+	smtpuser = holgerschurig@gmail.com
+	smtpserverport = 587
+	thread = no
+	confirm = auto
+
+[push]
+	default = matching
+
+[color]
+	ui = no
+
+#[http]
+#	sslverify = false
