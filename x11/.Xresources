@@ -29,8 +29,8 @@ URxvt.background: black
 
 urxvt.perl-ext: selection,option-popup,selection-popup,readline,matcher
 urxvt.perl-ext-common: selection,option-popup,selection-popup,readline,matcher
-urxvt.urlLauncher: google-chrome
-urxvt.matcher.button: 1
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
 urxvt*matcher.pattern.1: \\b(http|https|ftp):[/]*[\\w-]\\.[\\w./?&@#-]*[\\w/-]
 urxvt*matcher.pattern.2: \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]
 urxvt.matcher.rend.0: fg8
