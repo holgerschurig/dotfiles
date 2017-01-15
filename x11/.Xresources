@@ -27,8 +27,8 @@ urxvt.font: -xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
 URxvt.foreground: white
 URxvt.background: black
 
-urxvt.perl-ext: default,matcher
-urxvt.perl-ext-common: default,matcher
+urxvt.perl-ext: selection,option-popup,selection-popup,readline,matcher
+urxvt.perl-ext-common: selection,option-popup,selection-popup,readline,matcher
 urxvt.urlLauncher: google-chrome
 urxvt.matcher.button: 1
 urxvt*matcher.pattern.1: \\b(http|https|ftp):[/]*[\\w-]\\.[\\w./?&@#-]*[\\w/-]
