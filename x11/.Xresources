@@ -1,0 +1,56 @@
+Emacs.geometry: 120x55
+Emacs.Font:     Terminus 11
+Emacs.verticalScrollBars: off
+Emacs.toolBar: off
+Emacs*Background: #0b0b0b
+Emacs*Foreground: #dcdcdc
+
+
+urxvt.geometry: 110x40
+urxvt.fading: 50
+urxvt.saveLines: 3000
+urxvt.insecure: 1
+urxvt.scrollBar_right: 1
+urxvt.scrollstyle: plain
+urxvt.cutchars: ()*,<>[]{}|
+urxvt.print-pipe: cat /tmp/print
+urxvt.utmpInhibit: true
+urxvt.mapAlert: true
+urxvt.visualBell: true
+urxvt.internalBorder: 2
+
+urxvt.meta8: false
+urxvt.imLocale: de_DE
+
+urxvt.font: -xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
+
+URxvt.foreground: white
+URxvt.background: black
+
+urxvt.perl-ext: default,matcher
+urxvt.perl-ext-common: default,matcher
+urxvt.urlLauncher: google-chrome
+urxvt.matcher.button: 1
+urxvt*matcher.pattern.1: \\b(http|https|ftp):[/]*[\\w-]\\.[\\w./?&@#-]*[\\w/-]
+urxvt*matcher.pattern.2: \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]
+urxvt.matcher.rend.0: fg8
+
+Xft.dpi: 100
+color0: #000000
+color1: #cb1578
+color2: #8ecb15
+color3: #cb9a15
+color4: #6f15cb
+color5: #cb15c9
+color6: #15b4cb
+color7: #888a85
+color8: #465457
+color9: #dc5e86
+color10: #9edc60
+color11: #dcb65e
+color12: #7e5edc
+color13: #b75edc
+color14: #5edcb4
+color15: #ffffff
+background : #0e0021
+foreground : #bcbcbc
