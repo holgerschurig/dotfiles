@@ -9,24 +9,28 @@
 	wu = log --stat origin..@{0}
 	wup = log -p origin..@{0}
 	p = format-patch -o p
-	news = log --reverse -p ORIG_HEAD..HEAD
-	rlog = log --reverse
+	news = log --reverse --no-merges -p ORIG_HEAD..HEAD
+	rlog = log --reverse --no-merges
 	glog =  log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"
 	overview = log --graph --simplify-by-decoration --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"
+	desc = describe --tags
 
 [sendemail]
 	smtpencryption = tls
 	smtpserver = smtp.gmail.com
 	smtpuser = holgerschurig@gmail.com
-	smtpserverport = 587
 	thread = no
+	smtpserverport = 587
+	aliasesfile = ~/.gitaliases
+	aliasfiletype = mailrc
+	chainreplyto = false
 	confirm = auto
 
 [push]
-	default = matching
-
+	default = current
 [color]
 	ui = no
-
-#[http]
-#	sslverify = false
+[http]
+	sslverify = false
+[merge]
+	conflictstyle = diff3
