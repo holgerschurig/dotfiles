@@ -1,7 +1,7 @@
 -- -*- mode: lua -*-
 
 -- VARIABLES
-terminal = "x-terminal-emulator"
+terminal = "x-terminal-emulator --loginShell"
 -- editor = os.getenv("EDITOR") or "editor"
 -- editor_cmd = terminal .. " -e " .. editor
 editor = "emacs"
