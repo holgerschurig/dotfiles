@@ -162,8 +162,11 @@ local tasklist_buttons = awful.util.table.join(
 
 awful.screen.connect_for_each_screen(function(s)
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8" }, s, awful.layout.layouts[1])
-
+    local names = { "emacs", "dev", "dev", "misc", "www", "6", "7", "8", "9" }
+    local l = awful.layout.suit  -- Just to save some typing: use an alias.
+    local layouts = { l.fair, l.fair, l.fair, l.fair, l.max,
+                      l.floating, l.float, l.floating, l.floating }
+    awful.tag(names, s, layouts)
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
