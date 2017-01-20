@@ -235,8 +235,8 @@ globalkeys = awful.util.table.join(
         end,
         {description = "focus previous by index", group = "client"}
     ),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
-              {description = "show main menu", group = "awesome"}),
+    -- awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
+    --           {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
@@ -263,6 +263,8 @@ globalkeys = awful.util.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey,           }, "e", function () awful.spawn("emacs") end,
               {description = "open Emacs", group = "launcher"}),
+    awful.key({ modkey,           }, "w", function () awful.spawn("chromium") end,
+              {description = "open web browser", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
