@@ -57,11 +57,11 @@ local my_tag_list = {
     termfair,
     termfair,
     termfair,
+    termfair,
+    awful.layout.suit.fair,
+    awful.layout.suit.fair,
+    awful.layout.suit.floating,
     awful.layout.suit.max,
-    awful.layout.suit.floating,
-    awful.layout.suit.floating,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair,
 }
 
 -- Built list of possible tags dynamically
