@@ -8,6 +8,7 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
+hotkeys = require("awful.hotkeys_popup").widget
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -107,7 +108,6 @@ end
 -- Create a launcher widget and a main menu
 myawesomemenu = {
     { "Help", function()
-          local hotkeys = require("awful.hotkeys_popup").widget
           return false, hotkeys.show_help
     end},
     { "Restart", awesome.restart },

@@ -1,5 +1,4 @@
 local awful   = require("awful")
-local hotkeys = require("awful.hotkeys_popup").widget
 
 -- speedup
 local tinsert = table.insert
