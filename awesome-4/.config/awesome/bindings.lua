@@ -116,7 +116,7 @@ end
 
 
 -- AWESOME
-globalkey({ modkey, }, "s",
+globalkey({ modkey }, "s",
    hotkeys.show_help,
    {description="Show help", group="Awesome"})
 globalkey({ modkey, "Control" }, "r",
@@ -137,44 +137,44 @@ globalkey({ modkey }, "r",
 globalkey({ modkey, "Control" }, "u",
    bind_lua_prompt,
    {description = "Lua prompt", group = "Run"})
-globalkey({ modkey, }, "Return",
+globalkey({ modkey }, "Return",
    function () awful.spawn(terminal) end,
    {description = "Terminal", group = "Run"})
-globalkey({ modkey, }, "e",
+globalkey({ modkey }, "e",
    bind_run_or_raise_emacs,
    {description = "Emacs", group = "Run"})
-globalkey({ modkey, }, "w",
+globalkey({ modkey }, "w",
    bind_run_or_raise_breowser,
    {description = "Web browser", group = "Run"})
 
 -- TAGS
-globalkey({ modkey, }, "Escape",
+globalkey({ modkey }, "Escape",
    awful.tag.history.restore,
    {description = "Previous tag", group = "Tags"})
-globalkey({ modkey, }, "Right",
+globalkey({ modkey }, "Right",
    awful.tag.viewnext,
    {description = "Tag forward", group = "Tags"})
-globalkey({ modkey, }, "Left",
+globalkey({ modkey }, "Left",
    awful.tag.viewprev,
    {description = "Tag backword", group = "Tags"})
 
 -- FOCUS
-globalkey({ modkey, }, "j",
+globalkey({ modkey }, "j",
    function () awful.client.focus.bydirection("left") end,
    {description = "Focus left client", group = "Focus"})
-globalkey({ modkey, }, "k",
+globalkey({ modkey }, "k",
    function () awful.client.focus.bydirection("right") end,
    {description = "Focus right client", group = "Focus"})
-globalkey({ modkey, }, "i",
+globalkey({ modkey }, "i",
    function () awful.client.focus.bydirection("up") end,
    {description = "Focus upper client", group = "Focus"})
-globalkey({ modkey, }, "m",
+globalkey({ modkey }, "m",
    function () awful.client.focus.bydirection("down") end,
    {description = "Focus lower client", group = "Focus"})
-globalkey({ modkey, }, "u",
+globalkey({ modkey }, "u",
    awful.client.urgent.jumpto,
    {description = "Focus urgent client", group = "Focus"})
-globalkey({ modkey, }, "Tab",
+globalkey({ modkey }, "Tab",
    bind_toggle_client,
    {description = "Focus previous client", group = "Focus"})
 
@@ -196,10 +196,10 @@ globalkey({ modkey, "Control" }, "n",
    {description = "Restore minimized clients", group = "Clients"})
 
 -- LAYOUT: width
-globalkey({ modkey, }, "l",
+globalkey({ modkey }, "l",
    function () awful.tag.incmwfact( 0.05) end,
    {description = "Increase tile width", group = "Layout"})
-globalkey({ modkey, }, "h",
+globalkey({ modkey }, "h",
    function () awful.tag.incmwfact(-0.05) end,
    {description = "Decrease tile width", group = "Layout"})
 
@@ -216,7 +216,7 @@ globalkey({ modkey, "Control" }, "l",
    function () awful.tag.incncol(-1, nil, true) end,
    {description = "Decrease columns", group = "Layout"})
 -- Next/Previous layout
-globalkey({ modkey, }, "space",
+globalkey({ modkey }, "space",
    function () awful.layout.inc( 1) end,
    {description = "Next layout", group = "Layout"})
 globalkey({ modkey, "Shift" }, "space",
@@ -249,7 +249,7 @@ clientkey({ modkey, "Control" }, "t",
 clientkey({ modkey, "Control" }, "Return",
    function (c) c:swap(awful.client.getmaster()) end,
    {description = "Move to master", group = "Clients"})
--- clientkey({ modkey, }, "o",
+-- clientkey({ modkey }, "o",
 --    function (c) c:move_to_screen() end,
 --    {description = "Move client to screen", group = "Screen"})
 -- clientkey({ modkey, "Control"}, "t",
