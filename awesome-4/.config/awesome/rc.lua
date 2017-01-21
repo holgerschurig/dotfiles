@@ -49,10 +49,14 @@ modkey = "Mod4"
 -- {{{ Tags & Layouts
 -- This is the list of my tags and their associated layout. I don't need to name
 -- them, because they will be named automatically "1:tile", "2:tile" ... "8:fairv"
-    awful.layout.suit.tile,
-    awful.layout.suit.tile,
-    awful.layout.suit.tile,
+local termfair = require("termfair")
+termfair.nmaster = 2
+termfair.ncol = 1
+
 local my_tag_list = {
+    termfair,
+    termfair,
+    termfair,
     awful.layout.suit.max,
     awful.layout.suit.floating,
     awful.layout.suit.floating,
