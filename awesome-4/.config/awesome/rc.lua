@@ -46,25 +46,42 @@ editor_cmd = terminal .. " -e " .. editor
 modkey = "Mod4"
 -- }}}
 
--- Table of layouts to cover with awful.layout.inc, order matters.
-awful.layout.layouts = {
+-- {{{ Tags & Layouts
+-- This is the list of my tags and their associated layout. I don't need to name
+-- them, because they will be named automatically "1:tile", "2:tile" ... "8:fairv"
     awful.layout.suit.tile,
-    awful.layout.suit.floating,
-    -- awful.layout.suit.tile.left,
-    -- awful.layout.suit.tile.bottom,
-    -- awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    -- awful.layout.suit.fair.horizontal,
-    -- awful.layout.suit.spiral,
-    -- awful.layout.suit.spiral.dwindle,
+    awful.layout.suit.tile,
+    awful.layout.suit.tile,
+local my_tag_list = {
     awful.layout.suit.max,
-    -- awful.layout.suit.max.fullscreen,
-    -- awful.layout.suit.magnifier,
-    -- awful.layout.suit.corner.nw,
-    -- awful.layout.suit.corner.ne,
-    -- awful.layout.suit.corner.sw,
-    -- awful.layout.suit.corner.se,
+    awful.layout.suit.floating,
+    awful.layout.suit.floating,
+    awful.layout.suit.fair,
+    awful.layout.suit.fair,
 }
+
+-- Built list of possible tags dynamically
+awful.layout.layouts = {}
+for _,v in pairs(my_tag_list) do
+    if not awful.util.table.hasitem(awful.layout.layouts) then
+        table.insert(awful.layout.layouts, v)
+    end
+end
+
+-- Change some of the (internal) layout names to something I like more
+local function shorten_tag_name(name)
+    if name == "fullscreen" then name = "full"
+    elseif name == "floating" then name = "float"
+    elseif name == "fairv" then name = "fair"
+    elseif name == "termfair" then name = "term" end
+    return name
+end
+
+-- When the layout changed we need to reset the names
+local function tagbox_update_tagname(t)
+    -- require 'pl.pretty'.dump(t)
+    t.name = t.index .. ":" .. shorten_tag_name(t.layout.name)
+end
 -- }}}
 
 -- {{{ Helper functions
@@ -125,11 +142,16 @@ local taglist_buttons = awful.util.table.join(
                 )
 
 awful.screen.connect_for_each_screen(function(s)
-    -- Each screen has its own tag table.
-    local names = { "emacs", "dev", "dev", "misc", "www", "6", "7", "8", "9" }
-    local l = awful.layout.suit  -- Just to save some typing: use an alias.
-    local layouts = { l.fair, l.fair, l.fair, l.fair, l.max,
-                      l.floating, l.float, l.floating, l.floating }
+    local names   = {}
+    local layouts = {}
+    for i,l in ipairs(my_tag_list) do
+        local name = shorten_tag_name(l.name)
+        -- TODO awful.tag.setncol(2, t)
+        table.insert(names, i .. ":" .. shorten_tag_name(name))
+        table.insert(layouts, l)
+    end
+    awful.tag.attached_connect_signal(s, "tagged", tagbox_update_tagname)
+    awful.tag.attached_connect_signal(s, "property::layout", tagbox_update_tagname)
     awful.tag(names, s, layouts)
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
