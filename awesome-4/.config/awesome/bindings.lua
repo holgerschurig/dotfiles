@@ -122,7 +122,9 @@ globalkey({ modkey }, "s",
 globalkey({ modkey, "Control" }, "r",
    awesome.restart,
    {description = "Reload configuration", group = "Awesome"})
-
+globalkey({ modkey, "Control" }, "u",
+   bind_lua_prompt,
+   {description = "Lua prompt", group = "Awesome"})
 globalkey({ modkey, "Control" }, "m",
    function () mymainmenu:show() end,
    {description = "Awesome's menu", group = "Awesome"})
@@ -134,9 +136,6 @@ globalkey({ modkey, "Control" }, "m",
 globalkey({ modkey }, "r",
    function () awful.screen.focused().mypromptbox:run() end,
    {description = "Run prompt", group = "Run"})
-globalkey({ modkey, "Control" }, "u",
-   bind_lua_prompt,
-   {description = "Lua prompt", group = "Run"})
 globalkey({ modkey }, "Return",
    function () awful.spawn(terminal) end,
    {description = "Terminal", group = "Run"})
