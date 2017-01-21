@@ -259,7 +259,7 @@ clientkey({ modkey, "Control" }, "Return",
 --     {description = "minimize", group = "client"})
 clientkey({ modkey, "Control" }, "x",
    bind_toggle_maximize_client,
-   {description = "maximize", group = "Clients"})
+   {description = "Maximize", group = "Clients"})
 
 
 -- Bind all key numbers to tags.
