@@ -83,6 +83,19 @@ function bind_tags_toggle_tag(i)
 	  end
    end
 end
+
+function bind_run_or_raise_emacs()
+   local matcher = function (c)
+	  return awful.rules.match(c, {class = 'Emacs'})
+   end
+   awful.client.run_or_raise('emacs', matcher)
+end
+function bind_run_or_raise_browser()
+   local matcher = function (c)
+	  return awful.rules.match(c, {class = 'Firefox'}) or awful.rules.match(c, {class = 'chromium-browser'})
+   end
+   awful.client.run_or_raise('x-www-browser', matcher)
+end
 -- }}}
 
 -- {{{ Key bindings
@@ -128,10 +141,10 @@ globalkey({ modkey, }, "Return",
    function () awful.spawn(terminal) end,
    {description = "Terminal", group = "Run"})
 globalkey({ modkey, }, "e",
-   function () awful.spawn("emacs") end,
+   bind_run_or_raise_emacs,
    {description = "Emacs", group = "Run"})
 globalkey({ modkey, }, "w",
-   function () awful.spawn("x-www-browser") end,
+   bind_run_or_raise_breowser,
    {description = "Web browser", group = "Run"})
 
 -- TAGS
