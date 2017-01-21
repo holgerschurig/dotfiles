@@ -1,4 +1,4 @@
 QUILT_SERIES_ARGS="-v --color=auto"
-#QUILT_POP_ARGS="-q"
-#QUILT_PUSH_ARGS="-q --color=auto"
+QUILT_POP_ARGS="-q"
+QUILT_PUSH_ARGS="-q --color=auto"
 QUILT_PAGER=""
