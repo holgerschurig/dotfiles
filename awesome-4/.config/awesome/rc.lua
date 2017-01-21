@@ -106,14 +106,16 @@ end
 -- {{{ Menu
 -- Create a launcher widget and a main menu
 myawesomemenu = {
-   { "hotkeys", function() return false, hotkeys_popup.show_help end},
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
-   { "restart", awesome.restart },
-   { "quit", function() awesome.quit() end}
+    { "Help", function()
+          local hotkeys = require("awful.hotkeys_popup").widget
+          return false, hotkeys.show_help
+    end},
+    { "Restart", awesome.restart },
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
+mymainmenu = awful.menu({ items = { { "Awesome", myawesomemenu, beautiful.awesome_icon },
+                                    { "Clients", function () awful.menu.clients() end },
+                                    { "Terminal", terminal }
                                   }
                         })
 
