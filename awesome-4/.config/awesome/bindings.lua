@@ -242,9 +242,9 @@ clientkey({ modkey, "Control" }, "f",
 clientkey({ modkey, "Control" }, "t",
    awful.titlebar.toggle,
    {description = "Toggle titlebar", group = "Clients"})
--- clientkey({ modkey, "Control" }, "l",
---    awful.client.floating.toggle,
---    {description = "Toggle floating", group = "Clients"})
+clientkey({ modkey, "Control" }, "o",
+   awful.client.floating.toggle,
+   {description = "Toggle floating", group = "Clients"})
 clientkey({ modkey, "Control" }, "Return",
    function (c) c:swap(awful.client.getmaster()) end,
    {description = "Move to master", group = "Clients"})
