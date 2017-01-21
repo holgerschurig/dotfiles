@@ -84,6 +84,12 @@ function bind_tags_toggle_tag(i)
    end
 end
 
+function bind_tags_set_layout(i)
+   local tag = awful.screen.focused().selected_tag
+   print("TAG: " .. tag.name .. " to " .. i)
+   tag.layout = awful.layout.layouts[i]
+end
+
 function bind_run_or_raise_emacs()
    local matcher = function (c)
 	  return awful.rules.match(c, {class = 'Emacs'})
@@ -221,6 +227,11 @@ globalkey({ modkey }, "space",
 globalkey({ modkey, "Shift" }, "space",
    function () awful.layout.inc(-1) end,
    {description = "Previous layout", group = "Layout"})
+for i,v in ipairs(awful.layout.layouts) do
+   globalkey({ modkey, "Control", "Shift" }, "#" .. i + 9,
+	  function () bind_tags_set_layout(i) end,
+	  {description = "Set " .. shorten_tag_name(v.name), group = "Layout"})
+end
 
 -- SCREEN
 globalkey({ modkey, "Control" }, "j",
@@ -288,12 +299,12 @@ for i = 1, 9 do
 	  function () bind_tags_move_to_tag(i) end,
 	  {description = "Move focused client to tag #"..i, group = "Tags"})
    -- Toggle tag on focused client.
-   globalkey({ modkey, "Control", "Shift" }, "#" .. i + 9,
-	  function () bind_tags_toggle_tag(i) end,
-	  {description = "Toggle tag #" .. i .. " for on focused client", group = "Tags"})
-   globalkey({ modkey, "Control", "Shift" }, "#" .. i + 66,
-	  function () bind_tags_toggle_tag(i) end,
-	  {description = "Toggle tag #" .. i .. " for on focused client", group = "Tags"})
+   -- globalkey({ modkey, "Control", "Shift" }, "#" .. i + 9,
+   -- 	  function () bind_tags_toggle_tag(i) end,
+   -- 	  {description = "Toggle tag #" .. i .. " for on focused client", group = "Tags"})
+   -- globalkey({ modkey, "Control", "Shift" }, "#" .. i + 66,
+   -- 	  function () bind_tags_toggle_tag(i) end,
+   -- 	  {description = "Toggle tag #" .. i .. " for on focused client", group = "Tags"})
 end
 
 clientbuttons = awful.util.table.join(
