@@ -233,9 +233,9 @@ globalkey({ modkey, "Control" }, "k",
 
 
 
-clientkey({ modkey, "Control" }, "k",
+clientkey({ modkey, "Control" }, "q",
    function (c) c:kill() end,
-   {description = "Kill client", group = "Clients"})
+   {description = "Quit (kill) client", group = "Clients"})
 clientkey({ modkey, "Control" }, "f",
    bind_toggle_fullscreen_client,
    {description = "Toggle fullscreen", group = "Clients"})
