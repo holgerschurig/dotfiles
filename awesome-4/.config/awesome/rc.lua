@@ -312,6 +312,13 @@ client.connect_signal("request::titlebars", function(c)
     -- TODO only hide when non-floating
     awful.titlebar.hide(c)
 end)
+client.connect_signal("property::floating", function (c)
+                          if c.floating then
+                              awful.titlebar.show(c)
+                          else
+                              awful.titlebar.hide(c)
+                          end
+end)
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
