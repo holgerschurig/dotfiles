@@ -67,13 +67,13 @@ local my_tag_list = {
 -- Built list of possible tags dynamically
 awful.layout.layouts = {}
 for _,v in pairs(my_tag_list) do
-    if not awful.util.table.hasitem(awful.layout.layouts) then
+    if not awful.util.table.hasitem(awful.layout.layouts, v) then
         table.insert(awful.layout.layouts, v)
     end
 end
 
 -- Change some of the (internal) layout names to something I like more
-local function shorten_tag_name(name)
+function shorten_tag_name(name)
     if name == "fullscreen" then name = "full"
     elseif name == "floating" then name = "float"
     elseif name == "fairv" then name = "fair"
