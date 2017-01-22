@@ -120,7 +120,7 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 -----------------------------------------------------------------------------
 -- Create a textclock widget
 local wibox = require("wibox")
-mytextclock = wibox.widget.textclock()
+mytextclock = wibox.widget.textclock(" %Y-%m-%d %H:%M ")
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = awful.util.table.join(
