@@ -20,6 +20,7 @@ awful.rules.rules = {
           "copyq",  -- Includes session name in class.
         },
         class = {
+		  "qconf",
           "Arandr",
           "Gpick",
           "Kruler",
