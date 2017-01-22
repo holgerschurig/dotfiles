@@ -200,13 +200,6 @@ globalkey({ modkey, "Control" }, "n",
    {description = "Restore minimized clients", group = "Clients"})
 
 -- LAYOUT: width
-globalkey({ modkey }, "l",
-   function () awful.tag.incmwfact( 0.05) end,
-   {description = "Increase tile width", group = "Layout"})
-globalkey({ modkey }, "h",
-   function () awful.tag.incmwfact(-0.05) end,
-   {description = "Decrease tile width", group = "Layout"})
-
 globalkey({ modkey, "Shift" }, "h",
    function () awful.tag.incnmaster( 1, nil, true) end,
    {description = "Increase masters", group = "Layout"})
@@ -219,6 +212,15 @@ globalkey({ modkey, "Control" }, "h",
 globalkey({ modkey, "Control" }, "l",
    function () awful.tag.incncol(-1, nil, true) end,
    {description = "Decrease columns", group = "Layout"})
+if awful.util.table.hasitem(awful.layout.layouts, awful.layout.suit.tile) then
+   -- master_width_facto: only supported in the tile, maginifier, corner
+   globalkey({ modkey }, "l",
+	  function () awful.tag.incmwfact( 0.05) end,
+	  {description = "Increase master width", group = "Layout"})
+   globalkey({ modkey }, "h",
+	  function () awful.tag.incmwfact(-0.05) end,
+	  {description = "Decrease master width", group = "Layout"})
+end
 -- Next/Previous layout
 globalkey({ modkey }, "space",
    function () awful.layout.inc( 1) end,
