@@ -141,17 +141,14 @@ local taglist_buttons = awful.util.table.join(
                 )
 
 awful.screen.connect_for_each_screen(function(s)
-    local names   = {}
-    local layouts = {}
     for i,l in ipairs(my_tag_list) do
-        local name = shorten_tag_name(l.name)
-        -- TODO awful.tag.setncol(2, t)
-        table.insert(names, i .. ":" .. shorten_tag_name(name))
-        table.insert(layouts, l)
+        awful.tag.add(i .. ":" .. shorten_layout_name(l.name),
+                      {layout = l,
+                       screen = s,
+                       selected = i==1})
     end
     awful.tag.attached_connect_signal(s, "tagged", tagbox_update_tagname)
     awful.tag.attached_connect_signal(s, "property::layout", tagbox_update_tagname)
-    awful.tag(names, s, layouts)
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
