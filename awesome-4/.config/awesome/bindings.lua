@@ -209,13 +209,13 @@ globalkey({ modkey }, "h",
 
 globalkey({ modkey, "Shift" }, "h",
    function () awful.tag.incnmaster( 1, nil, true) end,
-   {description = "Increase master clients", group = "Layout"})
+   {description = "Increase masters", group = "Layout"})
 globalkey({ modkey, "Shift" }, "l",
    function () awful.tag.incnmaster(-1, nil, true) end,
-   {description = "Decrease master clients", group = "Layout"})
+   {description = "Decrease masters", group = "Layout"})
 globalkey({ modkey, "Control" }, "h",
    function () awful.tag.incncol( 1, nil, true) end,
-   {description = "Increase of columns", group = "Layout"})
+   {description = "Increase columns", group = "Layout"})
 globalkey({ modkey, "Control" }, "l",
    function () awful.tag.incncol(-1, nil, true) end,
    {description = "Decrease columns", group = "Layout"})
