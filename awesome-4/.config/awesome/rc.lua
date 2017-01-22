@@ -135,7 +135,31 @@ local taglist_buttons = awful.util.table.join(
                     awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
                 )
 
+
+-----------------------------------------------------------------------------
+-- global title bar
+-----------------------------------------------------------------------------
 local wibox = require("wibox")
+local mytitle = wibox.widget {
+    markup = "Awesome: press Win-s for help",
+    align = "left",
+    widget = wibox.widget.textbox
+}
+client.connect_signal("focus", function (c)
+    -- update the title with the headline of the current client
+    mytitle.markup = c.class .. ": " .. c.name
+end)
+client.connect_signal("unfocus", function (c)
+    -- update the title with the headline of the current client
+    mytitle.markup = "Awesome: press Win-s for help"
+end)
+client.connect_signal("property::name", function(c)
+    if c == client.focus then
+        mytitle.markup = c.class .. ": " .. c.name
+    end
+end)
+
+
 -----------------------------------------------------------------------------
 -- Text clock
 -----------------------------------------------------------------------------
@@ -175,7 +199,11 @@ awful.screen.connect_for_each_screen(function(s)
             s.mytaglist,
             s.mypromptbox,
         },
-        nil,
+        {
+            mytitle,
+            layout = wibox.container.margin,
+            left = 12,
+        },
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
