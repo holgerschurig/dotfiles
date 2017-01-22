@@ -229,7 +229,7 @@ globalkey({ modkey, "Shift" }, "space",
 for i,v in ipairs(awful.layout.layouts) do
    globalkey({ modkey, "Control", "Shift" }, "#" .. i + 9,
 	  function () bind_tags_set_layout(i) end,
-	  {description = "Set " .. shorten_tag_name(v.name), group = "Layout"})
+	  {description = "Set " .. shorten_layout_name(v.name), group = "Layout"})
 end
 
 -- SCREEN

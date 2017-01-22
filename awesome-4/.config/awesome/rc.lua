@@ -79,7 +79,7 @@ for _,v in pairs(my_tag_list) do
 end
 
 -- Change some of the (internal) layout names to something I like more
-function shorten_tag_name(name)
+function shorten_layout_name(name)
     if name == "fullscreen" then name = "full"
     elseif name == "floating" then name = "float"
     elseif name == "fairv" then name = "fair"
@@ -90,7 +90,7 @@ end
 -- When the layout changed we need to reset the names
 local function tagbox_update_tagname(t)
     -- require 'pl.pretty'.dump(t)
-    t.name = t.index .. ":" .. shorten_tag_name(t.layout.name)
+    t.name = t.index .. ":" .. shorten_layout_name(t.layout.name)
 end
 
 
