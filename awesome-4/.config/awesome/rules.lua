@@ -1,4 +1,4 @@
--- Rules to apply to new clients (through the "manage" signal).
+-- Rules to apply to new clients
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
@@ -13,18 +13,18 @@ awful.rules.rules = {
      }
     },
 
-    -- Floating clients.
+    -- Floating clients
     { rule_any = {
         instance = {
-          "DTA",  -- Firefox addon DownThemAll.
-          "copyq",  -- Includes session name in class.
+          "DTA",    -- Firefox addon DownThemAll
+          "copyq",  -- Includes session name in class
         },
         class = {
 		  "qconf",
           "Arandr",
           "Gpick",
           "Kruler",
-          "MessageWin",  -- kalarm.
+          "MessageWin",  -- kalarm
           "Sxiv",
           "Wpa_gui",
           "pinentry",
@@ -32,10 +32,10 @@ awful.rules.rules = {
           "xtightvncviewer"},
 
         name = {
-          "Event Tester",  -- xev.
+          "Event Tester",  -- xev
         },
         role = {
-          "AlarmWindow",  -- Thunderbird's calendar.
+          "AlarmWindow",  -- Thunderbird's calendar
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
       }, properties = { floating = true }},
@@ -44,8 +44,4 @@ awful.rules.rules = {
     { rule_any = {type = { "normal", "dialog" }
       }, properties = { titlebars_enabled = true }
     },
-
-    -- Set Firefox to always map on the tag named "2" on screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { screen = 1, tag = "2" } },
 }
