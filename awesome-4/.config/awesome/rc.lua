@@ -116,13 +116,8 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 
 
 -----------------------------------------------------------------------------
--- Wibar
+-- Tag list
 -----------------------------------------------------------------------------
--- Create a textclock widget
-local wibox = require("wibox")
-mytextclock = wibox.widget.textclock(" %Y-%m-%d %H:%M ")
-
--- Create a wibox for each screen and add it
 local taglist_buttons = awful.util.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
                     awful.button({ modkey }, 1, function(t)
@@ -139,6 +134,13 @@ local taglist_buttons = awful.util.table.join(
                     awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
                     awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
                 )
+
+local wibox = require("wibox")
+-----------------------------------------------------------------------------
+-- Text clock
+-----------------------------------------------------------------------------
+mytextclock = wibox.widget.textclock(" %Y-%m-%d %H:%M ")
+
 
 awful.screen.connect_for_each_screen(function(s)
     for i,l in ipairs(my_tag_list) do
