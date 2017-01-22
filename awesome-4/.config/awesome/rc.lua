@@ -144,8 +144,7 @@ awful.screen.connect_for_each_screen(function(s)
     for i,l in ipairs(my_tag_list) do
         awful.tag.add(i .. ":" .. shorten_layout_name(l.name),
                       {layout = l,
-                       screen = s,
-                       selected = i==1})
+                       screen = s})
     end
     awful.tag.attached_connect_signal(s, "tagged", tagbox_update_tagname)
     awful.tag.attached_connect_signal(s, "property::layout", tagbox_update_tagname)
@@ -186,6 +185,7 @@ awful.screen.connect_for_each_screen(function(s)
         },
     }
 end)
+awful.screen.focused().tags[1]:view_only()
 
 
 -----------------------------------------------------------------------------
