@@ -306,15 +306,26 @@ client.connect_signal("request::titlebars", function(c)
         },
         layout = wibox.layout.align.horizontal
     }
-    -- TODO only hide when non-floating
-    awful.titlebar.hide(c)
+    -- Hide the menubar if we are not floating
+    local l = awful.layout.get(c.screen)
+    if not (l.name == "floating" or c.floating) then
+        awful.titlebar.hide(c)
+    end
 end)
+-- Toggle on/off the floating bar when a client becomes floating
 client.connect_signal("property::floating", function (c)
-                          if c.floating then
-                              awful.titlebar.show(c)
-                          else
-                              awful.titlebar.hide(c)
-                          end
+    if c.floating then
+        awful.titlebar.show(c)
+    else
+        awful.titlebar.hide(c)
+    end
+end)
+-- I want all clients in a floating layout have a title bar
+awful.tag.attached_connect_signal(s, "property::layout", function (t)
+    local float = t.layout.name == "floating"
+    for _,c in pairs(t:clients()) do
+        c.floating = float
+    end
 end)
 
 
