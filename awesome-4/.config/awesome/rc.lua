@@ -1,8 +1,12 @@
--- {{{ Globally needed things
+-----------------------------------------------------------------------------
+-- Globally needed things
+-----------------------------------------------------------------------------
 hotkeys = require("awful.hotkeys_popup").widget
--- }}}
 
--- {{{ Error handling
+
+-----------------------------------------------------------------------------
+-- Error handling
+-----------------------------------------------------------------------------
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 local naughty = require("naughty")
@@ -26,23 +30,29 @@ do
         in_error = false
     end)
 end
--- }}}
 
--- {{{ Theme definitions
+
+-----------------------------------------------------------------------------
+-- Theme definitions
+-----------------------------------------------------------------------------
 local beautiful = require("beautiful")
 local awful = require("awful")
 beautiful.init(awful.util.get_themes_dir() .. "zenburn/theme.lua")
 beautiful.wallpaper = nil
--- }}}
 
--- {{{ Variable definitions
+
+-----------------------------------------------------------------------------
+-- Variable definitions
+-----------------------------------------------------------------------------
 terminal = "urxvt"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 modkey = "Mod4"
--- }}}
 
--- {{{ Tags & Layouts
+
+-----------------------------------------------------------------------------
+-- Tags & Layouts
+-----------------------------------------------------------------------------
 -- This is the list of my tags and their associated layout. I don't need to name
 -- them, because they will be named automatically "1:tile", "2:tile" ... "8:fairv"
 local termfair = require("termfair")
@@ -82,9 +92,11 @@ local function tagbox_update_tagname(t)
     -- require 'pl.pretty'.dump(t)
     t.name = t.index .. ":" .. shorten_tag_name(t.layout.name)
 end
--- }}}
 
--- {{{ Helper functions
+
+-----------------------------------------------------------------------------
+-- Helper functions
+-----------------------------------------------------------------------------
 local function client_menu_toggle_fn()
     local instance = nil
 
@@ -97,9 +109,11 @@ local function client_menu_toggle_fn()
         end
     end
 end
--- }}}
 
--- {{{ Menu
+
+-----------------------------------------------------------------------------
+-- Menu
+-----------------------------------------------------------------------------
 -- Create a launcher widget and a main menu
 myawesomemenu = {
     { "Help", function()
@@ -120,7 +134,9 @@ mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
 -- Keyboard map indicator and switcher
 mykeyboardlayout = awful.widget.keyboardlayout()
 
--- {{{ Wibar
+-----------------------------------------------------------------------------
+-- Wibar
+-----------------------------------------------------------------------------
 -- Create a textclock widget
 local wibox = require("wibox")
 mytextclock = wibox.widget.textclock()
@@ -193,11 +209,17 @@ awful.screen.connect_for_each_screen(function(s)
         },
     }
 end)
--- }}}
 
+
+-----------------------------------------------------------------------------
+-- Mouse and Keyboard bindings
+-----------------------------------------------------------------------------
 require("bindings")
 
--- {{{ Rules
+
+-----------------------------------------------------------------------------
+-- Rules
+-----------------------------------------------------------------------------
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
     -- All clients will match this rule.
@@ -248,9 +270,11 @@ awful.rules.rules = {
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
 }
--- }}}
 
--- {{{ Signals
+
+-----------------------------------------------------------------------------
+-- Signals
+-----------------------------------------------------------------------------
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c)
     -- Set the windows at the slave,
@@ -316,9 +340,10 @@ client.connect_signal("property::floating", function (c)
                           end
 end)
 
---  makes sure that there's always a client that will have focus
-require("awful.autofocus")
 
+-----------------------------------------------------------------------------
+-- Focus
+-----------------------------------------------------------------------------
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
     if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
@@ -329,4 +354,6 @@ end)
 
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
--- }}}
+
+-- makes sure that there's always a client that will have focus
+require("awful.autofocus")
