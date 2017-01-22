@@ -146,14 +146,13 @@ local mytitle = wibox.widget {
     widget = wibox.widget.textbox
 }
 client.connect_signal("focus", function (c)
-    -- update the title with the headline of the current client
     mytitle.markup = c.class .. ": " .. c.name
 end)
 client.connect_signal("unfocus", function (c)
-    -- update the title with the headline of the current client
     mytitle.markup = "Awesome: press Win-s for help"
 end)
 client.connect_signal("property::name", function(c)
+    -- ignore property changes from unfocused clients
     if c == client.focus then
         mytitle.markup = c.class .. ": " .. c.name
     end
@@ -199,7 +198,7 @@ awful.screen.connect_for_each_screen(function(s)
             s.mytaglist,
             s.mypromptbox,
         },
-        {
+        { -- Middle widget
             mytitle,
             layout = wibox.container.margin,
             left = 12,
