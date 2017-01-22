@@ -146,7 +146,11 @@ local mytitle = wibox.widget {
     widget = wibox.widget.textbox
 }
 client.connect_signal("focus", function (c)
-    mytitle.markup = c.class .. ": " .. c.name
+    if c.class then
+        mytitle.markup = c.class .. ": " .. c.name
+    else
+        mytitle.markup = c.name
+    end
 end)
 client.connect_signal("unfocus", function (c)
     mytitle.markup = "Awesome: press Win-s for help"
@@ -154,7 +158,11 @@ end)
 client.connect_signal("property::name", function(c)
     -- ignore property changes from unfocused clients
     if c == client.focus then
-        mytitle.markup = c.class .. ": " .. c.name
+        if c.class then
+            mytitle.markup = c.class .. ": " .. c.name
+        else
+            mytitle.markup = c.name
+        end
     end
 end)
 
