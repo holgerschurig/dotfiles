@@ -1,18 +1,11 @@
--- Standard awesome library
-local gears = require("gears")
-local awful = require("awful")
-require("awful.autofocus")
--- Widget and layout library
-local wibox = require("wibox")
--- Theme handling library
-local beautiful = require("beautiful")
--- Notification library
-local naughty = require("naughty")
+-- {{{ Globally needed things
 hotkeys = require("awful.hotkeys_popup").widget
+-- }}}
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
+local naughty = require("naughty")
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
                      title = "Oops, there were errors during startup!",
@@ -35,8 +28,10 @@ do
 end
 -- }}}
 
-beautiful.init(awful.util.get_themes_dir() .. "zenburn/theme.lua")
 -- {{{ Theme definitions
+local beautiful = require("beautiful")
+local awful = require("awful")
+beautiful.init(awful.util.get_themes_dir() .. "zenburn/theme.lua")
 beautiful.wallpaper = nil
 -- }}}
 
@@ -127,6 +122,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
+local wibox = require("wibox")
 mytextclock = wibox.widget.textclock()
 
 -- Create a wibox for each screen and add it
@@ -319,6 +315,9 @@ client.connect_signal("property::floating", function (c)
                               awful.titlebar.hide(c)
                           end
 end)
+
+--  makes sure that there's always a client that will have focus
+require("awful.autofocus")
 
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
