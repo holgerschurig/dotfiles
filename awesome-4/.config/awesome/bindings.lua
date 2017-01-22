@@ -148,7 +148,7 @@ globalkey({ modkey }, "e",
    bind_run_or_raise_emacs,
    {description = "Emacs", group = "Run"})
 globalkey({ modkey }, "w",
-   bind_run_or_raise_breowser,
+   bind_run_or_raise_browser,
    {description = "Web browser", group = "Run"})
 
 -- TAGS
