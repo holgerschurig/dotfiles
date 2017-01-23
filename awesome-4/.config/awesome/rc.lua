@@ -56,14 +56,15 @@ modkey = "Mod4"
 local termfair = require("termfair")
 termfair.nmaster = 2
 termfair.ncol = 1
+awful.layout.suit.tile.resize_jump_to_corner = false
 
 -- This is the list of my tags and their associated layout. I don't need to name
 -- them, because they will be named automatically "1:tile", "2:tile" ... "8:fairv"
 local my_tag_list = {
-    termfair,
-    termfair,
-    termfair,
-    termfair,
+    awful.layout.suit.tile.left,
+    awful.layout.suit.tile.left,
+    awful.layout.suit.tile.left,
+    awful.layout.suit.tile.left,
     awful.layout.suit.fair,
     awful.layout.suit.fair,
     awful.layout.suit.floating,
@@ -81,6 +82,7 @@ end
 -- Change some of the (internal) layout names to something I like more
 function shorten_layout_name(name)
     if name == "fullscreen" then name = "full"
+    elseif name == "tileleft" then name = "tile"
     elseif name == "floating" then name = "float"
     elseif name == "fairv" then name = "fair"
     elseif name == "termfair" then name = "term" end

@@ -200,7 +200,7 @@ globalkey({ modkey, "Control" }, "n",
    {description = "Restore minimized clients", group = "Clients"})
 
 -- LAYOUT: width
-if awful.util.table.hasitem(awful.layout.layouts, awful.layout.suit.tile) then
+if true then
    -- master_width_facto: only supported in the tile, maginifier, corner
    globalkey({ modkey }, "l",
 	  function () awful.tag.incmwfact( 0.05) end,
@@ -209,7 +209,7 @@ if awful.util.table.hasitem(awful.layout.layouts, awful.layout.suit.tile) then
 	  function () awful.tag.incmwfact(-0.05) end,
 	  {description = "Decrease master width", group = "Layout"})
 end
-if false then
+if true then
    -- master_count: only supported in the tile, corner, termfair
    globalkey({ modkey, "Shift" }, "h",
 	  function () awful.tag.incnmaster( 1, nil, true) end,
