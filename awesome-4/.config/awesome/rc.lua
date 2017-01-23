@@ -147,7 +147,7 @@ local mytitle = wibox.widget {
 }
 client.connect_signal("focus", function (c)
     if c.class then
-        mytitle.markup = c.class .. ": " .. c.name
+        mytitle.markup = c.class .. ": " .. (c.name or "")
     else
         mytitle.markup = c.name
     end
@@ -159,7 +159,7 @@ client.connect_signal("property::name", function(c)
     -- ignore property changes from unfocused clients
     if c == client.focus then
         if c.class then
-            mytitle.markup = c.class .. ": " .. c.name
+            mytitle.markup = c.class .. ": " .. (c.name or "")
         else
             mytitle.markup = c.name
         end
