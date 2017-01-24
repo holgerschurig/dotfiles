@@ -1,2 +1,2 @@
 #!/bin/sh
-exec emacsclient --no-wait --alternate-editor="" $*
+exec emacsclient --no-wait $*
