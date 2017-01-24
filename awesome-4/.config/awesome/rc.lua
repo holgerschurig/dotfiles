@@ -332,3 +332,9 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 -- makes sure that there's always a client that will have focus
 require("awful.autofocus")
+
+
+-----------------------------------------------------------------------------
+-- awesome-client
+-----------------------------------------------------------------------------
+require("awful.remote")
