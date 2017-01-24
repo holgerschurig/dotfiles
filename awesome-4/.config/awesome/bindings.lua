@@ -97,9 +97,10 @@ function bind_run_or_raise_emacs()
 end
 function bind_run_or_raise_browser()
    local matcher = function (c)
-	  return awful.rules.match(c, {class = 'Firefox'}) or awful.rules.match(c, {class = 'chromium-browser'})
+	  print("c.name: " .. (c.name or "<none>") .. ", c.class:" .. (c.class or "<none>"))
+	  return awful.rules.match(c, {class = 'Firefox'}) or awful.rules.match(c, {class = 'Chromium-browser'})
    end
-   awful.client.run_or_raise('x-www-browser', matcher)
+   awful.client.run_or_raise("x-www-browser", matcher)
 end
 -- }}}
 
