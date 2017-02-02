@@ -1,6 +1,5 @@
 #!/bin/bash
 
-DO_ROOT=0
 DO_SIMULATE=0
 DO_STOWOPT="--ignore='stow\-.*\-host'"
 
@@ -20,31 +19,51 @@ stow_it()
 	fi
 	if [ -f $i/stow-not-on-host ]; then
 		if grep -qw $HOSTNAME $i/stow-not-on-host; then
-			echo "$i/stow-not-on-hosts doesn't like me"
+			#echo "$i/stow-not-on-hosts doesn't like me"
 			return
 		fi
 	fi
 
-	echo "--> stowing $STOWDIR"
 	if [ "$DO_SIMULATE" = "0" ]; then
+		echo "--> stowing $STOWDIR"
 		eval $*
+	else
+		echo $*
 	fi
 }
 
 
-for i in *; do
-	# only care for directories
-	test -d "$i" || continue
+stow_nonroot()
+{
+	for i in *; do
+		# only care for directories
+		test -d "$i" || continue
 
-	if [ "$i" = "${i#root-}" ]; then
-		test "$DO_ROOT" = "1" && continue
-		#echo no-root $i
-		stow_it "$i" stow $DO_STOWOPT --adopt "$i"
-	else
-		test "$DO_ROOT" = "0" && continue
-		echo root $i
-	fi
-done
+		if [ "$i" = "${i#root-}" ]; then
+			test "$DO_ROOT" = "1" && continue
+			stow_it "$i" stow $DO_STOWOPT --adopt "$i"
+		fi
+	done
+}
+
+stow_root()
+{
+	for i in *; do
+		# only care for directories
+		test -d "$i" || continue
+
+		if [ "$i" = "${i#root-}" ]; then
+			:
+		else
+			test "$DO_ROOT" = "1" && continue
+			stow_it "$i" stow $DO_STOWOPT -t / --adopt "$i"
+		fi
+	done
+}
 
 
-#sudo stow -t / root-alarm
+if [ "$UID" = "0" ]; then
+	stow_root
+else
+	stow_nonroot
+fi
