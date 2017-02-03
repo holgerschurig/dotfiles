@@ -3,3 +3,12 @@ QUILT_POP_ARGS="-q"
 QUILT_PUSH_ARGS="-q --color=auto"
 QUILT_PAGER=""
 QUILT_DIFF_OPTS="-p"
+
+# http://raphaelhertzog.com/?p=2529
+for where in ./ ../ ../../ ../../../ ../../../../ ../../../../../; do
+    if [ -e ${where}debian/rules -a -d ${where}debian/patches ]; then
+        export QUILT_PATCHES=debian/patches
+        break
+    fi
+done
+unset where
