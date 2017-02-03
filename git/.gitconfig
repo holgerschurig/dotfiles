@@ -34,5 +34,7 @@
 	sslverify = false
 [merge]
 	conflictstyle = diff3
+[diff]
+  algorithm = patience
 [diff "elisp"]
   xfuncname = "^\\(.*"
