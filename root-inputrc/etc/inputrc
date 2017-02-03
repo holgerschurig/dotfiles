@@ -65,3 +65,4 @@ $endif
 # "\e[F": end-of-line
 
 $endif
+set show-all-if-ambiguous on
