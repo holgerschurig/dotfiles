@@ -14,6 +14,18 @@ awful.rules.rules = {
      }
     },
 
+    -- Clients on special tags
+    { rule = { class = "Emacs" },
+      properties = { tag = screen[1].tags[1],
+      switchtotag = true
+     }
+    },
+    { rule_any = { class = { "Chromium", "Firefox" } },
+      properties = { tag = screen[1].tags[5],
+      switchtotag = true
+     }
+    },
+
     -- Floating clients
     { rule_any = {
         instance = {
