@@ -194,7 +194,7 @@ globalkey({ modkey, "Shift", }, "i",
    {description = "Move client up", group = "Clients"})
 globalkey({ modkey, "Shift", }, "m",
    function () awful.client.swap.bydirection("down") end,
-   {description = "Focus client down", group = "Clients"})
+   {description = "Move client down", group = "Clients"})
 globalkey({ modkey, "Control" }, "n",
    bind_restore_minimized,
    {description = "Restore minimized clients", group = "Clients"})
