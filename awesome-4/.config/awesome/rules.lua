@@ -6,6 +6,10 @@ function manage_first(c)
 		return
 	end
 
+	function isBrowser(c)
+		return c.class == "Firefox" or c.class == "Chromium" or c.class == "chromium-browser"
+	end
+
 	local count = 0
 	local tag
 	if c.class == "Emacs" then
@@ -17,11 +21,11 @@ function manage_first(c)
 			end
 		end
 	end
-	if c.class == "Firefox" or c.class == "Chromium" then
+	if isBrowser(c) then
 		tag = screen[1].tags[5]
 		print("")
 		for _, cc in ipairs(client.get()) do
-			if cc.class == "Firefox" or cc.class == "Chromium" then
+			if isBrowser(cc) then
 				count = count + 1
 			end
 		end
