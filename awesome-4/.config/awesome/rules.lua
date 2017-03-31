@@ -27,7 +27,6 @@ local function manage_first(c)
 		 end
 	  end
    end
-   print("Class: " .. c.class .. "  count: " .. count)
    if count == 1 then
    	  c:move_to_tag(tag)
    	  c:jump_to()
