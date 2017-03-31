@@ -134,7 +134,7 @@ globalkey({ modkey, "Control" }, "m",
    function () mymainmenu:show() end,
    {description = "Awesome's menu", group = "Awesome"})
 -- globalkey({ modkey, "Control" }, "q",
---    awesome.quit,
+--    function() awesome.quit() end;
 --    {description = "quit awesome", group = "Awesome"})
 
 -- RUNNING
