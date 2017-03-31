@@ -71,7 +71,8 @@ awful.rules.rules = {
           "xtightvncviewer"},
 
         name = {
-          "Event Tester",  -- xev
+		   "Event Tester",  -- xev
+		   "QEMU",
         },
         role = {
           "AlarmWindow",  -- Thunderbird's calendar
