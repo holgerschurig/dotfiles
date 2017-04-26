@@ -59,10 +59,11 @@ awful.rules.rules = {
 	{ rule_any = {
         name = {
 		   "Event Tester",  -- xev
-		   "QEMU",
         },
 		class = {
 			"qconf",        -- make xkernelconfig
+			"qemu-system-x86_64",
+			"qemu-system-arm",
 		},
         role = {
           "AlarmWindow",    -- Thunderbird's calendar
