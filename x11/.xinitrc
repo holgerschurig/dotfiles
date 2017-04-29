@@ -1,4 +1,4 @@
-#!/bin/bash -i
+#!/bin/sh
 
 test -z "$EMAIL" && . /etc/profile
 
