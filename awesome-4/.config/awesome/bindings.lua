@@ -85,7 +85,6 @@ end
 
 function bind_tags_set_layout(i)
    local tag = awful.screen.focused().selected_tag
-   print("TAG: " .. tag.name .. " to " .. i)
    tag.layout = awful.layout.layouts[i]
 end
 
@@ -97,7 +96,6 @@ function bind_run_or_raise_emacs()
 end
 function bind_run_or_raise_browser()
    local matcher = function (c)
-	  print("C class:" .. (c.class or ""))
 	  return awful.rules.match(c, {class = 'Firefox'}) or
 	  		 awful.rules.match(c, {class = 'Chromium'}) or
 	  		 awful.rules.match(c, {class = 'Chromium-browser'}) or

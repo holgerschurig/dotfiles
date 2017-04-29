@@ -23,7 +23,6 @@ function manage_first(c)
 	end
 	if isBrowser(c) then
 		tag = screen[1].tags[5]
-		print("")
 		for _, cc in ipairs(client.get()) do
 			if isBrowser(cc) then
 				count = count + 1
