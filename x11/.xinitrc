@@ -28,7 +28,7 @@ export DISPLAY=:0
 	# Terminate X11 with Cltr-Alt-Backspace
 	setxkbmap -option terminate:ctrl_alt_bksp de nodeadkeys
 
-	xrdb -merge /home/schurig/.Xresources
+	xrdb -merge ~/.Xresources
 
 	test -f /etc/default/unclutter && . /etc/default/unclutter
 	test -x /usr/bin/unclutter && /usr/bin/unclutter ${EXTRA_OPTS} &
