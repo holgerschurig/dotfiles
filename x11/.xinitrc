@@ -1,5 +1,4 @@
 #!/bin/bash -i
-set -x
 
 test -z "$EMAIL" && . /etc/profile
 
