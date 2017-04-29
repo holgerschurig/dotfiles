@@ -37,4 +37,6 @@ export DISPLAY=:0
 ) &
 
 #exec lxpanel
-exec /usr/bin/awesome
+
+mkdir -p ~/.cache/awesome
+exec awesome >~/.cache/awesome/stdout 2>~/.cache/awesome/stderr
