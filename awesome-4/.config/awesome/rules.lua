@@ -60,6 +60,11 @@ awful.rules.rules = {
 		   "Event Tester",  -- xev
 		   "QEMU",
         },
+		class = {
+			"qconf",        -- make xkernelconfig
+			"qemu-system-x86_64",
+			"qemu-system-arm",
+		},
         role = {
           "AlarmWindow",  -- Thunderbird's calendar
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
