@@ -7,11 +7,12 @@ function manage_first(c)
     end
 
     function isBrowser(c)
-        return c.class == "Firefox" or c.class == "Chromium" or c.class == "chromium-browser"
+        return c.class == "Firefox" or c.class == "Chromium" or c.class == "Chromium-browser"
     end
 
     local count = 0
     local tag
+    -- print("CLAZZ: " .. (c.class or "NONE"))
     if c.class == "Emacs" then
         tag = screen[1].tags[1]
         count = 0
