@@ -16,17 +16,17 @@ root.buttons(awful.util.table.join(
 -- {{{ Binding functions
 local function bind_lua_prompt()
    awful.prompt.run {
-	  prompt       = "Run Lua code: ",
-	  textbox      = awful.screen.focused().mypromptbox.widget,
-	  exe_callback = awful.util.eval,
-	  history_path = awful.util.get_cache_dir() .. "/history_eval"
+      prompt       = "Run Lua code: ",
+      textbox      = awful.screen.focused().mypromptbox.widget,
+      exe_callback = awful.util.eval,
+      history_path = awful.util.get_cache_dir() .. "/history_eval"
    }
 end
 
 local function bind_toggle_client()
    awful.client.focus.history.previous()
    if client.focus then
-	  client.focus:raise()
+      client.focus:raise()
    end
 end
 
@@ -34,8 +34,8 @@ local function bind_restore_minimized ()
    local c = awful.client.restore()
    -- Focus restored client
    if c then
-	  client.focus = c
-	  c:raise()
+      client.focus = c
+      c:raise()
    end
 end
 
@@ -53,7 +53,7 @@ function bind_tags_viewonly(i)
    local screen = awful.screen.focused()
    local tag = screen.tags[i]
    if tag then
-	  tag:view_only()
+      tag:view_only()
    end
 end
 
@@ -61,25 +61,25 @@ function bind_tags_viewtoggle()
    local screen = awful.screen.focused()
    local tag = screen.tags[i]
    if tag then
-	  awful.tag.viewtoggle(tag)
+      awful.tag.viewtoggle(tag)
    end
 end
 
 function bind_tags_move_to_tag(i)
    if client.focus then
-	  local tag = client.focus.screen.tags[i]
-	  if tag then
-		 client.focus:move_to_tag(tag)
-	  end
+      local tag = client.focus.screen.tags[i]
+      if tag then
+         client.focus:move_to_tag(tag)
+      end
    end
 end
 
 function bind_tags_toggle_tag(i)
    if client.focus then
-	  local tag = client.focus.screen.tags[i]
-	  if tag then
-		 client.focus:toggle_tag(tag)
-	  end
+      local tag = client.focus.screen.tags[i]
+      if tag then
+         client.focus:toggle_tag(tag)
+      end
    end
 end
 
@@ -90,16 +90,16 @@ end
 
 function bind_run_or_raise_emacs()
    local matcher = function (c)
-	  return awful.rules.match(c, {class = 'Emacs'})
+      return awful.rules.match(c, {class = 'Emacs'})
    end
    awful.client.run_or_raise('emacs', matcher)
 end
 function bind_run_or_raise_browser()
    local matcher = function (c)
-	  return awful.rules.match(c, {class = 'Firefox'}) or
-	  		 awful.rules.match(c, {class = 'Chromium'}) or
-	  		 awful.rules.match(c, {class = 'Chromium-browser'}) or
-	  		 awful.rules.match(c, {class = 'chromium'})
+      return awful.rules.match(c, {class = 'Firefox'}) or
+             awful.rules.match(c, {class = 'Chromium'}) or
+             awful.rules.match(c, {class = 'Chromium-browser'}) or
+             awful.rules.match(c, {class = 'chromium'})
    end
    awful.client.run_or_raise("x-www-browser", matcher)
 end
@@ -111,13 +111,13 @@ clientkeys = {}
 function globalkey(mod, key, func, desc)
    local key = awful.key(mod, key, func, desc)
    for k,v in pairs(key) do
-	  tinsert(globalkeys, v)
+      tinsert(globalkeys, v)
    end
 end
 function clientkey(mod, key, func, desc)
    local key = awful.key(mod, key, func, desc)
    for k,v in pairs(key) do
-	  tinsert(clientkeys, v)
+      tinsert(clientkeys, v)
    end
 end
 
@@ -205,27 +205,27 @@ globalkey({ modkey, "Control" }, "n",
 if true then
    -- master_width_facto: only supported in the tile, maginifier, corner
    globalkey({ modkey }, "l",
-	  function () awful.tag.incmwfact( 0.05) end,
-	  {description = "Increase master width", group = "Layout"})
+      function () awful.tag.incmwfact( 0.05) end,
+      {description = "Increase master width", group = "Layout"})
    globalkey({ modkey }, "h",
-	  function () awful.tag.incmwfact(-0.05) end,
-	  {description = "Decrease master width", group = "Layout"})
+      function () awful.tag.incmwfact(-0.05) end,
+      {description = "Decrease master width", group = "Layout"})
 end
 if true then
    -- master_count: only supported in the tile, corner, termfair
    globalkey({ modkey, "Shift" }, "h",
-	  function () awful.tag.incnmaster( 1, nil, true) end,
-	  {description = "Increase master count", group = "Layout"})
+      function () awful.tag.incnmaster( 1, nil, true) end,
+      {description = "Increase master count", group = "Layout"})
    globalkey({ modkey, "Shift" }, "l",
-	  function () awful.tag.incnmaster(-1, nil, true) end,
-	  {description = "Decrease master count", group = "Layout"})
+      function () awful.tag.incnmaster(-1, nil, true) end,
+      {description = "Decrease master count", group = "Layout"})
    -- column_count: only supported in the tile layout, termfair
    globalkey({ modkey, "Control" }, "h",
-	  function () awful.tag.incncol( 1, nil, true) end,
-	  {description = "Increase columns", group = "Layout"})
+      function () awful.tag.incncol( 1, nil, true) end,
+      {description = "Increase columns", group = "Layout"})
    globalkey({ modkey, "Control" }, "l",
-	  function () awful.tag.incncol(-1, nil, true) end,
-	  {description = "Decrease columns", group = "Layout"})
+      function () awful.tag.incncol(-1, nil, true) end,
+      {description = "Decrease columns", group = "Layout"})
 end
 -- Next/Previous layout
 globalkey({ modkey }, "space",
@@ -236,8 +236,8 @@ globalkey({ modkey, "Shift" }, "space",
    {description = "Previous layout", group = "Layout"})
 for i,v in ipairs(awful.layout.layouts) do
    globalkey({ modkey, "Control", "Shift" }, "#" .. i + 9,
-	  function () bind_tags_set_layout(i) end,
-	  {description = "Set " .. shorten_layout_name(v.name), group = "Layout"})
+      function () bind_tags_set_layout(i) end,
+      {description = "Set " .. shorten_layout_name(v.name), group = "Layout"})
 end
 
 -- SCREEN
@@ -286,32 +286,32 @@ clientkey({ modkey, "Control" }, "x",
 for i = 1, 9 do
    -- View tag only.
    globalkey({ modkey }, "#" .. i + 9,
-	  function () bind_tags_viewonly(i) end,
-	  {description = "View tag #"..i, group = "Tags"})
+      function () bind_tags_viewonly(i) end,
+      {description = "View tag #"..i, group = "Tags"})
    globalkey({ modkey }, "#" .. i + 66, -- F1..F8
-	  function () bind_tags_viewonly(i) end,
-	  {description = "View tag #"..i, group = "Tags"})
+      function () bind_tags_viewonly(i) end,
+      {description = "View tag #"..i, group = "Tags"})
    -- Toggle tag display.
    globalkey({ modkey, "Control" }, "#" .. i + 9,
-	  function () bind_tags_viewtoggle(i) end,
-	  {description = "Toggle tag #" .. i, group = "Tags"})
+      function () bind_tags_viewtoggle(i) end,
+      {description = "Toggle tag #" .. i, group = "Tags"})
    globalkey({ modkey, "Control" }, "#" .. i + 66,
-	  function () bind_tags_viewtoggle(i) end,
-	  {description = "Toggle tag #" .. i, group = "Tags"})
+      function () bind_tags_viewtoggle(i) end,
+      {description = "Toggle tag #" .. i, group = "Tags"})
    -- Move client to tag.
    globalkey({ modkey, "Shift" }, "#" .. i + 9,
-	  function () bind_tags_move_to_tag(i) end,
-	  {description = "Move focused client to tag #"..i, group = "Tags"})
+      function () bind_tags_move_to_tag(i) end,
+      {description = "Move focused client to tag #"..i, group = "Tags"})
    globalkey({ modkey, "Shift" }, "#" .. i + 66,
-	  function () bind_tags_move_to_tag(i) end,
-	  {description = "Move focused client to tag #"..i, group = "Tags"})
+      function () bind_tags_move_to_tag(i) end,
+      {description = "Move focused client to tag #"..i, group = "Tags"})
    -- Toggle tag on focused client.
    -- globalkey({ modkey, "Control", "Shift" }, "#" .. i + 9,
-   -- 	  function () bind_tags_toggle_tag(i) end,
-   -- 	  {description = "Toggle tag #" .. i .. " for on focused client", group = "Tags"})
+   --     function () bind_tags_toggle_tag(i) end,
+   --     {description = "Toggle tag #" .. i .. " for on focused client", group = "Tags"})
    -- globalkey({ modkey, "Control", "Shift" }, "#" .. i + 66,
-   -- 	  function () bind_tags_toggle_tag(i) end,
-   -- 	  {description = "Toggle tag #" .. i .. " for on focused client", group = "Tags"})
+   --     function () bind_tags_toggle_tag(i) end,
+   --     {description = "Toggle tag #" .. i .. " for on focused client", group = "Tags"})
 end
 
 clientbuttons = awful.util.table.join(
