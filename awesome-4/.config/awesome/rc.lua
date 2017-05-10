@@ -53,9 +53,6 @@ modkey = "Mod4"
 -----------------------------------------------------------------------------
 -- Tags & Layouts
 -----------------------------------------------------------------------------
-local termfair = require("termfair")
-termfair.nmaster = 2
-termfair.ncol = 1
 awful.layout.suit.tile.resize_jump_to_corner = false
 
 -- This is the list of my tags and their associated layout. I don't need to name
