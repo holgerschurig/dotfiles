@@ -53,15 +53,17 @@ modkey = "Mod4"
 -----------------------------------------------------------------------------
 -- Tags & Layouts
 -----------------------------------------------------------------------------
+local two = require('two')
+
 awful.layout.suit.tile.resize_jump_to_corner = false
 
 -- This is the list of my tags and their associated layout. I don't need to name
 -- them, because they will be named automatically "1:tile", "2:tile" ... "8:fairv"
 local my_tag_list = {
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.left,
+    two,
+    two,
+    two,
+    two,
     awful.layout.suit.fair,
     awful.layout.suit.fair,
     awful.layout.suit.floating,
