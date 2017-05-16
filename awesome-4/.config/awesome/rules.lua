@@ -65,6 +65,7 @@ awful.rules.rules = {
             "qconf",        -- make xkernelconfig
             "qemu-system-x86_64",
             "qemu-system-arm",
+            "xine",
         },
         role = {
           "AlarmWindow",  -- Thunderbird's calendar
