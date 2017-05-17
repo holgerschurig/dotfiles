@@ -154,9 +154,9 @@ globalkey({ modkey }, "w",
    {description = "Web browser", group = "Run"})
 
 -- TAGS
-globalkey({ modkey }, "Escape",
-   awful.tag.history.restore,
-   {description = "Previous tag", group = "Tags"})
+-- globalkey({ modkey }, "Escape",
+--    awful.tag.history.restore,
+--    {description = "Previous tag", group = "Tags"})
 globalkey({ modkey }, "Right",
    awful.tag.viewnext,
    {description = "Tag forward", group = "Tags"})
