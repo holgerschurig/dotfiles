@@ -211,7 +211,9 @@ if true then
       function () awful.tag.incmwfact(-0.05) end,
       {description = "Decrease master width", group = "Layout"})
 end
-if true then
+
+-- the following don't make sense with my now-preferred "two" layout
+if false then
    -- master_count: only supported in the tile, corner, termfair
    globalkey({ modkey, "Shift" }, "h",
       function () awful.tag.incnmaster( 1, nil, true) end,
@@ -227,6 +229,7 @@ if true then
       function () awful.tag.incncol(-1, nil, true) end,
       {description = "Decrease columns", group = "Layout"})
 end
+
 -- Next/Previous layout
 globalkey({ modkey }, "space",
    function () awful.layout.inc( 1) end,
