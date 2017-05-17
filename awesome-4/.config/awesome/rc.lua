@@ -106,11 +106,25 @@ myawesomemenu = {
     { "Restart", awesome.restart },
 }
 
-mymainmenu = awful.menu({ items = { { "Awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "Clients", function () awful.menu.clients() end },
-                                    { "Terminal", terminal }
-                                  }
-                        })
+-- see https://github.com/copycat-killer/awesome-freedesktop/wiki/Menu
+local freedesktop = require("freedesktop")
+mymainmenu = freedesktop.menu.build()
+
+-- mymainmenu = awful.menu({ items = { { "Awesome", myawesomemenu, beautiful.awesome_icon },
+--                                     { "Clients", function () awful.menu.clients() end },
+--                                     { "Terminal", terminal }
+--                                   }
+--                         })
+mymainmenu = freedesktop.menu.build({
+    before = {
+        { "Awesome", myawesomemenu, beautiful.awesome_icon },
+        -- other triads can be put here
+    },
+    -- after = {
+    --     { "Open terminal", terminal },
+    --     -- other triads can be put here
+    -- }
+})
 
 mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
                                      menu = mymainmenu })
