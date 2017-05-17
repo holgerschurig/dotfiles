@@ -266,9 +266,10 @@ clientkey({ modkey, "Control" }, "t",
 clientkey({ modkey, "Control" }, "o",
    function (c) c.floating = not c.floating end,
    {description = "Toggle floating", group = "Clients"})
-clientkey({ modkey, "Control" }, "Return",
-   function (c) c:swap(awful.client.getmaster()) end,
-   {description = "Move to master", group = "Clients"})
+-- clientkey({ modkey, "Control" }, "Return",
+--    function (c) c:swap(awful.client.getmaster()) end,
+--    {description = "Move to master", group = "Clients"})
+
 -- clientkey({ modkey }, "o",
 --    function (c) c:move_to_screen() end,
 --    {description = "Move client to screen", group = "Screen"})
