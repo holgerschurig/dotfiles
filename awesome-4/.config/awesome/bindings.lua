@@ -262,7 +262,7 @@ clientkey({ modkey, "Control" }, "f",
    {description = "Toggle fullscreen", group = "Clients"})
 clientkey({ modkey, "Control" }, "t",
    awful.titlebar.toggle,
-   {description = "Toggle titlebar", group = "Clients"})
+   {description = "Toggle titlebar of floating", group = "Clients"})
 clientkey({ modkey, "Control" }, "o",
    function (c) c.floating = not c.floating end,
    {description = "Toggle floating", group = "Clients"})
