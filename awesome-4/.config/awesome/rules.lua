@@ -57,24 +57,35 @@ awful.rules.rules = {
 
     -- Floating clients
     { rule_any = {
-        name = {
-           "Event Tester",  -- xev
-           "QEMU",
-        },
-        class = {
-            "qconf",        -- make xkernelconfig
-            "qemu-system-x86_64",
-            "qemu-system-arm",
-            "xine",
-        },
-        role = {
-          "AlarmWindow",  -- Thunderbird's calendar
-          "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
-        }
-      }, properties = { floating = true }},
+          name = {
+              "Event Tester",  -- xev
+              "QEMU",
+          },
+          class = {
+              -- "qconf",        -- make xkernelconfig
+              "qemu-system-x86_64",
+              "qemu-system-arm",
+              "xine",
+          },
+          role = {
+              "AlarmWindow",  -- Thunderbird's calendar
+              "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
+          },
+    }, properties = {
+          floating = true
+    }},
 
     -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal", "dialog" } },
-      properties = { titlebars_enabled = true }
-    },
+    { rule_any = {
+          type = { "normal" }
+    }, properties = {
+          titlebars_enabled = true
+    }},
+
+    { rule_any = {
+          type = { "dialog" }
+    }, properties = {
+          titlebars_enabled = true,
+          floating = true,
+    }},
 }
