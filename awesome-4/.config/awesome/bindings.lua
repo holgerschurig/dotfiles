@@ -296,12 +296,12 @@ for i = 1, 9 do
       function () bind_tags_viewonly(i) end,
       {description = "View tag #"..i, group = "Tags"})
    -- Toggle tag display.
-   globalkey({ modkey, "Control" }, "#" .. i + 9,
-      function () bind_tags_viewtoggle(i) end,
-      {description = "Toggle tag #" .. i, group = "Tags"})
-   globalkey({ modkey, "Control" }, "#" .. i + 66,
-      function () bind_tags_viewtoggle(i) end,
-      {description = "Toggle tag #" .. i, group = "Tags"})
+   -- globalkey({ modkey, "Control" }, "#" .. i + 9,
+   --    function () bind_tags_viewtoggle(i) end,
+   --    {description = "Toggle tag #" .. i, group = "Tags"})
+   -- globalkey({ modkey, "Control" }, "#" .. i + 66,
+   --    function () bind_tags_viewtoggle(i) end,
+   --    {description = "Toggle tag #" .. i, group = "Tags"})
    -- Move client to tag.
    globalkey({ modkey, "Shift" }, "#" .. i + 9,
       function () bind_tags_move_to_tag(i) end,
