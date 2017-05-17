@@ -174,7 +174,8 @@ end)
 -- Text clock
 -----------------------------------------------------------------------------
 mytextclock = wibox.widget.textclock(" %Y-%m-%d %H:%M ")
-
+local cal = require("cal")
+cal.register(mytextclock, "%s")
 
 awful.screen.connect_for_each_screen(function(s)
     for i,l in ipairs(my_tag_list) do
