@@ -17,6 +17,14 @@ git-pw4ever:
 update::
 	cd git-pw4ever; git pull
 
+all:: git-mic92
+git-mic92:
+	git clone https://github.com/Mic92/awesome-dotfiles $@
+update::
+	cd git-mic92; git pull
+
+
+#############################################################################
 
 all:: awesome-freedesktop
 freedesktop:
