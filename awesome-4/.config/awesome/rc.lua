@@ -107,15 +107,10 @@ myawesomemenu = {
 }
 
 -- see https://github.com/copycat-killer/awesome-freedesktop/wiki/Menu
-local freedesktop = require("freedesktop")
-mymainmenu = freedesktop.menu.build()
+local freedesktop = require("menu")
+mymainmenu = freedesktop.build()
 
--- mymainmenu = awful.menu({ items = { { "Awesome", myawesomemenu, beautiful.awesome_icon },
---                                     { "Clients", function () awful.menu.clients() end },
---                                     { "Terminal", terminal }
---                                   }
---                         })
-mymainmenu = freedesktop.menu.build({
+mymainmenu = freedesktop.build({
     before = {
         { "Awesome", myawesomemenu, beautiful.awesome_icon },
         -- other triads can be put here
