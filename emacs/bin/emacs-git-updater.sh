@@ -92,7 +92,7 @@ clone_conf()
 	clone confivy      https://github.com/kaushalmodi/.emacs.d.git          kaushalmodi
 	clone confhelm     https://github.com/sachac/.emacs.d.git               sachac
 	clone confhelm     https://github.com/bodil/ohai-emacs.git              ohai
-	clone confhelm     https://gitlab.com/mordocai/emacs.d.git              mordocai
+	#clone confhelm     https://github.com/mordocai/emacs.d.git              mordocai
 	clone confhelm     https://github.com/sri/dotfiles.git                  sri
 	clone confhelm     https://github.com/bbatsov/prelude.git               prelude
 	clone confivy      https://github.com/skeeto/.emacs.d.git               skeeto
