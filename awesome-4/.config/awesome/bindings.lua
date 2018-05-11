@@ -1,4 +1,4 @@
-local awful   = require("awful")
+local awful = require("awful")
 local ac    = require("autoclick")
 
 -- speedup
@@ -156,6 +156,9 @@ globalkey({ modkey }, "w",
 globalkey({ modkey, "Control" }, "a",
    function () ac.autoclicker() end,
    {description = "Autoclicker", group = "Run"})
+globalkey({ modkey, "Control" }, "i",
+   function () ac.idlewizard() end,
+   {description = "IdleWizard", group = "Run"})
 
 -- TAGS
 -- globalkey({ modkey }, "Escape",
