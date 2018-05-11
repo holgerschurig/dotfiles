@@ -1,15 +1,15 @@
 
 --[[
-                                                        
-     Awesome-Freedesktop                                
-     Freedesktop.org compliant desktop entries and menu 
-                                                        
-     Menu section                                       
-                                                        
-     Licensed under GNU General Public License v2       
-      * (c) 2016, Luke Bonham                           
-      * (c) 2014, Harvey Mittens                        
-                                                        
+
+     Awesome-Freedesktop
+     Freedesktop.org compliant desktop entries and menu
+
+     Menu section
+
+     Licensed under GNU General Public License v2
+      * (c) 2016, Luke Bonham
+      * (c) 2014, Harvey Mittens
+
 --]]
 
 local awful_menu = require("awful.menu")
