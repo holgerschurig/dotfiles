@@ -1,4 +1,5 @@
 local awful   = require("awful")
+local ac    = require("autoclick")
 
 -- speedup
 local tinsert = table.insert
@@ -152,6 +153,9 @@ globalkey({ modkey }, "e",
 globalkey({ modkey }, "w",
    bind_run_or_raise_browser,
    {description = "Web browser", group = "Run"})
+globalkey({ modkey, "Control" }, "a",
+   function () ac.autoclicker() end,
+   {description = "Autoclicker", group = "Run"})
 
 -- TAGS
 -- globalkey({ modkey }, "Escape",
