@@ -24,7 +24,7 @@ urxvt.internalBorder: 2
 urxvt.meta8: false
 urxvt.imLocale: de_DE
 
-urxvt.font: -xos4-terminus-medium-r-normal--16-160-72-72-c-80-iso10646-1
+urxvt.font: -xos4-terminus-medium-*-normal-*-16-*-*-*-*-*-iso10646-*
 
 URxvt.foreground: white
 URxvt.background: black
