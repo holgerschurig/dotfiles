@@ -28,6 +28,8 @@ urxvt.font: -xos4-terminus-medium-*-normal-*-16-*-*-*-*-*-iso10646-*
 
 URxvt.foreground: white
 URxvt.background: black
+# Used for directories:
+URxvt.color12:  #cc1111
 
 urxvt.perl-ext: selection,option-popup,selection-popup,readline,matcher
 urxvt.perl-ext-common: selection,option-popup,selection-popup,readline,matcher
