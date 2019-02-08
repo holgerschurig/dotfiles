@@ -37,7 +37,6 @@ urxvt*matcher.pattern.1: \\b(http|https|ftp):[/]*[\\w-]\\.[\\w./?&@#-]*[\\w/-]
 urxvt*matcher.pattern.2: \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]
 urxvt.matcher.rend.0: fg8
 
-Xft.dpi: 100
 color0: #000000
 color1: #cb1578
 color2: #8ecb15
