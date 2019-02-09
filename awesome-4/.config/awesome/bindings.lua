@@ -7,7 +7,7 @@ local pairs = pairs
 
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
+    -- awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),
     awful.button({ }, 5, awful.tag.viewprev)
 ))
@@ -133,9 +133,9 @@ globalkey({ modkey, "Control" }, "r",
 globalkey({ modkey, "Control" }, "u",
    bind_lua_prompt,
    {description = "Lua prompt", group = "Awesome"})
-globalkey({ modkey, "Control" }, "m",
-   function () mymainmenu:show() end,
-   {description = "Awesome's menu", group = "Awesome"})
+-- globalkey({ modkey, "Control" }, "m",
+--    function () mymainmenu:show() end,
+--    {description = "Awesome's menu", group = "Awesome"})
 -- globalkey({ modkey, "Control" }, "q",
 --    function() awesome.quit() end;
 --    {description = "quit awesome", group = "Awesome"})

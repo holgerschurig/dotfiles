@@ -96,36 +96,6 @@ end
 
 
 -----------------------------------------------------------------------------
--- Menu
------------------------------------------------------------------------------
--- Create a launcher widget and a main menu
-myawesomemenu = {
-    { "Help", function()
-          return false, hotkeys.show_help
-    end},
-    { "Restart", awesome.restart },
-}
-
--- see https://github.com/copycat-killer/awesome-freedesktop/wiki/Menu
-local freedesktop = require("menu")
-mymainmenu = freedesktop.build()
-
-mymainmenu = freedesktop.build({
-    before = {
-        { "Awesome", myawesomemenu, beautiful.awesome_icon },
-        -- other triads can be put here
-    },
-    -- after = {
-    --     { "Open terminal", terminal },
-    --     -- other triads can be put here
-    -- }
-})
-
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                     menu = mymainmenu })
-
-
------------------------------------------------------------------------------
 -- Tag list
 -----------------------------------------------------------------------------
 local taglist_buttons = awful.util.table.join(
@@ -224,7 +194,6 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
             s.mytaglist,
             s.mypromptbox,
         },

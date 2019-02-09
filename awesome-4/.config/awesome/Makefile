@@ -28,13 +28,3 @@ git-material/.git/HEAD:
 	git clone https://github.com/PapyElGringo/material-awesome git-material
 update::
 	cd git-material; git pull
-
-#############################################################################
-
-all:: git-freedesktop/.git/HEAD
-git-freedesktop/.git/HEAD:
-	git clone https://github.com/copycat-killer/awesome-freedesktop freedesktop
-update::
-	cd git-freedesktop; git pull
-
-
