@@ -60,6 +60,7 @@ awful.rules.rules = {
           name = {
               "Event Tester",  -- xev
               "QEMU",
+              "Xephyr",
           },
           class = {
               -- "qconf",        -- make xkernelconfig
