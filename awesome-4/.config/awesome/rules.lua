@@ -75,6 +75,10 @@ awful.rules.rules = {
           floating = true
     }},
 
+    -- Splash screens should be floating
+    { rule       = { type = 'splash' },
+      properties = { floating = true } },
+
     -- Add titlebars to normal clients and dialogs
     { rule = { type = "normal" },
       properties = { titlebars_enabled = true } },
