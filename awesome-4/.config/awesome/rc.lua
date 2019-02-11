@@ -162,6 +162,22 @@ local mycalendar = awful.widget.calendar_popup.year({
 mycalendar:attach(mytextclock, 'br')
 
 
+
+-----------------------------------------------------------------------------
+--  Mini menu
+-----------------------------------------------------------------------------
+mymainmenu = awful.menu({ items = {
+                                 { "open terminal", terminal },
+                                 { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
+                                 { "restart", awesome.restart },
+                                 { "quit", function() awesome.quit() end },
+                       }})
+
+root.buttons(awful.util.table.join(
+    awful.button({ }, 3, function () mymainmenu:toggle() end)
+))
+
+
 -----------------------------------------------------------------------------
 -- Bottom bar
 -----------------------------------------------------------------------------

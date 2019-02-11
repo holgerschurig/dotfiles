@@ -5,15 +5,6 @@ local ac    = require("autoclick")
 local tinsert = table.insert
 local pairs = pairs
 
--- {{{ Mouse bindings
-root.buttons(awful.util.table.join(
-    -- awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-))
--- }}}
-
-
 -- {{{ Binding functions
 local function bind_lua_prompt()
    awful.prompt.run {
