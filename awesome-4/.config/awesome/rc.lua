@@ -103,6 +103,7 @@ local taglist_buttons = awful.util.table.join(
                     awful.button({ modkey }, 1, function(t)
                                               if client.focus then
                                                   client.focus:move_to_tag(t)
+                                                  t:view_only()
                                               end
                                           end),
                     awful.button({ }, 3, awful.tag.viewtoggle),
@@ -152,7 +153,7 @@ end)
 -----------------------------------------------------------------------------
 -- Text clock
 -----------------------------------------------------------------------------
-local mytextclock = wibox.widget.textclock(" %Y-%m-%d %H:%M ")
+local mytextclock = wibox.widget.textclock("%H:%M\n%d.%m")
 local mycalendar = awful.widget.calendar_popup.year({
         style_yearheader = {
             fg_color = "#ff0000",
@@ -179,8 +180,9 @@ root.buttons(awful.util.table.join(
 
 
 -----------------------------------------------------------------------------
--- Bottom bar
+-- Left bar
 -----------------------------------------------------------------------------
+gears = require("gears")
 awful.screen.connect_for_each_screen(function(s)
     for i,l in ipairs(my_tag_list) do
         awful.tag.add(i .. ":" .. shorten_layout_name(l.name),
@@ -189,40 +191,46 @@ awful.screen.connect_for_each_screen(function(s)
     end
     awful.tag.attached_connect_signal(s, "tagged", tagbox_update_tagname)
     awful.tag.attached_connect_signal(s, "property::layout", tagbox_update_tagname)
-    -- Create a promptbox for each screen
-    s.mypromptbox = awful.widget.prompt()
-    -- Create an imagebox widget which will contains an icon indicating which layout we're using.
-    -- We need one layoutbox per screen.
-    s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
-                           awful.button({ }, 4, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+
     -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
+    s.mytaglist = awful.widget.taglist{
+        screen  = s,
+        filter  = awful.widget.taglist.filter.all,
+        buttons = taglist_buttons,
+        layout   = {
+            spacing = 4,
+            layout  = wibox.layout.fixed.vertical
+        },
+        update_function = taglist_update,
+    }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "bottom", screen = s })
+    s.mywibox = awful.wibar({
+            position = "left",
+            screen = s,
+            width = 48,
+    })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
+        layout = wibox.layout.align.vertical,
+        { -- Top widgets
+            layout = wibox.layout.fixed.vertical,
             s.mytaglist,
-            s.mypromptbox,
+            -- s.mypromptbox,
         },
         { -- Middle widget
-            mytitle,
+            nil,
             layout = wibox.container.margin,
             left = 12,
+            bg = '#ff0000',
         },
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
+        { -- Bottom widgets
+            layout = wibox.layout.fixed.vertical,
             wibox.widget.systray(),
-            mytextclock,
-            s.mylayoutbox,
+            wibox.container.place(
+                wibox.container.margin(mytextclock, 3,3, 2,4)
+            ),
         },
     }
 end)
