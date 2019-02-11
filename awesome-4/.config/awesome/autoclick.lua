@@ -1,8 +1,5 @@
 local awful  = require("awful")
-local root   = require("root")
 local screen = awful.screen
-local mouse  = require("mouse")       -- https://awesomewm.org/doc/api/libraries/mouse.html
-local client = require("awful.client")
 local ac     = {}
 
 
