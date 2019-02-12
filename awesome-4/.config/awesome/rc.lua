@@ -117,37 +117,7 @@ local taglist_buttons = awful.util.table.join(
                 )
 
 
------------------------------------------------------------------------------
--- global title bar
------------------------------------------------------------------------------
 local wibox = require("wibox")
-local mytitle = wibox.widget {
-    markup = "Awesome: press Win-s for help",
-    align = "left",
-    widget = wibox.widget.textbox
-}
-local function update_title_text(c)
-    local s
-    if c == client.focus then
-        if c.class then
-            if c.name then
-                s = c.class .. ": " .. c.name
-            else
-                s = c.class
-            end
-        else
-            s = c.name
-        end
-        if s then
-            mytitle.text = s
-        end
-    end
-end
-client.connect_signal("focus", update_title_text)
-client.connect_signal("property::name", update_title_text)
-client.connect_signal("unfocus", function (c)
-    mytitle.markup = "Awesome: press Win-s for help"
-end)
 
 
 -----------------------------------------------------------------------------
