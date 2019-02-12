@@ -216,14 +216,19 @@ end
 -----------------------------------------------------------------------------
 -- Text clock
 -----------------------------------------------------------------------------
-local mytextclock = wibox.widget.textclock("%H:%M\n%d.%m")
-local mycalendar = awful.widget.calendar_popup.year({
-        style_yearheader = {
-            fg_color = "#ff0000",
-            markup = "<span size=\"x-large\">%s</span>",
-        },
-})
-mycalendar:attach(mytextclock, 'br')
+local myclock = function()
+    local clock = wibox.widget.textclock('<b>%H:%M</b>\n%d.%m')
+    local calendar = awful.widget.calendar_popup.year({
+            style_yearheader = {
+                fg_color = "#ff0000",
+                markup = "<span size=\"x-large\">%s</span>",
+            },
+    })
+    calendar:attach(clock, 'br')
+    return wibox.container.place(
+        wibox.container.margin(clock, 3,3, 2,4)
+    )
+end
 
 
 -----------------------------------------------------------------------------
@@ -256,19 +261,12 @@ awful.screen.connect_for_each_screen(function(s)
             mytaglist(s),
         },
         -- Middle widget
-        {
-            nil,
-            layout = wibox.container.margin,
-            left = 12,
-            bg = '#ff0000',
-        },
+        nil,
         -- Bottom widgets
         {
             layout = wibox.layout.fixed.vertical,
             wibox.widget.systray(),
-            wibox.container.place(
-                wibox.container.margin(mytextclock, 3,3, 2,4)
-            ),
+            myclock(),
         },
     }
 end)
