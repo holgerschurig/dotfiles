@@ -111,7 +111,7 @@ root.buttons(awful.util.table.join(
 
 
 -----------------------------------------------------------------------------
---  Menu buttons
+--  Menu button
 -----------------------------------------------------------------------------
 local wibox = require("wibox")
 gears = require("gears")
@@ -144,35 +144,37 @@ local clickable_container = function(widget)
 end
 
 
-local mymenubutton =
-  wibox.widget {
-  wibox.widget {
-    wibox.widget {
-      wibox.widget {
-          image = os.getenv("HOME") .. "/.config/awesome/menu.svg",
-          widget = wibox.widget.imagebox
-      },
-      top = 12,
-      left = 12,
-      right = 12,
-      bottom = 12,
-      widget = wibox.container.margin
-    },
-    widget = clickable_container
-  },
-  bg = beautiful.bg_normal, -- TODO primary.hue_500,
-  widget = wibox.container.background
-}
-mymenubutton:buttons(
-    gears.table.join(
-        awful.button(
-            {},
-            1,
-            nil,
-            run_rofi
+local mymenubutton = function()
+    button = wibox.widget {
+        wibox.widget {
+            wibox.widget {
+                wibox.widget {
+                    image = os.getenv("HOME") .. "/.config/awesome/menu.svg",
+                    widget = wibox.widget.imagebox
+                },
+                top = 12,
+                left = 12,
+                right = 12,
+                bottom = 12,
+                widget = wibox.container.margin
+            },
+            widget = clickable_container
+        },
+        bg = beautiful.bg_normal, -- TODO primary.hue_500,
+        widget = wibox.container.background
+    }
+    button:buttons(
+        gears.table.join(
+            awful.button(
+                {},
+                1,
+                nil,
+                run_rofi
+            )
         )
     )
-)
+    return button
+end
 
 
 -----------------------------------------------------------------------------
@@ -196,6 +198,19 @@ local taglist_buttons =
         awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
         awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
     )
+
+local function mytaglist(s)
+    return awful.widget.taglist{
+        screen  = s,
+        filter  = awful.widget.taglist.filter.all,
+        buttons = taglist_buttons,
+        layout   = {
+            spacing = 4,
+            layout  = wibox.layout.fixed.vertical
+        },
+        update_function = taglist_update,
+    }
+end
 
 
 -----------------------------------------------------------------------------
@@ -223,18 +238,6 @@ awful.screen.connect_for_each_screen(function(s)
     awful.tag.attached_connect_signal(s, "tagged", tagbox_update_tagname)
     awful.tag.attached_connect_signal(s, "property::layout", tagbox_update_tagname)
 
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist{
-        screen  = s,
-        filter  = awful.widget.taglist.filter.all,
-        buttons = taglist_buttons,
-        layout   = {
-            spacing = 4,
-            layout  = wibox.layout.fixed.vertical
-        },
-        update_function = taglist_update,
-    }
-
     -- Create the wibox
     s.mywibox = awful.wibar({
             position = "right",
@@ -249,9 +252,8 @@ awful.screen.connect_for_each_screen(function(s)
         -- Top widgets
         {
             layout = wibox.layout.fixed.vertical,
-            mymenubutton,
-            s.mytaglist,
-            -- s.mypromptbox,
+            mymenubutton(),
+            mytaglist(s),
         },
         -- Middle widget
         {
