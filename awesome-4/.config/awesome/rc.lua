@@ -96,45 +96,6 @@ end
 
 
 -----------------------------------------------------------------------------
--- Tag list
------------------------------------------------------------------------------
-local taglist_buttons = awful.util.table.join(
-                    awful.button({ }, 1, function(t) t:view_only() end),
-                    awful.button({ modkey }, 1, function(t)
-                                              if client.focus then
-                                                  client.focus:move_to_tag(t)
-                                                  t:view_only()
-                                              end
-                                          end),
-                    awful.button({ }, 3, awful.tag.viewtoggle),
-                    awful.button({ modkey }, 3, function(t)
-                                              if client.focus then
-                                                  client.focus:toggle_tag(t)
-                                              end
-                                          end),
-                    awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
-                    awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
-                )
-
-
-local wibox = require("wibox")
-
-
------------------------------------------------------------------------------
--- Text clock
------------------------------------------------------------------------------
-local mytextclock = wibox.widget.textclock("%H:%M\n%d.%m")
-local mycalendar = awful.widget.calendar_popup.year({
-        style_yearheader = {
-            fg_color = "#ff0000",
-            markup = "<span size=\"x-large\">%s</span>",
-        },
-})
-mycalendar:attach(mytextclock, 'br')
-
-
-
------------------------------------------------------------------------------
 --  Mini menu
 -----------------------------------------------------------------------------
 mymainmenu = awful.menu({ items = {
@@ -150,8 +111,9 @@ root.buttons(awful.util.table.join(
 
 
 -----------------------------------------------------------------------------
---  Side bar buttons
+--  Menu buttons
 -----------------------------------------------------------------------------
+local wibox = require("wibox")
 gears = require("gears")
 function run_rofi()
     awesome.spawn(
@@ -212,6 +174,41 @@ mymenubutton:buttons(
     )
 )
 
+
+-----------------------------------------------------------------------------
+-- Tag list
+-----------------------------------------------------------------------------
+local taglist_buttons =
+    awful.util.table.join(
+        awful.button({ }, 1, function(t) t:view_only() end),
+        awful.button({ modkey }, 1, function(t)
+                if client.focus then
+                    client.focus:move_to_tag(t)
+                    t:view_only()
+                end
+        end),
+        awful.button({ }, 3, awful.tag.viewtoggle),
+        awful.button({ modkey }, 3, function(t)
+                if client.focus then
+                    client.focus:toggle_tag(t)
+                end
+        end),
+        awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
+        awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
+    )
+
+
+-----------------------------------------------------------------------------
+-- Text clock
+-----------------------------------------------------------------------------
+local mytextclock = wibox.widget.textclock("%H:%M\n%d.%m")
+local mycalendar = awful.widget.calendar_popup.year({
+        style_yearheader = {
+            fg_color = "#ff0000",
+            markup = "<span size=\"x-large\">%s</span>",
+        },
+})
+mycalendar:attach(mytextclock, 'br')
 
 
 -----------------------------------------------------------------------------
