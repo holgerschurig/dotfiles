@@ -6,15 +6,6 @@ local tinsert = table.insert
 local pairs = pairs
 
 -- {{{ Binding functions
-local function bind_lua_prompt()
-   awful.prompt.run {
-      prompt       = "Run Lua code: ",
-      textbox      = awful.screen.focused().mypromptbox.widget,
-      exe_callback = awful.util.eval,
-      history_path = awful.util.get_cache_dir() .. "/history_eval"
-   }
-end
-
 local function bind_toggle_client()
    awful.client.focus.history.previous()
    if client.focus then
@@ -121,9 +112,6 @@ globalkey({ modkey }, "s",
 globalkey({ modkey, "Control" }, "r",
    awesome.restart,
    {description = "Reload configuration", group = "Awesome"})
-globalkey({ modkey, "Control" }, "u",
-   bind_lua_prompt,
-   {description = "Lua prompt", group = "Awesome"})
 -- globalkey({ modkey, "Control" }, "m",
 --    function () mymainmenu:show() end,
 --    {description = "Awesome's menu", group = "Awesome"})
@@ -133,8 +121,8 @@ globalkey({ modkey, "Control" }, "u",
 
 -- RUNNING
 globalkey({ modkey }, "r",
-   function () awful.screen.focused().mypromptbox:run() end,
-   {description = "Run prompt", group = "Run"})
+   run_rofi,
+   {description = "Run application", group = "Run"})
 globalkey({ modkey }, "Return",
    function () awful.spawn(terminal) end,
    {description = "Terminal", group = "Run"})

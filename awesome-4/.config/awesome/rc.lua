@@ -180,9 +180,73 @@ root.buttons(awful.util.table.join(
 
 
 -----------------------------------------------------------------------------
--- Left bar
+--  Side bar buttons
 -----------------------------------------------------------------------------
 gears = require("gears")
+function run_rofi()
+    awesome.spawn(
+      "rofi -combi-modi drun -show combi -modi combi",
+      false, -- use startup notification?
+      false, -- return a FD for STDIN
+      false, -- return a FD for STDOUT
+      false, -- return a FD for STDERR
+      nil,   -- exit callback
+      nil)   -- environment
+end
+
+local clickable_container = function(widget)
+    local container =
+        wibox.widget {
+        widget,
+        widget = wibox.container.background
+    }
+    local old_cursor, old_wibox
+    container.bg = beautiful.bg_normal
+
+    container:connect_signal('mouse::enter', function() container.bg = beautiful.bg_focus end)
+    container:connect_signal('mouse::leave', function() container.bg = beautiful.bg_normal end)
+    container:connect_signal('button::press', function() container.bg = beautiful.bg_urgent end)
+    container:connect_signal('button::release', function() container.bg = beautiful.bg_focus end)
+
+    return container
+end
+
+
+local mymenubutton =
+  wibox.widget {
+  wibox.widget {
+    wibox.widget {
+      wibox.widget {
+          image = os.getenv("HOME") .. "/.config/awesome/menu.svg",
+          widget = wibox.widget.imagebox
+      },
+      top = 12,
+      left = 12,
+      right = 12,
+      bottom = 12,
+      widget = wibox.container.margin
+    },
+    widget = clickable_container
+  },
+  bg = beautiful.bg_normal, -- TODO primary.hue_500,
+  widget = wibox.container.background
+}
+mymenubutton:buttons(
+    gears.table.join(
+        awful.button(
+            {},
+            1,
+            nil,
+            run_rofi
+        )
+    )
+)
+
+
+
+-----------------------------------------------------------------------------
+-- Left bar
+-----------------------------------------------------------------------------
 awful.screen.connect_for_each_screen(function(s)
     for i,l in ipairs(my_tag_list) do
         awful.tag.add(i .. ":" .. shorten_layout_name(l.name),
@@ -206,26 +270,31 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Create the wibox
     s.mywibox = awful.wibar({
-            position = "left",
+            position = "right",
             screen = s,
             width = 48,
     })
 
+
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.vertical,
-        { -- Top widgets
+        -- Top widgets
+        {
             layout = wibox.layout.fixed.vertical,
+            mymenubutton,
             s.mytaglist,
             -- s.mypromptbox,
         },
-        { -- Middle widget
+        -- Middle widget
+        {
             nil,
             layout = wibox.container.margin,
             left = 12,
             bg = '#ff0000',
         },
-        { -- Bottom widgets
+        -- Bottom widgets
+        {
             layout = wibox.layout.fixed.vertical,
             wibox.widget.systray(),
             wibox.container.place(
