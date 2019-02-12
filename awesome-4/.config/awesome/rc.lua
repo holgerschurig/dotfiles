@@ -204,11 +204,16 @@ local function mytaglist(s)
         screen  = s,
         filter  = awful.widget.taglist.filter.all,
         buttons = taglist_buttons,
+
         layout   = {
-            spacing = 4,
-            layout  = wibox.layout.fixed.vertical
+            spacing = 2,
+            spacing_widget = {
+                color  = beautiful.bg_normal,
+                shape  = gears.shape.powerline,
+                widget = wibox.widget.separator,
+            },
+            layout  = wibox.layout.fixed.vertical,
         },
-        update_function = taglist_update,
     }
 end
 
