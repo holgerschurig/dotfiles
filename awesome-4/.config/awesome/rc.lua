@@ -101,7 +101,7 @@ awful.layout.layouts = {
     awful.layout.suit.max,
 }
 
--- -- Change some of the (internal) layout names to something I like more
+-- Change some of the (internal) layout names to something I like more
 function shorten_layout_name(name)
     if name == "fullscreen" then name = "full"
     elseif name == "tileleft" then name = "tile"
@@ -113,7 +113,7 @@ end
 
 
 -----------------------------------------------------------------------------
---  Mini menu
+-- Mini menu
 -----------------------------------------------------------------------------
 my_main_menu = awful.menu(
     { items = {
@@ -129,7 +129,7 @@ root.buttons(awful.util.table.join(
 
 
 -----------------------------------------------------------------------------
---  Side bar buttons
+-- Side bar buttons
 -----------------------------------------------------------------------------
 function run_rofi()
     awesome.spawn(
