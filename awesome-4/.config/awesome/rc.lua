@@ -243,6 +243,13 @@ end
 
 
 -----------------------------------------------------------------------------
+--  Systray
+-----------------------------------------------------------------------------
+local mysystray = wibox.widget.systray()
+mysystray:set_horizontal(false)
+
+
+-----------------------------------------------------------------------------
 -- Side bar
 -----------------------------------------------------------------------------
 awful.screen.connect_for_each_screen(function(s)
@@ -269,7 +276,7 @@ awful.screen.connect_for_each_screen(function(s)
         -- Bottom widgets
         {
             layout = wibox.layout.fixed.vertical,
-            wibox.widget.systray(),
+            mysystray,
             myclock(),
         },
     }
