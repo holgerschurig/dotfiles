@@ -59,7 +59,9 @@ gears.wallpaper.set("#000000")
 -----------------------------------------------------------------------------
 -- Tags & Layouts
 -----------------------------------------------------------------------------
+-- Don't jump mouse cursor to the client's corner when resizing it
 awful.layout.suit.tile.resize_jump_to_corner = false
+awful.layout.suit.floating.resize_jump_to_corner = false
 
 local function my_update_tag(t)
     -- require 'pl.pretty'.dump(t.layout)
