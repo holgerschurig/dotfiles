@@ -53,6 +53,7 @@ end
 -----------------------------------------------------------------------------
 beautiful.init(awful.util.get_themes_dir() .. "zenburn/theme.lua")
 beautiful.wallpaper = nil
+gears.wallpaper.set("#000000")
 
 
 -----------------------------------------------------------------------------
