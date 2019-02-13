@@ -133,6 +133,7 @@ function run_rofi()
       nil)   -- environment
 end
 
+-- this is similar to https://github.com/PapyElGringo/material-awesome/blob/master/widgets/clickable-container.lua
 local clickable_container = function(widget)
     local container =
         wibox.widget {
