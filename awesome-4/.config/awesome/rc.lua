@@ -1,4 +1,13 @@
 -----------------------------------------------------------------------------
+-- Variable definitions
+-----------------------------------------------------------------------------
+terminal = "/usr/bin/urxvt"
+editor = os.getenv("EDITOR") or "nano"
+editor_cmd = terminal .. " -e " .. editor
+modkey = "Mod4"
+
+
+-----------------------------------------------------------------------------
 -- Globally needed things
 -----------------------------------------------------------------------------
 hotkeys = require("awful.hotkeys_popup").widget
@@ -39,15 +48,6 @@ beautiful = require("beautiful")
 awful = require("awful")
 beautiful.init(awful.util.get_themes_dir() .. "zenburn/theme.lua")
 beautiful.wallpaper = nil
-
-
------------------------------------------------------------------------------
--- Variable definitions
------------------------------------------------------------------------------
-terminal = "urxvt"
-editor = os.getenv("EDITOR") or "nano"
-editor_cmd = terminal .. " -e " .. editor
-modkey = "Mod4"
 
 
 -----------------------------------------------------------------------------
