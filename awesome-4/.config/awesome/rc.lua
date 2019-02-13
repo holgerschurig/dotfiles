@@ -9,13 +9,14 @@ rofi_cmd = "/usr/bin/rofi -combi-modi drun -show combi -modi combi"
 
 
 -----------------------------------------------------------------------------
--- Globally needed things
+-- Imports
 -----------------------------------------------------------------------------
-local awful = require("awful")
-local hotkeys = require("awful.hotkeys_popup").widget
-local beautiful = require("beautiful")
-local gears = require("gears")
+awful = require("awful")
+beautiful = require("beautiful")
+hotkeys = require("awful.hotkeys_popup").widget
+
 local naughty = require("naughty")
+local gears = require("gears")
 local wibox = require("wibox")
 local two = require('two')
 
@@ -25,7 +26,6 @@ local two = require('two')
 -----------------------------------------------------------------------------
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
-local naughty = require("naughty")
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
                      title = "Oops, there were errors during startup!",
@@ -51,8 +51,6 @@ end
 -----------------------------------------------------------------------------
 -- Theme definitions
 -----------------------------------------------------------------------------
-beautiful = require("beautiful")
-awful = require("awful")
 beautiful.init(awful.util.get_themes_dir() .. "zenburn/theme.lua")
 beautiful.wallpaper = nil
 
@@ -60,8 +58,6 @@ beautiful.wallpaper = nil
 -----------------------------------------------------------------------------
 -- Tags & Layouts
 -----------------------------------------------------------------------------
-local two = require('two')
-
 awful.layout.suit.tile.resize_jump_to_corner = false
 
 -- This is the list of my tags and their associated layout. I don't need to name
@@ -120,8 +116,6 @@ root.buttons(awful.util.table.join(
 -----------------------------------------------------------------------------
 --  Menu button
 -----------------------------------------------------------------------------
-local wibox = require("wibox")
-gears = require("gears")
 function run_rofi()
     awesome.spawn(
       rofi_cmd,
