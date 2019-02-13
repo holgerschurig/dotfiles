@@ -151,7 +151,7 @@ local mymenubutton = function()
         wibox.widget {
             wibox.widget {
                 wibox.widget {
-                    image = os.getenv("HOME") .. "/.config/awesome/menu.svg",
+                    image = gears.filesystem.get_configuration_dir() .. "/menu.svg",
                     widget = wibox.widget.imagebox
                 },
                 top = 12,
