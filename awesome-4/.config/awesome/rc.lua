@@ -114,7 +114,7 @@ root.buttons(awful.util.table.join(
 
 
 -----------------------------------------------------------------------------
---  Menu button
+--  Side bar buttons
 -----------------------------------------------------------------------------
 function run_rofi()
     awesome.spawn(
@@ -146,35 +146,28 @@ local clickable_container = function(widget)
 end
 
 
-local mymenubutton = function()
-    button = wibox.widget {
+local function mysidebarbutton(func, svg, vert_margin, horiz_margin)
+    if vert_margin  == nil then vert_margin  = 2 end
+    if horiz_margin == nil then horiz_margin = 6 end
+    local button = wibox.widget {
         wibox.widget {
             wibox.widget {
                 wibox.widget {
-                    image = gears.filesystem.get_configuration_dir() .. "/menu.svg",
+                    image = gears.filesystem.get_configuration_dir() .. "/" .. svg,
                     widget = wibox.widget.imagebox
                 },
-                top = 12,
-                left = 12,
-                right = 12,
-                bottom = 12,
+                top = vert_margin,
+                bottom = vert_margin,
+                left = horiz_margin,
+                right = horiz_margin,
                 widget = wibox.container.margin
             },
             widget = clickable_container
         },
-        bg = beautiful.bg_normal, -- TODO primary.hue_500,
+        bg = beautiful.bg_normal,
         widget = wibox.container.background
     }
-    button:buttons(
-        gears.table.join(
-            awful.button(
-                {},
-                1,
-                nil,
-                run_rofi
-            )
-        )
-    )
+    button:buttons(awful.button({}, 1, nil, func))
     return button
 end
 
@@ -264,7 +257,7 @@ awful.screen.connect_for_each_screen(function(s)
         -- Top widgets
         {
             layout = wibox.layout.fixed.vertical,
-            mymenubutton(),
+            mysidebarbutton(run_rofi, "menu.svg"),
             mytaglist(s),
         },
         -- Middle widget
