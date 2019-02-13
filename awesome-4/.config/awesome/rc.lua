@@ -5,12 +5,19 @@ terminal = "/usr/bin/urxvt"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 modkey = "Mod4"
+rofi_cmd = "/usr/bin/rofi -combi-modi drun -show combi -modi combi"
 
 
 -----------------------------------------------------------------------------
 -- Globally needed things
 -----------------------------------------------------------------------------
-hotkeys = require("awful.hotkeys_popup").widget
+local awful = require("awful")
+local hotkeys = require("awful.hotkeys_popup").widget
+local beautiful = require("beautiful")
+local gears = require("gears")
+local naughty = require("naughty")
+local wibox = require("wibox")
+local two = require('two')
 
 
 -----------------------------------------------------------------------------
@@ -117,7 +124,7 @@ local wibox = require("wibox")
 gears = require("gears")
 function run_rofi()
     awesome.spawn(
-      "rofi -combi-modi drun -show combi -modi combi",
+      rofi_cmd,
       false, -- use startup notification?
       false, -- return a FD for STDIN
       false, -- return a FD for STDOUT
