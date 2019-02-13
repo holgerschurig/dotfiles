@@ -243,6 +243,43 @@ end
 
 
 -----------------------------------------------------------------------------
+--  CPU usage
+-----------------------------------------------------------------------------
+-- based on https://github.com/streetturtle/awesome-wm-widgets/tree/master/cpu-widget
+local my_cpu_usage =
+    wibox.widget {
+        max_value = 100,
+        forced_height = 24,
+        widget = wibox.widget.graph
+    }
+local cpu_usage_prev_total = 0
+local cpu_usage_prev_idle  = 0
+
+awful.widget.watch(
+    [[grep '^cpu ' /proc/stat]],
+    1, -- this is the intervall
+    function(widget, stdout, stderr, exitreason, exitcode)
+        local user, nice, system, idle, iowait, irq, softirq, steal, guest, guest_nice =
+            stdout:match('(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s')
+
+        local total = user + nice + system + idle + iowait + irq + softirq + steal
+
+        local diff_idle = idle - cpu_usage_prev_idle
+        local diff_total = total - cpu_usage_prev_total
+        local diff_usage = (1000 * (diff_total - diff_idle) / diff_total + 5) / 10
+        widget:set_color(diff_usage > 80 and '#FF0000' or '#00FF00')
+
+        widget:add_value(diff_usage)
+
+        cpu_usage_prev_total = total
+        cpu_usage_prev_idle  = idle
+    end,
+    my_cpu_usage
+)
+my_cpu_usage = wibox.container.mirror(my_cpu_usage, {horizontal = true})
+
+
+-----------------------------------------------------------------------------
 --  Systray
 -----------------------------------------------------------------------------
 local mysystray = wibox.widget.systray()
@@ -277,6 +314,7 @@ awful.screen.connect_for_each_screen(function(s)
         {
             layout = wibox.layout.fixed.vertical,
             mysystray,
+            my_cpu_usage,
             myclock(),
         },
     }
