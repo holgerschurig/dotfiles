@@ -60,28 +60,45 @@ beautiful.wallpaper = nil
 -----------------------------------------------------------------------------
 awful.layout.suit.tile.resize_jump_to_corner = false
 
--- This is the list of my tags and their associated layout. I don't need to name
--- them, because they will be named automatically "1:tile", "2:tile" ... "8:fairv"
-local my_tag_list = {
+local function my_update_tag(t)
+    -- require 'pl.pretty'.dump(t.layout)
+
+    local conf = gears.filesystem.get_configuration_dir()
+    local themes = gears.filesystem.get_themes_dir() .. "zenburn/layouts/"
+    if     t.name == "1" then t.icon = conf .. "devel.svg"
+    elseif t.name == "2" then t.icon = conf .. "term.svg"
+    elseif t.name == "3" then t.icon = conf .. "term.svg"
+    elseif t.name == "4" then t.icon = conf .. "term.svg"
+    elseif t.name == "5" then t.icon = conf .. "web.svg"
+
+    elseif t.layout.name == "fairv"    then t.icon = themes .. "fairv.png"
+    elseif t.layout.name == "floating" then t.icon = themes .. "floating.png"
+    elseif t.layout.name == "max"      then t.icon = themes .. "max.png"
+    else t.icon = gears.filesystem.get_configuration_dir() .. "term.svg" end
+end
+awful.tag.attached_connect_signal(s, "property::layout", my_update_tag)
+
+local function mytags(s)
+    local conf = gears.filesystem.get_configuration_dir()
+    local themes = gears.filesystem.get_themes_dir() .. "zenburn/layouts/"
+    awful.tag.add("1", { screen = s,layout = two, selected = true })
+    awful.tag.add("2", { screen = s,layout = two })
+    awful.tag.add("3", { screen = s,layout = two })
+    awful.tag.add("4", { screen = s,layout = two })
+    awful.tag.add("5", { screen = s,layout = awful.layout.suit.fair })
+    awful.tag.add("6", { screen = s,layout = awful.layout.suit.fair })
+    awful.tag.add("7", { screen = s,layout = awful.layout.suit.floating })
+    awful.tag.add("8", { screen = s,layout = awful.layout.suit.max })
+end
+
+awful.layout.layouts = {
     two,
-    two,
-    two,
-    two,
-    awful.layout.suit.fair,
     awful.layout.suit.fair,
     awful.layout.suit.floating,
     awful.layout.suit.max,
 }
 
--- Built list of possible tags dynamically
-awful.layout.layouts = {}
-for _,v in pairs(my_tag_list) do
-    if not awful.util.table.hasitem(awful.layout.layouts, v) then
-        table.insert(awful.layout.layouts, v)
-    end
-end
-
--- Change some of the (internal) layout names to something I like more
+-- -- Change some of the (internal) layout names to something I like more
 function shorten_layout_name(name)
     if name == "fullscreen" then name = "full"
     elseif name == "tileleft" then name = "tile"
@@ -91,11 +108,6 @@ function shorten_layout_name(name)
     return name
 end
 
--- When the layout changed we need to reset the names
-local function tagbox_update_tagname(t)
-    -- require 'pl.pretty'.dump(t)
-    t.name = t.index .. ":" .. shorten_layout_name(t.layout.name)
-end
 
 
 -----------------------------------------------------------------------------
@@ -195,21 +207,17 @@ local taglist_buttons =
     )
 
 local function mytaglist(s)
-    return awful.widget.taglist{
+    local tl = awful.widget.taglist{
         screen  = s,
         filter  = awful.widget.taglist.filter.all,
         buttons = taglist_buttons,
 
         layout   = {
-            spacing = 2,
-            spacing_widget = {
-                color  = beautiful.bg_normal,
-                shape  = gears.shape.powerline,
-                widget = wibox.widget.separator,
-            },
             layout  = wibox.layout.fixed.vertical,
         },
     }
+    -- require 'pl.pretty'.dump(tl.buttons)
+    return tl
 end
 
 
@@ -235,13 +243,7 @@ end
 -- Side bar
 -----------------------------------------------------------------------------
 awful.screen.connect_for_each_screen(function(s)
-    for i,l in ipairs(my_tag_list) do
-        awful.tag.add(i .. ":" .. shorten_layout_name(l.name),
-                      {layout = l,
-                       screen = s})
-    end
-    awful.tag.attached_connect_signal(s, "tagged", tagbox_update_tagname)
-    awful.tag.attached_connect_signal(s, "property::layout", tagbox_update_tagname)
+    mytags(s)
 
     -- Create the wibox
     s.mywibox = awful.wibar({
@@ -249,7 +251,6 @@ awful.screen.connect_for_each_screen(function(s)
             screen = s,
             width = 48,
     })
-
 
     -- Add widgets to the wibox
     s.mywibox:setup {
