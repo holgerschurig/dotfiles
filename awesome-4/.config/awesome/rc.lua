@@ -225,25 +225,14 @@ end
 
 
 -----------------------------------------------------------------------------
--- Text clock
+-- Systray
 -----------------------------------------------------------------------------
-local my_clock = function()
-    local clock = wibox.widget.textclock('<b>%H:%M</b>\n%d.%m')
-    local calendar = awful.widget.calendar_popup.year({
-            style_yearheader = {
-                fg_color = "#ff0000",
-                markup = "<span size=\"x-large\">%s</span>",
-            },
-    })
-    calendar:attach(clock, 'br')
-    return wibox.container.place(
-        wibox.container.margin(clock, 3,3, 2,4)
-    )
-end
+local my_systray = wibox.widget.systray()
+my_systray:set_horizontal(false)
 
 
 -----------------------------------------------------------------------------
---  CPU usage
+-- CPU usage
 -----------------------------------------------------------------------------
 -- based on https://github.com/streetturtle/awesome-wm-widgets/tree/master/cpu-widget
 local my_cpu_usage =
@@ -280,10 +269,14 @@ my_cpu_usage = wibox.container.mirror(my_cpu_usage, {horizontal = true})
 
 
 -----------------------------------------------------------------------------
---  Systray
+-- Text clock
 -----------------------------------------------------------------------------
-local my_systray = wibox.widget.systray()
-my_systray:set_horizontal(false)
+local my_clock = function()
+    local clock = wibox.widget.textclock('%H:%M')
+    return wibox.container.place(
+        wibox.container.margin(clock, 3,3, 4,2) -- left,right, top,bottom
+    )
+end
 
 
 -----------------------------------------------------------------------------
@@ -296,7 +289,7 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox = awful.wibar({
             position = "right",
             screen = s,
-            width = 44,
+            width = 38,
     })
 
     -- Add widgets to the wibox
