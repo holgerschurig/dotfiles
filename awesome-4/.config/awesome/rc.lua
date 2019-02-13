@@ -287,6 +287,7 @@ awful.screen.focused().tags[1]:view_only()
 -----------------------------------------------------------------------------
 -- Mouse and Keyboard bindings
 -----------------------------------------------------------------------------
+awful.mouse.snap.edge_enabled = false
 require("bindings")
 
 
