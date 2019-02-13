@@ -68,20 +68,20 @@ local function my_update_tag(t)
 
     local conf = gears.filesystem.get_configuration_dir()
     local themes = gears.filesystem.get_themes_dir() .. "zenburn/layouts/"
-    if     t.name == "1" then t.icon = conf .. "devel.svg"
-    elseif t.name == "2" then t.icon = conf .. "term.svg"
-    elseif t.name == "3" then t.icon = conf .. "term.svg"
-    elseif t.name == "4" then t.icon = conf .. "term.svg"
-    elseif t.name == "5" then t.icon = conf .. "web.svg"
+    if     t.name == "1" and t.layout == two then t.icon = conf .. "devel.svg"
+    elseif t.name == "2" and t.layout == two then t.icon = conf .. "term.svg"
+    elseif t.name == "3" and t.layout == two then t.icon = conf .. "term.svg"
+    elseif t.name == "4" and t.layout == two then t.icon = conf .. "term.svg"
+    elseif t.name == "5" and t.layout == awful.layout.suit.fair then t.icon = conf .. "web.svg"
 
-    elseif t.layout.name == "fairv"    then t.icon = themes .. "fairv.png"
-    elseif t.layout.name == "floating" then t.icon = themes .. "floating.png"
-    elseif t.layout.name == "max"      then t.icon = themes .. "max.png"
+    elseif t.layout == awful.layout.suit.fair     then t.icon = themes .. "fairv.png"
+    elseif t.layout == awful.layout.suit.floating then t.icon = themes .. "floating.png"
+    elseif t.layout == awful.layout.suit.max      then t.icon = themes .. "max.png"
     else t.icon = gears.filesystem.get_configuration_dir() .. "term.svg" end
 end
 awful.tag.attached_connect_signal(s, "property::layout", my_update_tag)
 
-local function mytags(s)
+local function my_tags(s)
     local conf = gears.filesystem.get_configuration_dir()
     local themes = gears.filesystem.get_themes_dir() .. "zenburn/layouts/"
     awful.tag.add("1", { screen = s,layout = two, selected = true })
@@ -112,19 +112,19 @@ function shorten_layout_name(name)
 end
 
 
-
 -----------------------------------------------------------------------------
 --  Mini menu
 -----------------------------------------------------------------------------
-mymainmenu = awful.menu({ items = {
-                                 { "open terminal", terminal },
-                                 { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-                                 { "restart", awesome.restart },
-                                 { "quit", function() awesome.quit() end },
-                       }})
+my_main_menu = awful.menu(
+    { items = {
+          { "open terminal", terminal },
+          { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
+          { "restart", awesome.restart },
+          { "quit", function() awesome.quit() end },
+}})
 
 root.buttons(awful.util.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end)
+    awful.button({ }, 3, function () my_main_menu:toggle() end)
 ))
 
 
@@ -161,7 +161,7 @@ local clickable_container = function(widget)
 end
 
 
-local function mysidebarbutton(func, svg, vert_margin, horiz_margin)
+local function my_sidebar_button(func, svg, vert_margin, horiz_margin)
     if vert_margin  == nil then vert_margin  = 2 end
     if horiz_margin == nil then horiz_margin = 6 end
     local button = wibox.widget {
@@ -209,7 +209,7 @@ local taglist_buttons =
         awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
     )
 
-local function mytaglist(s)
+local function my_taglist(s)
     local tl = awful.widget.taglist{
         screen  = s,
         filter  = awful.widget.taglist.filter.all,
@@ -227,7 +227,7 @@ end
 -----------------------------------------------------------------------------
 -- Text clock
 -----------------------------------------------------------------------------
-local myclock = function()
+local my_clock = function()
     local clock = wibox.widget.textclock('<b>%H:%M</b>\n%d.%m')
     local calendar = awful.widget.calendar_popup.year({
             style_yearheader = {
@@ -282,15 +282,15 @@ my_cpu_usage = wibox.container.mirror(my_cpu_usage, {horizontal = true})
 -----------------------------------------------------------------------------
 --  Systray
 -----------------------------------------------------------------------------
-local mysystray = wibox.widget.systray()
-mysystray:set_horizontal(false)
+local my_systray = wibox.widget.systray()
+my_systray:set_horizontal(false)
 
 
 -----------------------------------------------------------------------------
 -- Side bar
 -----------------------------------------------------------------------------
 awful.screen.connect_for_each_screen(function(s)
-    mytags(s)
+    my_tags(s)
 
     -- Create the wibox
     s.mywibox = awful.wibar({
@@ -305,17 +305,17 @@ awful.screen.connect_for_each_screen(function(s)
         -- Top widgets
         {
             layout = wibox.layout.fixed.vertical,
-            mysidebarbutton(run_rofi, "menu.svg"),
-            mytaglist(s),
+            my_sidebar_button(run_rofi, "menu.svg"),
+            my_taglist(s),
         },
         -- Middle widget
         nil,
         -- Bottom widgets
         {
             layout = wibox.layout.fixed.vertical,
-            mysystray,
+            my_systray,
             my_cpu_usage,
-            myclock(),
+            my_clock(),
         },
     }
 end)
