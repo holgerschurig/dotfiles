@@ -161,9 +161,7 @@ local clickable_container = function(widget)
 end
 
 
-local function my_sidebar_button(func, svg, vert_margin, horiz_margin)
-    if vert_margin  == nil then vert_margin  = 2 end
-    if horiz_margin == nil then horiz_margin = 6 end
+local function my_sidebar_button(func, svg, left_margin, right_margin, top_margin, botton_margin)
     local button = wibox.widget {
         wibox.widget {
             wibox.widget {
@@ -171,10 +169,10 @@ local function my_sidebar_button(func, svg, vert_margin, horiz_margin)
                     image = gears.filesystem.get_configuration_dir() .. "/" .. svg,
                     widget = wibox.widget.imagebox
                 },
-                top = vert_margin,
-                bottom = vert_margin,
-                left = horiz_margin,
-                right = horiz_margin,
+                left = left_margin or 0,
+                right = right_margin or 0,
+                top = top_margin or 0,
+                bottom = bottom_margin or 0,
                 widget = wibox.container.margin
             },
             widget = clickable_container
@@ -216,6 +214,7 @@ local function my_taglist(s)
         buttons = taglist_buttons,
 
         layout   = {
+            spacing = 4,
             layout  = wibox.layout.fixed.vertical,
         },
     }
@@ -298,7 +297,7 @@ awful.screen.connect_for_each_screen(function(s)
         -- Top widgets
         {
             layout = wibox.layout.fixed.vertical,
-            my_sidebar_button(run_rofi, "menu.svg"),
+            my_sidebar_button(run_rofi, "menu.svg", 0,0,0,4),
             my_taglist(s),
         },
         -- Middle widget
@@ -307,7 +306,9 @@ awful.screen.connect_for_each_screen(function(s)
         {
             layout = wibox.layout.fixed.vertical,
             my_systray,
+            wibox.container.margin(nil, 0,0, 4,0),
             my_cpu_usage,
+            wibox.container.margin(nil, 0,0, 4,0),
             my_clock(),
         },
     }
