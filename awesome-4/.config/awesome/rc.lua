@@ -272,7 +272,7 @@ my_cpu_usage = wibox.container.mirror(my_cpu_usage, {horizontal = true})
 -- Text clock
 -----------------------------------------------------------------------------
 local my_clock = function()
-    local clock = wibox.widget.textclock('%H:%M')
+    local clock = wibox.widget.textclock('%H\n%M')
     return wibox.container.place(
         wibox.container.margin(clock, 3,3, 4,2) -- left,right, top,bottom
     )
@@ -289,7 +289,7 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox = awful.wibar({
             position = "right",
             screen = s,
-            width = 38,
+            width = 24,
     })
 
     -- Add widgets to the wibox
