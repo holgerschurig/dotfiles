@@ -5,9 +5,7 @@ test -z "$EMAIL" && . /etc/profile
 . /etc/default/locale
 export LANG
 export LANGUAGE
-export DISPLAY=:0
-
-#openbox &
+test -z "$DISPLAY" && export DISPLAY=:0
 
 (
 	sleep 1
@@ -27,16 +25,12 @@ export DISPLAY=:0
 	# Terminate X11 with Cltr-Alt-Backspace
 	setxkbmap -option terminate:ctrl_alt_bksp de nodeadkeys
 
-	xrdb -merge $HOME/.Xresources
+	xrdb -merge ~/.Xresources
 
 	test -f /etc/default/unclutter && . /etc/default/unclutter
 	test -x /usr/bin/unclutter && /usr/bin/unclutter ${EXTRA_OPTS} &
 	unset EXTRA_OPTS
-
-	#x-terminal-emulator
 ) &
-
-#exec lxpanel
 
 mkdir -p ~/.cache/awesome
 exec awesome >~/.cache/awesome/stdout 2>~/.cache/awesome/stderr
