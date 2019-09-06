@@ -245,7 +245,7 @@ local cpu_usage_prev_idle  = 0
 
 awful.widget.watch(
     [[grep '^cpu ' /proc/stat]],
-    1, -- this is the intervall
+    2, -- this is the intervall
     function(widget, stdout, stderr, exitreason, exitcode)
         local user, nice, system, idle, iowait, irq, softirq, steal, guest, guest_nice =
             stdout:match('(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s(%d+)%s')

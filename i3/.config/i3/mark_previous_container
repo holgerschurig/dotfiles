@@ -1,0 +1,29 @@
+#!/bin/bash
+
+epochMillis(){
+	echo $(($(date +%s%N)/1000000))
+}
+
+lastTime=$(epochMillis)
+permanence=1000
+
+xprop -root -spy _NET_ACTIVE_WINDOW |
+while read line
+do
+	currentFocus=$(echo "$line" | awk -F' ' '{printf $NF}')
+	if [ "$currentFocus" = "0x0" -o "$currentFocus" = "$prevFocus" ]
+	then
+		continue
+	fi
+	currentTime=$(epochMillis)
+	period=$(($currentTime-$lastTime))
+	lastTime=$currentTime
+	# if the permanence (period) is too small then don't care about the focus change but
+	# allow jumping between given two windows at fast speed
+	if [ $period -gt $permanence  -o "$currentFocus" = "$prevPrevFocus" ]
+	then
+		[[ -z "$prevFocus" ]] || i3-msg "[id=$prevFocus] mark _last" > /dev/null
+		prevPrevFocus=$prevFocus
+	fi
+	prevFocus=$currentFocus
+done
