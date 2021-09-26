@@ -38,3 +38,10 @@
   algorithm = patience
 [diff "elisp"]
   xfuncname = "^\\(.*"
+[pager]
+	branch = false
+	tag = false
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main
