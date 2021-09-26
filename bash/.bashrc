@@ -112,4 +112,4 @@ if ! shopt -oq posix; then
   fi
 fi
 
-PATH="$HOME/bin:$PATH"
+PATH="$HOME/.local/bin:$HOME/.nimble/bin:$PATH"
