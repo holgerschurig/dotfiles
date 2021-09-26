@@ -61,11 +61,13 @@ awful.rules.rules = {
               "Event Tester",  -- xev
               "QEMU",
               "Xephyr",
+              "Game",
           },
           class = {
               -- "qconf",        -- make xkernelconfig
               "qemu-system-x86_64",
               "qemu-system-arm",
+              "vlc",
               "xine",
           },
           role = {
