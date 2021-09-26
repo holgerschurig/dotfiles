@@ -10,6 +10,9 @@ test -z "$DISPLAY" && export DISPLAY=:0
 (
 	sleep 1
 
+	#pulseaudio --start
+	start-pulseaudio-x11
+
 	test `hostname` = laptop && xrandr --output VGA1 --primary --mode 1920x1080
 
 	# Screen saver off
