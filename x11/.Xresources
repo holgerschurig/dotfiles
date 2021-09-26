@@ -1,12 +1,12 @@
-Emacs.geometry: 120x55
-Emacs.Font:     Terminus 11
-Emacs*Background: #0b0b0b
-Emacs*Foreground: #dcdcdc
-Emacs.bitmapIcon: off
-Emacs.verticalScrollBars: off
-Emacs.toolBar: off
-Emacs.cursorBlink: off
-Emacs.fontBackend: xft
+!Emacs.geometry: 120x55
+Emacs.Font:     Terminus
+!Emacs*Background: #0b0b0b
+!Emacs*Foreground: #dcdcdc
+!Emacs.bitmapIcon: off
+!Emacs.verticalScrollBars: off
+!Emacs.toolBar: off
+!Emacs.cursorBlink: off
+!Emacs.fontBackend: ftcrhb
 
 urxvt.geometry: 110x40
 urxvt.fading: 50
