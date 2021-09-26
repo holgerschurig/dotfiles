@@ -80,6 +80,8 @@ end
 function bind_run_or_raise_browser()
    local matcher = function (c)
       return awful.rules.match(c, {class = 'Firefox'}) or
+             awful.rules.match(c, {class = 'google-chrome'}) or
+             awful.rules.match(c, {class = 'Google-chrome'}) or
              awful.rules.match(c, {class = 'Chromium'}) or
              awful.rules.match(c, {class = 'Chromium-browser'}) or
              awful.rules.match(c, {class = 'chromium'})
