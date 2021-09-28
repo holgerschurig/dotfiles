@@ -26,7 +26,7 @@ test -z "$DISPLAY" && export DISPLAY=:0
 	#xmodmap -e "pointer = 3 2 1 4 5 6 7 8 9 10"
 
 	# Terminate X11 with Cltr-Alt-Backspace
-	setxkbmap -option terminate:ctrl_alt_bksp de
+	setxkbmap -option terminate:ctrl_alt_bksp de caps:ctrl_modifier
 	setxkbmap -variant "nodeadkeys"
 
 	xrdb -merge ~/.Xresources
