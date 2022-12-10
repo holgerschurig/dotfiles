@@ -1,0 +1,232 @@
+# useful .deb packages:
+#
+# apt-get install wev grim slurp wl-clipboard mako-notifier alacritty libnotify-bin
+
+include /etc/sway/config.d/*
+
+
+###
+### Input
+###
+
+input type:keyboard {
+    # swaymsg -t get_inputs
+    # man 5 sway-input
+    # man xkeyboard-config
+    xkb_model   "pc101"
+    xkb_layout  "de(nodeadkeys)"
+    repeat_delay 300
+    repeat_rate  20
+}
+
+
+input type:mouse {
+    dwt true
+    accel_profile adaptive
+}
+
+
+###
+### Output and settings
+###
+
+# Output configuration
+output * {
+    # swaymsg -t get_outputs
+    # man 5 sway-output
+    background #000000 solid_color
+    subpixel rgb
+}
+
+# Removes the title bar of each newly created window, use Mod4+b / Mod4+m to
+# turn it back on and Mod4+Shift+b to again turn it off.
+default_border pixel 1
+
+default_floating_border normal
+
+# https://docs.gtk.org/Pango/type_func.FontDescription.from_string.html#description
+font pango:Sans 10
+
+# Drag windows (not just floating ones!) by holding down Mod4 and left mouse button.
+# Resize them with right mouse button + Mod4.
+floating_modifier Mod4 normal
+
+# Click to focus
+focus_follows_mouse no
+
+# What to do when an xwayland client requests windows activation
+focus_on_window_activation focus
+
+# Environment variables
+set $MOZ_ENABLE_WAYLAND 1
+
+# If we turn tutlebars on, they don't have any extra border. The background of them is enought
+titlebar_border_thickness 0
+
+# Put title in the middle
+title_align center
+
+# Move mouse to center when another container gains focus
+mouse_warping none
+
+# Mod4+5 followed by Mod4+5 returns you to your current workspace
+workspace_auto_back_and_forth yes
+
+
+# bar {
+#     # man 5 sway-bar
+#     position bottom
+#     status_command while date +'%d.%m.%y %H:%M:%S'; do sleep 1; done
+#     mode overlay
+#     workspace_buttons no
+#     font pango:Sans 11
+#     colors {
+#         statusline #ffffff
+#         background #ffffff10
+#         inactive_workspace #32323200 #32323200 #5c5c5c
+#     }
+# }
+
+# exec waybar
+
+
+###
+### Moving around
+###
+
+# Move your focus around
+bindsym Mod4+Left focus left
+bindsym Mod4+Down focus down
+bindsym Mod4+Up focus up
+bindsym Mod4+Right focus right
+
+# Move the focused window with the same, but add Shift
+bindsym Mod4+Shift+Left move left
+bindsym Mod4+Shift+Down move down
+bindsym Mod4+Shift+Up move up
+bindsym Mod4+Shift+Right move right
+
+
+###
+### Workspaces
+###
+
+# Switch to workspace
+bindsym Mod4+1 workspace number 1
+bindsym Mod4+2 workspace number 2
+bindsym Mod4+3 workspace number 3
+bindsym Mod4+4 workspace number 4
+bindsym Mod4+5 workspace number 5
+bindsym Mod4+6 workspace number 6
+bindsym Mod4+7 workspace number 7
+bindsym Mod4+8 workspace number 8
+bindsym Mod4+9 workspace number 9
+bindsym Mod4+0 workspace number 10
+# Move focused container to workspace
+bindsym Mod4+Shift+1 move container to workspace number 1
+bindsym Mod4+Shift+2 move container to workspace number 2
+bindsym Mod4+Shift+3 move container to workspace number 3
+bindsym Mod4+Shift+4 move container to workspace number 4
+bindsym Mod4+Shift+5 move container to workspace number 5
+bindsym Mod4+Shift+6 move container to workspace number 6
+bindsym Mod4+Shift+7 move container to workspace number 7
+bindsym Mod4+Shift+8 move container to workspace number 8
+bindsym Mod4+Shift+9 move container to workspace number 9
+bindsym Mod4+Shift+0 move container to workspace number 10
+
+
+###
+### Scratchpad
+###
+
+# Move the currently focused window to the scratchpad
+bindsym Mod4+Shift+minus move scratchpad
+
+# Show the next scratchpad window or hide the focused scratchpad window.
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym Mod4+minus scratchpad show
+
+
+
+###
+### Special modes
+###
+
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    # Return to default mode
+    bindsym Return exec notify-send --expire-time=500 "Normal mode", mode "default"
+    bindsym Escape exec notify-send --expire-time=500 "Normal mode", mode "default"
+}
+
+
+
+###
+### Client settings
+###
+
+# swaymsg -t get_tree | less
+assign [app_id="^Firefox$"] workspace 5
+assign [app_id="^Chromium$"] workspace 5
+for_window [app_id="^wev$"] floating enable
+for_window [app_id="^pavucontrol"] floating enable
+
+# xev:
+for_window [title="^Event Tester"] floating enable
+
+# make xconfig (Linux kernel)
+for_window [class="^qconf"] floating enable
+
+# After Emacs, start alacritty
+for_window [class="^Emacs$"] exec alacritty
+
+#no_focus CRITERIA
+
+
+
+###
+### Keybindings
+###
+
+bindsym Mod4+Return exec alacritty
+bindsym Mod4+Tab focus next
+bindsym Mod4+b border normal
+bindsym Mod4+Shift+b border pixel 1
+bindsym Mod4+c focus child
+bindsym Mod4+e exec ~/.config/sway/run-or-raise Emacs emacs
+bindsym Mod4+f fullscreen
+bindsym Mod4+h splith
+bindsym Mod4+k kill
+bindsym Mod4+m mark --add --toggle Mark, border normal
+bindsym Mod4+Shift+m swap container with mark Mark
+bindsym Mod4+o floating toggle
+bindsym Mod4+Shift+o focus mode_toggle     # toggle focus between float and tiling
+bindsym Mod4+p focus parent
+bindsym Mod4+r exec wofi --show=run --lines=25 --prompt=""
+bindsym Mod4+s exec exec notify-send --expire-time=500 "Resize mode", mode "resize"
+bindsym Mod4+v splitv
+bindsym Mod4+w exec ~/.config/sway/run-or-raise Firefox firefox
+bindsym Mod4+Shift+n layout toggle split   # normal mode
+bindsym Mod4+Shift+q exec swaymsg exit
+bindsym Mod4+Shift+r reload
+bindsym Mod4+Shift+s layout stacking
+bindsym Mod4+Shift+t layout tabbed
+bindsym Print exec slurp | grim -g - - | tee /tmp/pic-`date +%Y-%m-%d_%H:%M:%S`.png | wl-copy
+
+bindsym Mod4+Prior exec pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') +10%
+bindsym Mod4+Next  exec pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') -10%
+bindsym Mod4+Ctrl+Prior exec pactl set-sink-mute $(pacmd list-sinks |awk '/* index:/{print $3}') toggle
+bindsym Mod4+Ctrl+Next  exec pactl set-sink-mute $(pacmd list-sinks |awk '/* index:/{print $3}') toggle
+
+# bindsym Mod4+Home opacity plus 0.1
+# bindsym Mod4+End  opacity minus 0.1
+
+exec emacs

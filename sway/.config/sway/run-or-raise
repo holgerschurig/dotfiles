@@ -1,0 +1,93 @@
+#!/usr/bin/python3
+
+import sys, os, time, subprocess, json, types
+
+if len(sys.argv) < 3:
+	print("Usage: run-or-raise app_id command...")
+
+wanted = sys.argv[1]
+# print("WANTED:", wanted)
+
+ids = []
+
+def check(node):
+	if type(node) is dict:
+		app_id = node.get("app_id", "")
+
+		# app_id is for Wayland apps
+		clazz = node.get("class", "")
+		if app_id == wanted:
+			ids.append(( node["id"], node["focused"]) )
+		else:
+			# window_properties.class is for X11 apps
+			wp = node.get("window_properties", {})
+			clazz = wp.get("class", "")
+			if clazz == wanted:
+				ids.append(( node["id"], node["focused"]) )
+		nodes = node.get('nodes', [])
+		for node in nodes:
+			check(node)
+		return
+	if type(node) is list:
+		for item in node:
+			nodes = item.get('nodes', [])
+			for node in nodes:
+				check(node)
+		return
+
+
+def get_tree():
+	tree = subprocess.run(["/usr/bin/swaymsg", "-t", "get_tree"], capture_output=True).stdout
+	tree = json.loads(tree)
+	check(tree)
+	return tree
+
+
+def raise_id(id):
+	# print("RAISE ID:", id)
+	args = ["/usr/bin/swaymsg", "[con_id=%s]" % id[0], "focus"]
+	# print("ARGS:", args)
+	subprocess.run(args, env=os.environ)
+	sys.exit(0)
+
+
+get_tree()
+# print("IDS:", ids)
+
+# if we have no hit, we need to run it
+if len(ids) == 0:
+	subprocess.run(["/usr/bin/notify-send", "--expire-time=1500", "--transient", sys.argv[2] + " starting ..."])
+	subprocess.Popen(sys.argv[2:])
+	n = 0
+	while n < 20:
+		time.sleep(0.1)
+		get_tree()
+		if len(ids) != 0:
+			raise_id(ids[0])
+			break
+	sys.exit(0)
+
+# if we only have one hit, then focus it
+if len(ids) == 1:
+	raise_id(ids[0])
+
+# Find currently focused hit
+focused = None
+n = 0
+while n < len(ids):
+	p = ids[n]
+	if p[1]:
+		focused = n
+		break
+	n += 1
+# print("FOCUSED:", focused)
+
+# if none of the ids is focused, focus first
+if focused is None:
+	raise_id(ids[0])
+
+# if we have several hits, raise the one after the currently focused on
+n += 1
+if n >= len(ids):
+	n = 0
+raise_id(ids[n])
