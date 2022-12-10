@@ -111,5 +111,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
+export MOZ_ENABLE_WAYLAND=1
+export QT_QPA_PLATFORM="wayland-egl"
 PATH="$HOME/.local/bin:$HOME/.nimble/bin:$PATH"
