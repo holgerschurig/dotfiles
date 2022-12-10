@@ -1,30 +1,31 @@
 !Emacs.geometry: 120x55
-Emacs.Font:     Terminus
+! Emacs.Font:     Terminus
 !Emacs*Background: #0b0b0b
 !Emacs*Foreground: #dcdcdc
 !Emacs.bitmapIcon: off
 !Emacs.verticalScrollBars: off
 !Emacs.toolBar: off
 !Emacs.cursorBlink: off
-!Emacs.fontBackend: ftcrhb
+Emacs.fontBackend: ftcr
 
-urxvt.geometry: 110x40
+urxvt.cutchars: ()*,<>[]{}|
 urxvt.fading: 50
-urxvt.saveLines: 3000
+urxvt.font: -xos4-terminus-medium-*-normal-*-16-*-*-*-*-*-iso10646-*
+urxvt.geometry: 110x40
+urxvt.imLocale: de_DE
 urxvt.insecure: 1
+urxvt.internalBorder: 2
+urxvt.mapAlert: true
+urxvt.meta8: false
+urxvt.print-pipe: cat /tmp/print
+urxvt.saveLines: 3000
 urxvt.scrollBar_right: 1
 urxvt.scrollstyle: plain
-urxvt.cutchars: ()*,<>[]{}|
-urxvt.print-pipe: cat /tmp/print
 urxvt.utmpInhibit: true
-urxvt.mapAlert: true
 urxvt.visualBell: true
-urxvt.internalBorder: 2
-
-urxvt.meta8: false
-urxvt.imLocale: de_DE
-
-urxvt.font: -xos4-terminus-medium-*-normal-*-16-*-*-*-*-*-iso10646-*
+urxvt.jumpScroll: true
+urxvt.skipScroll: true
+urxvt.scrollWithBuffer: false
 
 URxvt.foreground: white
 URxvt.background: black
@@ -33,7 +34,7 @@ URxvt.color12:  #cc1111
 
 urxvt.perl-ext: selection,option-popup,selection-popup,readline,matcher
 urxvt.perl-ext-common: selection,option-popup,selection-popup,readline,matcher
-URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.url-launcher: /usr/bin/x-www-browser
 URxvt.matcher.button: 1
 urxvt*matcher.pattern.1: \\b(http|https|ftp):[/]*[\\w-]\\.[\\w./?&@#-]*[\\w/-]
 urxvt*matcher.pattern.2: \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]
