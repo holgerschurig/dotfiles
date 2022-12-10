@@ -1,6 +1,7 @@
 [user]
 	# email comes as $EMAIL from /etc/profile.d/email.sh
-	name = "Holger Schurig"
+	name = Holger Schurig
+	email = holgerschurig@gmail.com
 
 [alias]
 	st = status
