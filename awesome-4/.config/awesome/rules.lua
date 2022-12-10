@@ -62,6 +62,7 @@ awful.rules.rules = {
               "QEMU",
               "Xephyr",
               "Game",
+              "qjackctl",
           },
           class = {
               -- "qconf",        -- make xkernelconfig

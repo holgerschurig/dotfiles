@@ -32,9 +32,9 @@ function autoclicker_once()
    local mc = mouse.coords() -- only click near original position
    local dist = (mc.x - ac.mx) ^ 2 + (mc.y - ac.my) ^ 2
    -- print("dist " .. dist)
-   if dist > 200 then
-      return
-   end
+   -- if dist > 2000 then
+   --    return
+   -- end
 
    root.fake_input("button_press", 1)
    root.fake_input("button_release", 1)
@@ -175,11 +175,18 @@ local clicks_ngu = {
    { x = 1035, y = 675 }, -- pump
 }
 
+local clicks_yamg = {
+   { x = 949, y = 359, key = "m" },
+   { x = 949, y = 359, key = "e" },
+   { x = 949, y = 359, key = "i" },
+   { x = 949, y = 359, down=1 },
+   { x = 949, y = 359, up=1 },
+}
 
 
 function idleclick_once()
    print("ac.iw " .. ac.iw)
-   if ac.iw > 100 then
+   if ac.iw > 6 then
       ac.iw = 1
    end
    if ac.iw > #ac.clicks then
@@ -225,8 +232,8 @@ function ac.idlewizard()
    local mc = mouse.coords()
    print("ac.idlewizard mouse at " .. mc.x .. ", " .. mc.y)
 
-   ac.iw = 90
-   ac.clicks = clicks_ngu
+   ac.iw = 1
+   ac.clicks = clicks_yamg
    start_stop(idleclick_timer)
 end
 

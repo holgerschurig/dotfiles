@@ -140,6 +140,9 @@ globalkey({ modkey, "Control" }, "a",
 globalkey({ modkey, "Control" }, "i",
    function () ac.idlewizard() end,
    {description = "IdleWizard", group = "Run"})
+globalkey({}, "Print",
+   function () awful.spawn({"scrot", "-s", "/tmp/%Y-%m-%d_$wx$h.png"}) end,
+   {description = "take screenshot", group = "Run"})
 
 -- TAGS
 -- globalkey({ modkey }, "Escape",
