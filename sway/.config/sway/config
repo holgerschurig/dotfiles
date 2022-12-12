@@ -184,10 +184,13 @@ for_window [title="^Event Tester"] floating enable
 # make xconfig (Linux kernel)
 for_window [class="^qconf"] floating enable
 
-# After Emacs, start alacritty
-for_window [class="^Emacs$"] exec alacritty
-
 #no_focus CRITERIA
+
+# At startup of Sway, start Emacs. When Emacs has been started, start a terminal
+# but only if there aren't yet one. This has the nice side effect that I get an
+# Emacs on the left, and an terminal on the right half of the screen.
+exec emacs
+for_window [class="^Emacs$"] exec sh -c 'pgrep -x alacritty >/dev/null || alacritty'
 
 
 
@@ -227,5 +230,3 @@ bindsym Mod4+Ctrl+Next  exec pactl set-sink-mute $(pacmd list-sinks |awk '/* ind
 
 # bindsym Mod4+Home opacity plus 0.1
 # bindsym Mod4+End  opacity minus 0.1
-
-exec emacs
