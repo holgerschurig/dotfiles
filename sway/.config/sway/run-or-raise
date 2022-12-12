@@ -1,38 +1,49 @@
 #!/usr/bin/python3
 
-import sys, os, time, subprocess, json, types
+import sys, os, argparse, time, subprocess, json, types
 
-if len(sys.argv) < 3:
-	print("Usage: run-or-raise app_id command...")
-
-wanted = sys.argv[1]
-# print("WANTED:", wanted)
+if True:
+	parser = argparse.ArgumentParser(prog = 'run-or-raise')
+	parser.add_argument('match')
+	parser.add_argument('command')
+	parser.add_argument('-d', '--debug', action='store_true')
+	parser.add_argument('-n', '--dry-run', action='store_true')
+	opts = parser.parse_args()
+	opts.match = opts.match.lower()
+	if opts.debug:
+		print(opts)
 
 ids = []
 
-def check(node):
+def check(node, indent=0):
 	if type(node) is dict:
-		app_id = node.get("app_id", "")
+		if opts.debug:
+			print("  "*indent, node.get("type", "<no type>"))
+		app_id = node.get("app_id", "").lower()
+		if opts.debug and app_id != "":
+			print("  "*indent, "  app_id", app_id)
 
 		# app_id is for Wayland apps
 		clazz = node.get("class", "")
-		if app_id == wanted:
+		if opts.debug and clazz != "":
+			print("  "*indent, "  X11 window class", clazz)
+		if app_id == opts.match:
 			ids.append(( node["id"], node["focused"]) )
 		else:
 			# window_properties.class is for X11 apps
 			wp = node.get("window_properties", {})
-			clazz = wp.get("class", "")
-			if clazz == wanted:
+			clazz = wp.get("class", "").lower()
+			if clazz == opts.match:
 				ids.append(( node["id"], node["focused"]) )
 		nodes = node.get('nodes', [])
 		for node in nodes:
-			check(node)
+			check(node, indent+1)
 		return
 	if type(node) is list:
 		for item in node:
 			nodes = item.get('nodes', [])
 			for node in nodes:
-				check(node)
+				check(node, indent+1)
 		return
 
 
@@ -44,10 +55,12 @@ def get_tree():
 
 
 def raise_id(id):
-	# print("RAISE ID:", id)
-	args = ["/usr/bin/swaymsg", "[con_id=%s]" % id[0], "focus"]
-	# print("ARGS:", args)
-	subprocess.run(args, env=os.environ)
+	if opts.dry_run:
+		print("RAISE ID:", id)
+	else:
+		args = ["/usr/bin/swaymsg", "[con_id=%s]" % id[0], "focus"]
+		# print("ARGS:", args)
+		subprocess.run(args, env=os.environ)
 	sys.exit(0)
 
 
@@ -56,15 +69,18 @@ get_tree()
 
 # if we have no hit, we need to run it
 if len(ids) == 0:
-	subprocess.run(["/usr/bin/notify-send", "--expire-time=1500", "--transient", sys.argv[2] + " starting ..."])
-	subprocess.Popen(sys.argv[2:])
-	n = 0
-	while n < 20:
-		time.sleep(0.1)
-		get_tree()
-		if len(ids) != 0:
-			raise_id(ids[0])
-			break
+	if opts.dry_run:
+		print("RUN:", opts.command)
+	else:
+		subprocess.run(["/usr/bin/notify-send", "--expire-time=1500", "--transient", opts.command + " starting ..."])
+		subprocess.Popen(opts.command)
+		n = 0
+		while n < 20:
+			time.sleep(0.1)
+			get_tree()
+			if len(ids) != 0:
+				raise_id(ids[0])
+				break
 	sys.exit(0)
 
 # if we only have one hit, then focus it
