@@ -226,10 +226,10 @@ bindsym Mod4+Shift+s layout stacking
 bindsym Mod4+Shift+t layout tabbed
 bindsym Print exec slurp | grim -g - - | tee /tmp/pic-`date +%Y-%m-%d_%H:%M:%S`.png | wl-copy
 
-bindsym Mod4+Prior exec pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') +10%
-bindsym Mod4+Next  exec pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') -10%
-bindsym Mod4+Ctrl+Prior exec pactl set-sink-mute $(pacmd list-sinks |awk '/* index:/{print $3}') toggle
-bindsym Mod4+Ctrl+Next  exec pactl set-sink-mute $(pacmd list-sinks |awk '/* index:/{print $3}') toggle
+bindsym Mod4+Prior exec pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym Mod4+Next  exec pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym Mod4+Ctrl+Prior exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym Mod4+Ctrl+Next  exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # bindsym Mod4+Home opacity plus 0.1
 # bindsym Mod4+End  opacity minus 0.1
