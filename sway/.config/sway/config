@@ -189,8 +189,11 @@ for_window [class="^qconf"] floating enable
 # At startup of Sway, start Emacs. When Emacs has been started, start a terminal
 # but only if there aren't yet one. This has the nice side effect that I get an
 # Emacs on the left, and an terminal on the right half of the screen.
+#
+# The two for_"window" lines are an X11 Emacs and an PGTK Emacs.
 exec emacs
 for_window [class="^Emacs$"] exec sh -c 'pgrep -x alacritty >/dev/null || alacritty'
+for_window [app_id="^emacs$"] exec sh -c 'pgrep -x alacritty >/dev/null || alacritty'
 
 
 
