@@ -162,8 +162,8 @@ mode "resize" {
     bindsym Right resize grow width 10px
 
     # Return to default mode
-    bindsym Return exec notify-send --expire-time=500 "Normal mode", mode "default"
-    bindsym Escape exec notify-send --expire-time=500 "Normal mode", mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 
@@ -213,7 +213,7 @@ bindsym Mod4+o floating toggle
 bindsym Mod4+Shift+o focus mode_toggle     # toggle focus between float and tiling
 bindsym Mod4+p focus parent
 bindsym Mod4+r exec wofi --show=run --lines=25 --prompt=""
-bindsym Mod4+s exec exec notify-send --expire-time=500 "Resize mode", mode "resize"
+bindsym Mod4+s mode "resize"
 bindsym Mod4+v splitv
 bindsym Mod4+w exec ~/.config/sway/run-or-raise Firefox firefox
 bindsym Mod4+Shift+n layout toggle split   # normal mode
