@@ -1,5 +1,28 @@
 #!/usr/bin/python3
 
+# This is a run-or-raise implementation for Sway. Usage:
+#
+# bindsym Mod4+e exec ~/.config/sway/run-or-raise Emacs emacs
+# bindsym Mod4+w exec ~/.config/sway/run-or-raise Firefox firefox
+#                                                   ^^^     ^^^
+#                                            app_id/class command
+#
+# Now, what will happen?
+#
+# First, this script will use "swaymsg -t get_tree" to get a tree of all
+# outputs, workspaces and containers. THen it will look into any nodes
+# therein if it finds a Sway app by matching either the "app_id" or "class"
+# entries in this tree.
+#
+# If it finds none, it executes the specified command.
+#
+# If it finds one, it focuses it.
+#
+# If it founds several, it looks if one is already focused. It will then focuses
+# the one AFTER the currently focused one (wrapping to the start if needed). If
+# however none was focused, then focus the first matched client.
+
+
 import sys, os, argparse, time, subprocess, json, types
 
 if True:
