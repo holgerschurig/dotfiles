@@ -52,7 +52,7 @@ font pango:Sans 10
 floating_modifier Mod4 normal
 
 # Click to focus
-focus_follows_mouse no
+focus_follows_mouse yes
 
 # What to do when an xwayland client requests windows activation
 focus_on_window_activation focus
