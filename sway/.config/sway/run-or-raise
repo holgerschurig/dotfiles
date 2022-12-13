@@ -42,7 +42,10 @@ def check(node, indent=0):
 	if type(node) is dict:
 		if opts.debug:
 			print("  "*indent, node.get("type", "<no type>"))
-		app_id = node.get("app_id", "").lower()
+		app_id = node.get("app_id", "")
+		if app_id is None:
+			app_id = ""
+		app_id = app_id.lower()
 		if opts.debug and app_id != "":
 			print("  "*indent, "  app_id", app_id)
 
