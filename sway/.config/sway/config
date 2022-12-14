@@ -207,7 +207,6 @@ bindsym Mod4+c focus child
 bindsym Mod4+e exec ~/.config/sway/run-or-raise Emacs emacs
 bindsym Mod4+f fullscreen
 bindsym Mod4+h splith
-bindsym Mod4+k kill
 bindsym Mod4+m mark --add --toggle Mark, border normal
 bindsym Mod4+Shift+m swap container with mark Mark
 bindsym Mod4+o floating toggle
@@ -217,8 +216,9 @@ bindsym Mod4+r exec wofi --show=run --lines=25 --prompt=""
 bindsym Mod4+s mode "resize"
 bindsym Mod4+v splitv
 bindsym Mod4+w exec ~/.config/sway/run-or-raise Firefox firefox
-bindsym Mod4+Shift+n layout toggle split   # normal mode
-bindsym Mod4+Shift+q exec swaymsg exit
+bindsym Mod4+Shift+d layout default
+bindsym Mod4+Shift+q exec swaymsg exit    # kill Sway
+bindsym Mod4+Shift+k kill                 # kill client
 bindsym Mod4+Shift+r reload
 bindsym Mod4+Shift+s layout stacking
 bindsym Mod4+Shift+t layout tabbed
