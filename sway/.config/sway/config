@@ -57,9 +57,6 @@ focus_follows_mouse yes
 # What to do when an xwayland client requests windows activation
 focus_on_window_activation focus
 
-# Environment variables
-set $MOZ_ENABLE_WAYLAND 1
-
 # If we turn tutlebars on, they don't have any extra border. The background of them is enought
 titlebar_border_thickness 0
 
