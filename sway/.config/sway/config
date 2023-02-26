@@ -212,7 +212,7 @@ bindsym Mod4+Shift+m swap container with mark Mark
 bindsym Mod4+o floating toggle
 bindsym Mod4+Shift+o focus mode_toggle     # toggle focus between float and tiling
 bindsym Mod4+p focus parent
-bindsym Mod4+r exec wofi --show=run --lines=25 --prompt=""
+bindsym Mod4+r exec fuzzel
 bindsym Mod4+s mode "resize"
 bindsym Mod4+v splitv
 bindsym Mod4+w exec ~/.config/sway/run-or-raise Firefox firefox
