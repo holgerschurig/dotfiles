@@ -1,7 +1,7 @@
 -----------------------------------------------------------------------------
 -- Variable definitions
 -----------------------------------------------------------------------------
-terminal = "/usr/bin/urxvt"
+terminal = "/usr/bin/x-terminal-emulator"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
 modkey = "Mod4"
