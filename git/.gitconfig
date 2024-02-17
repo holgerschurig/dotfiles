@@ -31,6 +31,7 @@
 	ui = no
 [diff]
 	algorithm = histogram
+	submodule = log
 [diff "elisp"]
 	xfuncname = "^\\(.*"
 [fetch]
@@ -50,6 +51,8 @@
 	enabled = true
 [receive]
 	fsckobjects = true
+[status]
+	submoduleSummary = true
 [transfer]
 	fsckobjects = true
 [url "git@github.com:"]
