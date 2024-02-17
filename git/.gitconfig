@@ -38,7 +38,7 @@
 [init]
 	defaultBranch = main
 [merge]
-	conflictstyle = diff3
+	conflictstyle = zdiff3
 [pager]
 	branch = false
 	tag = false
