@@ -66,3 +66,37 @@
 	fsckobjects = true
 [url "git@github.com:"]
 	pushInsteadOf = "https://github.com/"
+
+
+#############################################################################
+#
+# https://dandavison.github.io/delta/introduction.html
+#
+[core]
+	pager = delta
+[delta]
+	features = decorations interactive unobtrusive-line-numbers
+	line-numbers = true
+	true-color = always
+    navigate = true
+	file-modified-label = ""
+	right-arrow = "⟶"
+[delta "decorations"]
+ 	commit-decoration-style = bold yellow box ul
+    # file-style = omit
+	file-style = bold yellow ul
+	file-decoration-style = none
+    hunk-header-style = syntax
+[delta "interactive"]
+    keep-plus-minus-markers = false
+[delta "unobtrusive-line-numbers"]
+    line-numbers = true
+    line-numbers-zero-style = "#888888"
+    line-numbers-plus-style = "#00c000"
+    line-numbers-minus-style = "#c00000"
+    line-numbers-left-style = "#0000c0"
+    line-numbers-right-style = "#0000c0"
+    line-numbers-left-format = "{nm:>4}┊"
+    line-numbers-right-format = "{np:>4}│"
+[interactive]
+    diffFilter = delta --color-only --features=interactive
