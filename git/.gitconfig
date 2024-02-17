@@ -38,6 +38,8 @@
 	xfuncname = "^\\(.*"
 [fetch]
 	fsckobjects = true
+	prune = true
+	prunetags = true
 [http]
 	sslverify = false
 [init]
