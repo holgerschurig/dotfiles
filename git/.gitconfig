@@ -55,6 +55,8 @@
 	fsckobjects = true
 [status]
 	submoduleSummary = true
+[tag]
+	sort = taggerdate
 [transfer]
 	fsckobjects = true
 [url "git@github.com:"]
