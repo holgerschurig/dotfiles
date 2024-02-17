@@ -7,7 +7,7 @@ function manage_first(c)
     end
 
     function isBrowser(c)
-        return c.class == "Firefox" or c.class == "Chromium" or c.class == "Chromium-browser"
+        return c.class == "firefox" or c.class == "Chromium" or c.class == "Chromium-browser"
     end
 
     local count = 0
