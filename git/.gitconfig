@@ -44,3 +44,5 @@
 	tag = false
 [push]
 	default = current
+[rerere]
+	enabled = true
