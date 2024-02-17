@@ -30,7 +30,7 @@
 [color]
 	ui = no
 [diff]
-	algorithm = patience
+	algorithm = histogram
 [diff "elisp"]
 	xfuncname = "^\\(.*"
 [http]
