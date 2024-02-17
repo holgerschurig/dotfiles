@@ -46,6 +46,8 @@
 	defaultBranch = main
 [merge]
 	conflictstyle = zdiff3
+[log]
+	date = iso
 [pager]
 	branch = false
 	tag = false
