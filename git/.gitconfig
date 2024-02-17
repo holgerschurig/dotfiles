@@ -27,20 +27,20 @@
 	chainreplyto = false
 	confirm = auto
 
-[push]
-	default = current
 [color]
 	ui = no
+[diff]
+	algorithm = patience
+[diff "elisp"]
+	xfuncname = "^\\(.*"
 [http]
 	sslverify = false
+[init]
+	defaultBranch = main
 [merge]
 	conflictstyle = diff3
-[diff]
-  algorithm = patience
-[diff "elisp"]
-  xfuncname = "^\\(.*"
 [pager]
 	branch = false
 	tag = false
-[init]
-	defaultBranch = main
+[push]
+	default = current
