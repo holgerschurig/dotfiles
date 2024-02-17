@@ -100,3 +100,10 @@
     line-numbers-right-format = "{np:>4}│"
 [interactive]
     diffFilter = delta --color-only --features=interactive
+
+
+#############################################################################
+# This trick can be used to include different .git configs for work/home
+#
+# [includeIf "gitdir:~/code/<work>/"]
+# path = "~/code/<work>/.gitconfig"
