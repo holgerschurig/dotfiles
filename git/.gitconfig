@@ -29,8 +29,8 @@
 
 [branch]
 	sort = committerdate
-[color]
-	ui = no
+# [color]
+# 	ui = false
 [diff]
 	algorithm = histogram
 	submodule = log
