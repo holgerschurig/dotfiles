@@ -27,6 +27,8 @@
 	chainreplyto = false
 	confirm = auto
 
+[branch]
+	sort = committerdate
 [color]
 	ui = no
 [diff]
