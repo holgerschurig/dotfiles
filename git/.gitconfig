@@ -53,6 +53,7 @@
 	tag = false
 [push]
 	default = current
+	followtags = true
 [rerere]
 	enabled = true
 [receive]
