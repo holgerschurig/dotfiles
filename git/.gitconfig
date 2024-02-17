@@ -33,6 +33,8 @@
 	algorithm = histogram
 [diff "elisp"]
 	xfuncname = "^\\(.*"
+[fetch]
+	fsckobjects = true
 [http]
 	sslverify = false
 [init]
@@ -46,3 +48,7 @@
 	default = current
 [rerere]
 	enabled = true
+[receive]
+	fsckobjects = true
+[transfer]
+	fsckobjects = true
