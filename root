@@ -3,4 +3,5 @@ apply_run()
     apply root-apt
     apply root-bash
     apply root-inputrc
+    apply root-joe
 }
