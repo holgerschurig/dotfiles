@@ -213,8 +213,19 @@ apply_stow()
 	test -z "$1" && error "must provide .stow directory to apply_stow()"
 
 	if [ -d "$1.stow" ]; then
+
+		# Remove all files that stow would install
+		(
+			# shellcheck disable=SC2164
+			cd "$APPLY_UNIT.stow"
+			find . -type f
+		) | (
+			cd /
+			xargs rm -fv
+		)
+
 		# shellcheck disable=SC2086
-		stow -t / --adopt $APPLY_STOWFLAGS "$1.stow"
+		stow -t / -vv $APPLY_STOWFLAGS "$1.stow"
 	else
 		error ".stow directory doesn't exist"
 	fi
