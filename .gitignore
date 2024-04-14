@@ -1,4 +1,5 @@
 .stamps
+.podman-downloads
 base-ssh.stow/.ssh/id_rsa
 base-ssh.stow/.ssh/id_rsa.pub
 base-ssh.stow/.ssh/known_hosts
