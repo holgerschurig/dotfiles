@@ -1,7 +1,15 @@
 apply_run()
 {
+    # Make sure apt doesn't install junk packages "suggested" or "recommended".
+    # I only want to install what *I* want
     apply root-apt
+
+    # Provide many helpful aliases like "ll" for "ls -lAF"
     apply root-bash
+
+    # Get rid of this annoying beep, and make history available via PgUp/PgDn
     apply root-inputrc
+
+    # For quick edits, when Emacs isn't available / convenient. Has (mostly) Turbo-Pascal/Delphi bindings.
     apply root-joe
 }

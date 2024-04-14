@@ -243,7 +243,12 @@ run()
 	APPLY_UNIT="$1"
 	APPLY_STOWFLAGS=""
 
-	# define default functions that the sourced script can override
+	# if one uses command-completion in bash then this function might be invoked with
+	# "foo.stow/" or "foo.stow" instead of just "foo". Fix that.
+	APPLY_UNIT="${APPLY_UNIT%%/}"
+	APPLY_UNIT="${APPLY_UNIT%%.stow}"
+
+	# define 2 default functions that the sourced script can override
 	apply_check()
 	{
 		true
@@ -252,7 +257,6 @@ run()
 	{
 		true
 	}
-
 
 	# If a stamp file for this apply unit exist, we do nothing. Use "-f" flag to
 	# override this.
@@ -282,16 +286,21 @@ run()
 
 		debug "ended"
 		touch "$APPLY_DIR/.stamps/$APPLY_UNIT.stamp"
+
+		# Not that we don't run the stow code below. If something should be
+		# stowed, then the script can invoce "apply_stow" by itself.
 		exit 0
 	fi
 
+	# But maybe we have something to stow?
 	if [ -d "$APPLY_UNIT.stow" ]; then
 		info "stowing"
 		apply_stow "$APPLY_UNIT"
 		touch "$APPLY_DIR/.stamps/$APPLY_UNIT.stamp"
-	else
-		error "neither script now stow directory found"
+		exit 0
 	fi
+
+	error "neither script now stow directory found"
 }
 
 
