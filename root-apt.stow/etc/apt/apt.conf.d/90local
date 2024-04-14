@@ -1,0 +1,5 @@
+Acquire::Languages "en";
+Acquire::Check-Valid-Until "false";
+#Acquire::PDiffs "false";
+APT::Install-Recommends "0";
+APT::Install-Suggests "0";

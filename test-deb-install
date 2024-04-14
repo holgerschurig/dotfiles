@@ -1,0 +1,11 @@
+# -*- mode: shell-script -*-
+
+
+apply_run()
+{
+	# these .debs should already be installed and thus not invoke apt-get
+	install_deb base-files coreutils
+
+	# this .deb isn't there, so we will try to install it from the repositories
+	install_deb missing-deb
+}

@@ -21,6 +21,10 @@ set output-meta on
 set bell-style none
 # set bell-style visible
 
+# make autocompletion case insensitive and display suggestions
+# set completion-ignore-case On
+set show-all-if-ambiguous On
+
 # some defaults / modifications for the emacs mode
 $if mode=emacs
 
@@ -65,4 +69,3 @@ $endif
 # "\e[F": end-of-line
 
 $endif
-set show-all-if-ambiguous on

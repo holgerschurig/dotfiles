@@ -1,0 +1,13 @@
+# -*- mode: shell-script -*-
+
+apply_check()
+{
+	debug "local check should fail"
+	test -f this-file-doesnt-exist
+}
+
+
+apply_run()
+{
+	error "I should *NEVER* execute"
+}

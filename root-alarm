@@ -1,0 +1,7 @@
+# -*- mode: shell-script -*-
+
+apply_check()
+{
+	# Disabled for now
+	false
+}

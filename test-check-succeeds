@@ -1,0 +1,13 @@
+# -*- mode: shell-script -*-
+
+apply_check()
+{
+	debug "local test succeeds"
+    test -f "$APPLY_UNIT"
+}
+
+
+apply_run()
+{
+	echo "I should execute"
+}

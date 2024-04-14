@@ -1,0 +1,290 @@
+#!/usr/bin/env bash
+
+# -*- mode: shell-script -*-
+#set -eio pipefail
+
+APPLY_FORCE=0
+APPLY_DRYRUN=0
+export APPLY_DEBUG=${APPLY_DEBUG:-0}
+
+
+#############################################################################
+#
+# Emit colorful messages
+#
+COLOR_BLUE="\033[1;36;40m"
+COLOR_RED="\033[1;31;40m"
+COLOR_GREEN="\033[1;32;40m"
+COLOR_NONE="\033[0m"
+
+# Usage: debug <text>
+debug()
+{
+	test "$APPLY_DEBUG" = 0 && return
+	if [ -z "$APPLY_UNIT" ]; then
+		echo "Debug: $*"
+	else
+		echo "$APPLY_UNIT: $*"
+	fi
+}
+
+
+# Usage: info <text>
+info()
+{
+	if [ -z "$APPLY_UNIT" ]; then
+		echo -e "\n${COLOR_GREEN}Info${COLOR_NONE}: $*"
+	else
+		echo -e "\n${COLOR_GREEN}$APPLY_UNIT:${COLOR_NONE} $*"
+	fi
+}
+
+
+# Usage: warning <text>
+warning()
+{
+	if [ -z "$APPLY_UNIT" ]; then
+		echo -e "\n${COLOR_BLUE}Warning:${COLOR_NONE} $*"
+	else
+		echo -e "\n${COLOR_BLUE}$APPLY_UNIT:${COLOR_NONE} $*"
+	fi
+}
+
+
+# Usage: error <text>
+error()
+{
+	if [ -z "$APPLY_UNIT" ]; then
+		echo -e "\n${COLOR_RED}Error:${COLOR_NONE} $*"
+	else
+		echo -e "\n${COLOR_RED}$APPLY_UNIT:${COLOR_NONE} $*"
+	fi
+	exit 1
+}
+
+# info "info text"
+# warning "warning text"
+# error "error text"
+
+
+
+#############################################################################
+#
+# Add directory of this "apply" script to the path if not yet there.
+#
+APPLY_DIR=${BASH_SOURCE[0]}
+APPLY_DIR=$(dirname "$APPLY_DIR")
+APPLY_DIR=$( cd -P "$( dirname "$APPLY_DIR" )" >/dev/null 2>&1 && pwd )
+echo "$PATH" | grep -q ":$APPLY_DIR" || PATH="$PATH:$APPLY_DIR"
+
+# echo "APPLY_DIR $APPLY_DIR"
+# echo "PATH $PATH"
+
+
+
+#############################################################################
+#
+# Functions for apply units
+#
+
+install_one_deb()
+{
+	local NUM
+	# shellcheck disable=SC2086
+	NUM=$(find /var/lib/dpkg/info/$1.* f 2>/dev/null | wc --lines)
+	if [ "$NUM" = 0 ]; then
+		debug "not installed: $1"
+		APPLY_DEBS+=("$1")
+	else
+		debug "already installed: $1"
+	fi
+}
+
+
+install_deb()
+{
+	APPLY_DEBS=()
+	# shellcheck disable=SC2048
+	for i in $*; do
+		install_one_deb "$i"
+	done
+	test ${#APPLY_DEBS[@]} = 0 && {
+		debug "nothing to install"
+		return
+	}
+	local CMD="apt-get -y install ${APPLY_DEBS[*]}"
+
+	# speed up installation with eatmydata
+	test -x /usr/bin/eatmydata && CMD="eatmydata $CMD"
+
+	# become root if necessary
+	test $UID = 0 || {
+		if [ -x /usr/bin/csudo ]; then
+			CMD="sudo $CMD"
+		else
+			info "Enter root password for 'su':"
+			# preserve env for the DEBIAN_FRONTEND
+			CMD="su --preserve-environment root -c \"$CMD\""
+		fi
+	}
+
+	debug "$CMD"
+	export DEBIAN_FRONTEND=noninteractive
+	eval "$CMD"
+	unset DEBIAN_FRONTEND
+}
+
+
+
+#############################################################################
+#
+# Commands
+#
+
+# Usage:
+#	./apply rename_stow OLD_NAME_OF.stow NEW_NAME_OF.stow
+rename_stow()
+{
+	# echo "*: $*"
+	# echo "1: $1"
+	# echo "2: $2"
+	# echo "3: $3"
+	test "$APPLY_DRYRUN" = 1 && {
+		info "rename '$1' '$2'"
+		exit 1
+	}
+	test -z "$1" && error "specify source directory"
+	test -z "$2" && error "specify target directory"
+	test -d "$1" || error "'$1' is not a directory"
+	test -e "$2" && error "'$2' already exists"
+
+	stow -D "$1"
+	git mv "$1" "$2"
+	stow "$2"
+}
+
+
+
+#############################################################################
+#
+# Option parsing
+#
+
+usage()
+{
+	echo "TODO: $1"
+	exit 1
+}
+
+
+while getopts ":nfd" i; do
+	case "${i}" in
+		d)
+			APPLY_DEBUG=1
+			;;
+		n)
+			APPLY_DRYRUN=1
+			;;
+		f)
+			APPLY_FORCE=1
+			;;
+		*)
+			usage "unknown option"
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+test "$#" = 0 && usage "no command / apply script"
+
+# echo "*: $*"
+# echo "#: $#"
+# echo "APPLY_FORCE: $APPLY_FORCE"
+# echo "APPLY_DRYRUN: $APPLY_DRYRUN"
+
+
+
+test "$1" = "rename_stow" && rename_stow "$2" "$3"
+
+
+
+apply_stow()
+{
+	test -z "$1" && error "must provide .stow directory to apply_stow()"
+
+	if [ -d "$1.stow" ]; then
+		# shellcheck disable=SC2086
+		stow -t / --adopt $APPLY_STOWFLAGS "$1.stow"
+	else
+		error ".stow directory doesn't exist"
+	fi
+}
+
+
+# The logic here is:
+# - if a $1 shell script exist, it is *sourced* (so it doesn't need to be executable)
+#   - The sourced script can define shell functions apply_check() and apply_run()
+#   - apply_check() is run. If it returns, further processing is abandoned
+#   - if apply_run() isn't defined, a default one is executed, that will run
+#     apply_stow() for the current $APPLY_UNIT
+run()
+{
+	APPLY_UNIT="$1"
+	APPLY_STOWFLAGS=""
+
+	# define default functions that the sourced script can override
+	apply_check()
+	{
+		true
+	}
+	apply_run()
+	{
+		true
+	}
+
+
+	# If a stamp file for this apply unit exist, we do nothing. Use "-f" flag to
+	# override this.
+	mkdir -p "$APPLY_DIR/.stamps"
+	test -e "$APPLY_DIR/.stamps/$APPLY_UNIT.stamp" && {
+		test "$APPLY_FORCE" == 1 || {
+			debug "$APPLY_UNIT: stamp exists"
+			return
+		}
+	}
+
+	# Run script if it exists
+	if [ -f "$APPLY_UNIT" ]; then
+		# source the script
+		# shellcheck disable=SC1090
+		source "$APPLY_UNIT"
+
+		# check if the script applies to us
+		apply_check || {
+			info "disabled"
+			return
+		}
+		info "started"
+
+		# should have been overridded/defined in the sourced script
+		apply_run
+
+		debug "ended"
+		touch "$APPLY_DIR/.stamps/$APPLY_UNIT.stamp"
+		exit 0
+	fi
+
+	if [ -d "$APPLY_UNIT.stow" ]; then
+		info "stowing"
+		apply_stow "$APPLY_UNIT"
+		touch "$APPLY_DIR/.stamps/$APPLY_UNIT.stamp"
+	else
+		error "neither script now stow directory found"
+	fi
+}
+
+
+# shellcheck disable=SC2048
+for f in $*; do
+	run "$f"
+done

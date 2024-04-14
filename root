@@ -1,0 +1,5 @@
+apply_run()
+{
+    apply root-apt
+    apply root-bash
+}

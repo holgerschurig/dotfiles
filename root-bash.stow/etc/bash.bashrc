@@ -78,8 +78,11 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias -- -="cd -"
 
-pro() { cd ~/d/$1 2>/dev/null || cd /usr/src/$1; test -f .env && . .env; }
+pro() { cd ~/src/$1 2>/dev/null || cd ~/d/$1 2>/dev/null || cd /usr/src/$1; test -f .env && . .env; }
 
 export LESS="-MSisch4R"
 export LESSCHARSET="utf-8"
+export EDITOR="q"
 export NO_AT_BRIDGE=1
+
+#echo "/etc/bash.bashrc"

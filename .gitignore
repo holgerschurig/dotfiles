@@ -1,3 +1,5 @@
-ssh/.ssh/id_rsa
-ssh/.ssh/id_rsa.pub
-ssh/.ssh/known_hosts
+.stamps
+base-ssh.stow/.ssh/id_rsa
+base-ssh.stow/.ssh/id_rsa.pub
+base-ssh.stow/.ssh/known_hosts
+base-ssh.stow/.ssh/authorized_keys

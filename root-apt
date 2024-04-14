@@ -1,0 +1,11 @@
+# -*- mode: shell-script -*-
+
+apply_run()
+{
+	# We cannot yet "stow" here, since "stow" is likely not yet installed. So we need to copy the file.
+	cp root-apt.stow/etc/apt/apt.conf.d/90local /etc/apt/apt.conf.d/
+
+	install_deb eatmydata stow
+
+	apply_stow "$APPLY_UNIT"
+}
