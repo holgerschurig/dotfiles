@@ -248,6 +248,15 @@ run()
 	APPLY_UNIT="${APPLY_UNIT%%/}"
 	APPLY_UNIT="${APPLY_UNIT%%.stow}"
 
+	# Make sure the "root-*" apply units are run as root, and vica verca
+	if [ "${APPLY_UNIT#root}" = "$APPLY_UNIT" ]; then
+		#debug "is a user script"
+		test $UID = 0 && error "don't run me as root"
+	else
+		#debug "is a root script"
+		test $UID = 0 || error "please run me as root"
+	fi
+
 	# define 2 default functions that the sourced script can override
 	apply_check()
 	{
