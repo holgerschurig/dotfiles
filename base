@@ -1,0 +1,4 @@
+apply_run()
+{
+    apply base-bashrc
+}
