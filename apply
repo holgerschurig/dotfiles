@@ -289,7 +289,7 @@ run()
 			info "disabled"
 			return
 		}
-		info "started"
+		info "start"
 
 		# switch into the .data directory if it exists
 		cd "$APPLY_UNIT.data" 2>/dev/null || true
@@ -297,7 +297,7 @@ run()
 		# should have been overridded/defined in the sourced script
 		apply_run
 
-		debug "ended"
+		debug "end"
 		touch "$APPLY_DIR/.stamps/$APPLY_UNIT.stamp"
 
 		# Not that we don't run the stow code below. If something should be
