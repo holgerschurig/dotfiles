@@ -109,7 +109,7 @@ install_deb()
 		install_one_deb "$i"
 	done
 	test ${#APPLY_DEBS[@]} = 0 && {
-		debug "nothing to install"
+		debug "no .deb to install"
 		return
 	}
 	local CMD="apt-get -y install ${APPLY_DEBS[*]}"
@@ -304,7 +304,7 @@ run()
 		exit 0
 	fi
 
-	error "neither script now stow directory found"
+	error "neither script nor .stow directory found"
 }
 
 
