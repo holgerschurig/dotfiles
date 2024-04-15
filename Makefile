@@ -55,13 +55,13 @@ run:
 		$(DEBIAN_RELEASE).$(ARCH).test || \
 	podman run \
 		--mount type=bind,source=.podman-downloads,destination=/var/cache/apt/archives,rw \
-		--mount type=bind,source=.,destination=/root/dotfiles,rw \
+		--mount type=bind,source=.,destination=/usr/src/dotfiles,rw \
 		--tty \
 		--interactive \
 		--hostname apply \
 		--name $(DEBIAN_RELEASE).$(ARCH).test \
 		localhost/$(DEBIAN_RELEASE).$(ARCH).debootstrap \
-		bash -c "cd /root/dotfiles; ./apply -fd root; bash -i"
+		bash -c "cd /usr/src/dotfiles; ./apply -fd root; bash -i"
 help::
 	@echo "run            create and run --- or, if already existing, re-run container"
 
