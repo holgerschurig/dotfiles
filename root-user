@@ -1,0 +1,46 @@
+# -*- mode: shell-script -*-
+
+WANTED_USERNAME=holger
+
+
+apply_check()
+{
+	# this is the hostname of the container
+	test "$HOSTNAME" = "apply"
+}
+
+
+add2group()
+{
+	grep -q "$1" /etc/group && adduser --quiet "$WANTED_USERNAME" "$1"
+}
+
+apply_run()
+{
+	grep -q $WANTED_USERNAME /etc/passwd || {
+		useradd \
+			--comment "$WANTED_USERNAME Schurig" \
+			--groups staff \
+			--create-home \
+			--shell /bin/bash \
+			"$WANTED_USERNAME"
+	}
+
+	# --password '$6$Ab73t3kT$0lo1oPrk90jtOAId4mKUkT86Rt4393/kMVnoaFw5aIgYA8e4y8vbNpTyq02TDky6Mn1VkRTICMoB7RKclr9mv0' \
+
+	# This groups don't exist in Docker/Podman, but outside. Make sure the user is added to them.
+	add2group dialout
+	add2group cdrom
+	add2group floppy
+	add2group audio
+	add2group dip
+	add2group plugdev
+	add2group video
+	add2group render
+	add2group input
+	add2group render
+	add2group systemd-journal
+
+	# Make sure the user account can create stamp files here
+	chmod a+rwX "$APPLY_DIR/.stamps"
+}

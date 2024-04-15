@@ -19,4 +19,7 @@ apply_run()
     # Install misc tools that I always want. Then tools with their own config:
     apply root-aptitude
     apply root-sudo
+
+    # Finally make sure the desired user exists as is in the right groups
+    apply root-user
 }
