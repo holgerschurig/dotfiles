@@ -111,4 +111,5 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-PATH="$HOME/.local/bin:$HOME/.nimble/bin:$PATH"
+
+PATH="$HOME/.local/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$PATH"
