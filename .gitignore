@@ -1,3 +1,5 @@
+?
+debootstrap.*.gz
 .stamps
 .podman-downloads
 base-ssh.stow/.ssh/id_rsa
