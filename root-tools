@@ -1,0 +1,15 @@
+# -*- mode: shell-script -*-
+
+
+apply_run()
+{
+	install_deb \
+		bash-completion \
+		deborphan \
+		file \
+		foot-terminfo \
+		less \
+		pciutils \
+		rsync \
+		wget
+}
