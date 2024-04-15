@@ -270,6 +270,7 @@ run()
 
 	# Run script if it exists
 	if [ -f "$APPLY_UNIT" ]; then
+
 		# source the script
 		# shellcheck disable=SC1090
 		source "$APPLY_UNIT"
@@ -280,6 +281,9 @@ run()
 			return
 		}
 		info "started"
+
+		# switch into the .data directory if it exists
+		cd "$APPLY_UNIT.data" 2>/dev/null || true
 
 		# should have been overridded/defined in the sourced script
 		apply_run
