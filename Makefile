@@ -72,5 +72,6 @@ help::
 del:
 	@test $(UID) != 0 || { echo "\n---> Not as root, dude! ($@)\n"; exit 1; }
 	podman rm --ignore --force bookworm.amd64.test
+	rm -f .stamps/*.stamp
 help::
 	@echo "del            delete container (so that next run will start afresh)"
