@@ -8,6 +8,20 @@ APPLY_DRYRUN=0
 export APPLY_DEBUG=${APPLY_DEBUG:-0}
 
 
+# Add directory of this "apply" script to the path if not yet there.
+APPLY_DIR=${BASH_SOURCE[0]}
+#echo "1: APPLY_DIR $APPLY_DIR"
+APPLY_DIR=$(realpath "$APPLY_DIR")
+#echo "2: APPLY_DIR $APPLY_DIR"
+APPLY_DIR=$(dirname "$APPLY_DIR")
+#echo "3: APPLY_DIR $APPLY_DIR"
+cd "$APPLY_DIR" || true
+
+echo "$PATH" | grep -q ":$APPLY_DIR" || PATH="$PATH:$APPLY_DIR"
+#echo "PATH $PATH"
+
+
+
 #############################################################################
 #
 # Emit colorful messages
@@ -65,20 +79,6 @@ error()
 # info "info text"
 # warning "warning text"
 # error "error text"
-
-
-
-#############################################################################
-#
-# Add directory of this "apply" script to the path if not yet there.
-#
-APPLY_DIR=${BASH_SOURCE[0]}
-APPLY_DIR=$(dirname "$APPLY_DIR")
-APPLY_DIR=$( cd -P "$( dirname "$APPLY_DIR" )" >/dev/null 2>&1 && pwd )
-echo "$PATH" | grep -q ":$APPLY_DIR" || PATH="$PATH:$APPLY_DIR"
-
-# echo "APPLY_DIR $APPLY_DIR"
-# echo "PATH $PATH"
 
 
 
