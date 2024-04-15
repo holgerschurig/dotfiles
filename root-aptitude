@@ -1,0 +1,9 @@
+# -*- mode: shell-script -*-
+
+
+apply_run()
+{
+	install_deb aptitude
+
+	apply_stow "$APPLY_UNIT"
+}

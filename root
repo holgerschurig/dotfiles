@@ -16,6 +16,7 @@ apply_run()
     # Install misc tools that I always want. First tools without special configs:
     apply root-tools
 
-    # Install misc tools that I always want. Then tools with their own config
+    # Install misc tools that I always want. Then tools with their own config:
+    apply root-aptitude
     apply root-sudo
 }
