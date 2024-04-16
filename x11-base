@@ -1,0 +1,17 @@
+# -*- mode: shell-script -*-
+
+
+apply_run()
+{
+	apply x11
+
+	install_deb \
+		xserver-common \
+		xserver-xorg-core \
+		xserver-xorg-video-intel \
+		xserver-xorg-input-evdev \
+		x11-utils \
+		x11-xserver-utils \
+		xinput \
+		xinit
+}
