@@ -1,0 +1,8 @@
+apply_run()
+{
+    apply wayland-dunst        # notifications
+    apply wayland-foot         # terminal emulation
+    apply wayland-wofi         # application launcher
+    apply wayland-ironbar      # sidebar
+    apply wayland-hyprland     # compositor
+}
