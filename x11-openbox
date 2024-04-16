@@ -1,0 +1,7 @@
+# -*- mode: shell-script -*-
+
+
+apply_run()
+{
+	install_deb openbox
+}
