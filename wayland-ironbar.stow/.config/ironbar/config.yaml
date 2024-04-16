@@ -1,0 +1,123 @@
+anchor_to_edges: true
+position: top
+autohide: 5
+start_hidden: true
+
+start:
+
+
+# https://github.com/JakeStanger/ironbar/wiki/workspaces
+- type: workspaces
+  all_monitors: false
+  sort: alphanumeric
+  name_map:
+    '1': 
+    '2': 
+    '3': 
+    '4': 
+    '5': 
+    '6': 
+    '7': 
+    '8': 
+
+
+
+center:
+
+# https://github.com/JakeStanger/ironbar/wiki/launcher
+- type: launcher
+  icon_size: 24
+  show_names: false
+  show_icons: true
+
+
+
+end:
+
+
+- type: volume
+  format: '{icon} {percentage}%'
+  max_volume: 100
+  icons:
+    volume_high: 
+    volume_medium: 
+    volume_low: 
+    muted: 
+
+
+- bar:
+  - on_click: popup:toggle
+    label: 
+    name: sysinfo-btn
+    type: button
+  class: sys-info
+  popup:
+  - orientation: vertical
+    type: box
+    widgets:
+    - type: label
+      label: System Info
+      name: header
+    - type: label
+      label: ' {{cut -f1-3 -d " " /proc/loadavg}}'
+      name: loadavg
+    - type: box
+      widgets:
+      - type: button
+        class: power-btn
+        on_click: '!shutdown now'
+        label: <span font-size='24pt'></span>
+      - type: button
+        class: power-btn
+        on_click: '!reboot'
+        label: <span font-size='24pt'></span>
+    - type: label
+      label: 'Uptime: {{30000:uptime -p | cut -d '' '' -f2-}}'
+      name: uptime
+  type: custom
+
+# https://github.com/JakeStanger/ironbar/wiki/custom
+# - type: custom
+#   class: power-menu
+#   bar:
+#   - type: button
+#     name: power-btn
+#     label: 
+#     on_click: popup:toggle
+#   popup:
+#   - type: box
+#     orientation: vertical
+#     widgets:
+#     - type: label
+#       name: header
+#       label: Power menu
+#     - type: box
+#       widgets:
+#       - type: button
+#         class: power-btn
+#         label: <span font-size='40pt'></span>
+#         on_click: '!shutdown now'
+#       - type: button
+#         class: power-btn
+#         label: <span font-size='40pt'></span>
+#         on_click: '!reboot'
+#     - type: label
+#       name: uptime
+#       label: 'Uptime: {{30000:uptime -p | cut -d '' '' -f2-}}'
+#   tooltip: 'Up: {{30000:uptime -p | cut -d '' '' -f2-}}'
+
+
+# https://github.com/JakeStanger/ironbar/wiki/clock
+- type: clock
+  format: "%H:%M"
+
+
+# - type: notifications
+#   show_count: true
+#   icons:
+#     closed_none: 󰍥
+#     closed_some: 󱥂
+#     closed_dnd: 󱅯
+#     open_none: 󰍡
+#     open_some: 󱥁
+#     open_dnd: 󱅮
