@@ -3,13 +3,6 @@
 WANTED_USERNAME=holger
 
 
-apply_check()
-{
-	# this is the hostname of the container
-	test "$HOSTNAME" = "apply"
-}
-
-
 add2group()
 {
 	grep -q "$1" /etc/group && adduser --quiet "$WANTED_USERNAME" "$1"
