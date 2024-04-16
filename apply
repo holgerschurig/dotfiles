@@ -135,6 +135,38 @@ install_deb()
 }
 
 
+apply_stow()
+{
+	test -z "$1" && error "must provide .stow directory to apply_stow()"
+
+	# Let stow operate either on the / directory or the user's home directory:
+	if [ -d "$1.stow" ]; then
+
+		if [ "$UID" = 0 ]; then
+			APPLY_ROOT="/"
+		else
+			APPLY_ROOT="$HOME"
+		fi
+
+		# Remove all files that stow would install
+		(
+			# shellcheck disable=SC2164
+			cd "$APPLY_UNIT.stow"
+			find . -type f
+		) | (
+			cd "$APPLY_ROOT" || true
+			xargs rm -fv
+		)
+
+		# shellcheck disable=SC2086
+		stow -t "$APPLY_ROOT" $APPLY_STOWFLAGS "$1.stow"
+	else
+		error ".stow directory doesn't exist"
+	fi
+}
+
+
+
 
 #############################################################################
 #
@@ -206,37 +238,6 @@ test "$#" = 0 && usage "no command / apply script"
 
 test "$1" = "rename_stow" && rename_stow "$2" "$3"
 
-
-
-apply_stow()
-{
-	test -z "$1" && error "must provide .stow directory to apply_stow()"
-
-	# Let stow operate either on the / directory or the user's home directory:
-	if [ -d "$1.stow" ]; then
-
-		if [ "$UID" = 0 ]; then
-			APPLY_ROOT="/"
-		else
-			APPLY_ROOT="$HOME"
-		fi
-
-		# Remove all files that stow would install
-		(
-			# shellcheck disable=SC2164
-			cd "$APPLY_UNIT.stow"
-			find . -type f
-		) | (
-			cd "$APPLY_ROOT" || true
-			xargs rm -fv
-		)
-
-		# shellcheck disable=SC2086
-		stow -t "$APPLY_ROOT" $APPLY_STOWFLAGS "$1.stow"
-	else
-		error ".stow directory doesn't exist"
-	fi
-}
 
 
 # The logic here is:
