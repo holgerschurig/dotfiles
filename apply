@@ -278,6 +278,7 @@ run()
 	# If a stamp file for this apply unit exist, we do nothing. Use "-f" flag to
 	# override this.
 	mkdir -p "$APPLY_DIR/.stamps"
+	chmod a+rwX "$APPLY_DIR/.stamps"
 	test -e "$APPLY_DIR/.stamps/$APPLY_UNIT.stamp" && {
 		test "$APPLY_FORCE" == 1 || {
 			debug "$APPLY_UNIT: stamp exists"

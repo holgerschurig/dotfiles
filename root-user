@@ -40,7 +40,5 @@ apply_run()
 	add2group input
 	add2group render
 	add2group systemd-journal
-
-	# Make sure the user account can create stamp files here
-	chmod a+rwX "$APPLY_DIR/.stamps"
+	add2group sudo
 }
