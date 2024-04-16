@@ -1,0 +1,261 @@
+#+AUTHOR: Holger Schurig
+#+OPTIONS: ^:nil
+#+MACRO: relref @@hugo:[@@ $1 @@hugo:]({{< relref "$2" >}})@@
+
+* Dotfiles (and setup)
+:PROPERTIES:
+:EXPORT_HUGO_SECTION: en
+:EXPORT_FILE_NAME: en/dotfiles.md
+:EXPORT_DATE: 2024-04-16
+:EXPORT_HUGO_TAGS: linux
+:EXPORT_HUGO_CATEGORIES: config
+:END:
+
+Normally dotfile repositories contain:
+
+- *configuration*
+
+This dotfiles project also allow you to:
+
+- *group* the configurations
+- install only a *select configs*
+- can *disable* installation (e.g. battery support not on Desktop)
+- *install* Debian packages
+- *run* shell scripts
+
+It is therefore a step into the "reproducible build" direction.
+
+#+hugo: more
+
+You find the project at https://github.com/holgerschurig/dotfiles
+
+#+toc: headlines 3
+
+** Nomenclature
+
+- apply unit :: installs or executes shell scripts: config files, Debian
+  packages, other apply units. Example: "=wayland-wofi=", "=x11-openbox=". You
+  start installation of them with the "=./apply=" script: "./apply
+  wayland-wofi=". Can have one (or all) of the this: apply script, stow
+  directory, data directory.
+
+- apply script :: can disable the apply unit based on shell script logic. Use
+  this to install some things only on some computers. But more importantly, it
+  can execute arbitrary shell commands. Use this if installing a config file
+  would be cumbersome, e.g. to add a user to a specific group. We don't want
+  to put "=group=" and "=gshadow=" for that into this project and overwrite
+  the system ones --- wouldn't work if some Debian package also create groups!
+
+- "=.stow=" directory :: contain configuration files that are installed using
+  [[https://www.gnu.org/software/stow/][GNU stow]].
+
+- "=.data=" directory :: contain other data files that you want to handle
+  without [[https://www.gnu.org/software/stow/][GNU stow]]. Usually because because applications like "=sudo=" will barf
+  on config files that are symlinks.
+
+** Stow directories
+
+The "=*.stow=" directories contain file system trees. With the help of [[https://www.gnu.org/software/stow/][GNU stow]] they
+are copied to either "=/=" or "=$HOME=". But ... actually GNU stow doesn't copy them.
+That would create redundancy. Instead it symlinks them. Let's give you an example:
+
+The directory [[https://github.com/holgerschurig/dotfiles/tree/master/wayland-ironbar][wayland-ironbar]] contains this tree:
+
+#+begin_example
+$ find wayland-ironbar.stow/
+wayland-ironbar.stow/
+wayland-ironbar.stow/.config
+wayland-ironbar.stow/.config/ironbar
+wayland-ironbar.stow/.config/ironbar/config.yaml
+wayland-ironbar.stow/.config/ironbar/style.css
+#+end_example
+
+When you run
+
+#+begin_example
+$ ./apply wayland-ironbar
+#+end_example
+
+The following files will be created:
+
+#+begin_example
+$ ls -lR ~/.config/ironbar
+/home/holger/.config/ironbar:
+total 8
+lrwxrwxrwx 1 holger holger 63 Apr 16 11:28 config.yaml -> ../../dotfiles/wayland-ironbar.stow/.config/ironbar/config.yaml
+lrwxrwxrwx 1 holger holger 61 Apr 16 11:28 style.css -> ../../dotfiles/wayland-ironbar.stow/.config/ironbar/style.css
+#+end_example
+
+So Ironbar can access it's config.yaml file just as normal. But in reality they continue to exist in the "=dotfiles/wayland-ironbar/=" directory.
+
+This is nice, because if you now change "=~/.config/ironbar/config.yaml=" you
+see in the dotfiles project (via git) that and what you changed. And then you
+can commit this, never ever forgetting to commit and push your changes.
+
+** Apply scripts
+
+For each apply unit, you can have an optional shell script. These scripts are
+sourced from the "=apply=" script. So they aren't executable by themselves. They
+can however access any function / variable defined in "=apply=".
+
+The idea here is that the scripts can define two functions:
+
+*** apply_check()
+
+This function checks if the apply unit should be executed at all.
+
+For example, to make an apply unit only run in the Podman container with the
+hostname "apply", we can do this:
+
+#+begin_example
+apply_check()
+{
+        # "apply" is the hostname of the container
+        test "$HOSTNAME" = "apply"
+}
+#+end_example
+
+If "=apply_check()=" returns false, the whole apply unit will not be applied.
+
+*** apply_run()
+
+The other function you can define is "=apply_run()". Everything in it is executed if
+"=apply_check()=" is missong or returns true.
+
+Usually you use that to install Debian packages. Or to add a user to some group.
+Or to install files that you cannot stow (e.g. because a program would ignore
+symlinks, see [[data][Data directories]]).
+
+Here is an example:
+
+#+begin_example
+apply_run()
+{
+    apt-get install -y openbox
+}
+#+end_example
+
+I have some apply units that are used to group others. For example, the "=root="
+apply unit applies lots of others:
+
+#+begin_example
+apply_run()
+{
+    apply root-apt
+    apply root-bash
+    apply root-inputrc
+    apply root-joe
+    apply root-tools
+    apply root-aptitude
+    apply root-sudo
+    apply root-user
+}
+#+end_example
+
+So running "=./apply root=" will apply all of these apply units to the system.
+
+** Data directories<<data>>
+
+A few programs check their config files. E.g. "=sudo=" will ignore a "=sudoers="
+file if it doesn't have a suitable permission. Or if it is a symlink. That not
+really compatible with [[https://www.gnu.org/software/stow/][GNU stow]], so we need a workaround.
+
+#+begin_example
+apply_run()
+{
+   # So we use "install" for this :-)
+   # note that if a .data file exists, then ./apply will automatically switch into it
+   install -m644 -o0 -g0 sudoers /etc/sudoers
+}
+#+end_example
+
+This "=sudoers=" file is then taken from "=root-sudo.data/sudoers=".
+
+Note that the source parameter of the "=install=" command didn't specify a
+directory. This works because "=./apply=" cd'ed into this directory before
+running the apply script.
+
+** Usable variables and functions
+
+"=apply=" defines several variables and functions useful for apply scripts:
+
+*** $APPLY_UNIT
+
+If you run "=./apply root-sudo=" then "=$APPLY_UNIT=" will be set to "=root-sudo=".
+
+*** $APPLY_DIR
+
+This contains the directory of where the "=apply=" script resides, e.g. "=/home/schurig/dotfiles=".
+
+*** $APPLY_FORCE
+
+Set to "1" if you call "=apply=" with the "=-f=" command line switch. Otherwise "0". Used if an apply
+unit is called another time (basically making it ignore stamp files in the "=.stamps=" directory).
+
+*** $APPLY_DEBUG
+
+Set to "1" if you call "=apply=" with the "=-d=" command line switch. Otherwise "0".
+
+*** debug()
+
+Usage is like echo:
+
+#+begin_example
+debug "This is a test, APPLY_DIR is $APPLY_DIR"
+#+end_example
+
+However, the text is only emitted if "=apply=" is called with the "=-d=" command line switch.
+
+*** info()
+
+Usage is like echo, too.
+
+However, the text is shown with a green "Info: " prefix to make it stand out.
+
+*** warning()
+
+Usage is like echo, too.
+
+However, the text is shown with a blue "Warning: " prefix to make it stand out.
+
+*** error()
+
+Usage is like echo, too.
+
+However, the text is shown with a red "Error: " prefix to make it stand out.
+
+Also, "=apply=" is automatically aborted with an error level of 1.
+
+*** install_deb()
+
+Installs Debian packages. It is however a bit faster than normal "=apt-get=" in finding
+out if the package is already installed, since it checks files in "=/var/lib/dpkg/info/=" first. "=apt-get="
+first loads the complete package cache.
+
+"=install_deb()=" also uses "=eatmydata=" to make installation MUCH faster. This
+basically turns off all the "=sync(2)" calls.
+
+And finally, should you run "=./apply=" as user, then it will use "=sudo=" to
+become root for the actual installation.
+
+Example:
+
+#+begin_example
+apply_run()
+{
+    install_deb \
+        xserver-common \
+        xserver-xorg-core \
+        xserver-xorg-video-intel \
+        xserver-xorg-input-evdev \
+        x11-utils \
+        x11-xserver-utils \
+        xinput \
+        xinit
+}
+#+end_example
+
+*** apply_stow()<<applystow>>
+
+This calls either "=stow -t /=" or "=stow -t $HOME=", depending if we execute a
+root or user apply unit.
