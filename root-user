@@ -5,13 +5,13 @@ WANTED_USERNAME=holger
 
 add2group()
 {
-	grep -q "$1" /etc/group && adduser --quiet "$WANTED_USERNAME" "$1"
+	grep -q "$1" /etc/group && /usr/sbin/adduser --quiet "$WANTED_USERNAME" "$1"
 }
 
 apply_run()
 {
 	grep -q $WANTED_USERNAME /etc/passwd || {
-		useradd \
+		/usr/sbin/useradd \
 			--comment "$WANTED_USERNAME Schurig" \
 			--groups staff \
 			--create-home \
