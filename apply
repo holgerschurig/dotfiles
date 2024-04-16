@@ -232,7 +232,7 @@ apply_stow()
 		)
 
 		# shellcheck disable=SC2086
-		stow -t "$APPLY_ROOT" -vvvv $APPLY_STOWFLAGS "$1.stow"
+		stow -t "$APPLY_ROOT" $APPLY_STOWFLAGS "$1.stow"
 	else
 		error ".stow directory doesn't exist"
 	fi
