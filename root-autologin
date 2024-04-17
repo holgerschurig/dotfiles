@@ -1,0 +1,6 @@
+# -*- mode: shell-script -*-
+
+apply_check()
+{
+	test "$HOSTNAME" = "laptop"
+}
