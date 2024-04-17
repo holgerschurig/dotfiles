@@ -25,4 +25,7 @@ apply_run()
 
     # Run local scripts, e.g. limit battery charging
     apply root-rclocal
+
+    # An empty "message of the day" is all I need
+    apply root-motd
 }
