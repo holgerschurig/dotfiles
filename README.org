@@ -18,8 +18,8 @@ Normally dotfile repositories contain:
 This dotfiles project also allow you to:
 
 - *group* the configurations
-- install only a *select configs*
-- can *disable* installation (e.g. battery support not on Desktop)
+- install only a *subset* of configs
+- can *disable* configs (e.g. no battery support on Desktop)
 - *install* Debian packages
 - *run* shell scripts
 
