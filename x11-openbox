@@ -3,5 +3,11 @@
 
 apply_run()
 {
-	install_deb openbox
+	install_deb \
+		alacritty \
+		lxpanel \ 
+		openbox \
+		scrot
+
+	apply_stow "$APPLY_UNIT"
 }
