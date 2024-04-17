@@ -22,4 +22,7 @@ apply_run()
 
     # Finally make sure the desired user exists as is in the right groups
     apply root-user
+
+    # Run local scripts, e.g. limit battery charging
+    apply root-rclocal
 }

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Limit battery charging to 80%
+if [ -w /sys/class/power_supply/BAT0/charge_control_end_threshold ]; then
+	echo 80 >/sys/class/power_supply/BAT0/charge_control_end_threshold
+fi
