@@ -286,6 +286,12 @@ run()
 		}
 	}
 
+	# Run Makefile if it exists
+	if [ -f "$APPLY_UNIT.build/Makefile" ]; then
+		make --no-print-directory -C "$APPLY_UNIT.build" all
+		exit 99
+	fi
+
 	# Run script if it exists
 	if [ -f "$APPLY_UNIT" ]; then
 
