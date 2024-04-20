@@ -6,7 +6,7 @@
 APPLY_FORCE=0
 APPLY_DRYRUN=0
 export APPLY_DEBUG=${APPLY_DEBUG:-0}
-
+APPLY_ARCH=$(dpkg-architecture -qDEB_BUILD_ARCH)
 
 # Add directory of this "apply" script to the path if not yet there.
 APPLY_DIR=${BASH_SOURCE[0]}
@@ -91,7 +91,7 @@ install_one_deb()
 {
 	local NUM
 	# shellcheck disable=SC2086
-	NUM=$(find /var/lib/dpkg/info/$1.* f 2>/dev/null | wc --lines)
+	NUM=$(find /var/lib/dpkg/info/$1.* /var/lib/dpkg/info/$1:$APPLY_ARCH.* 2>/dev/null | wc --lines)
 	if [ "$NUM" = 0 ]; then
 		debug "not installed: $1"
 		APPLY_DEBS+=("$1")
@@ -101,6 +101,8 @@ install_one_deb()
 }
 
 
+# Usage:
+#	install_deb DEB [DEB ...]
 install_deb()
 {
 	APPLY_DEBS=()
@@ -119,7 +121,7 @@ install_deb()
 
 	# become root if necessary
 	test $UID = 0 || {
-		if [ -x /usr/bin/csudo ]; then
+		if [ -x /usr/bin/sudo ]; then
 			CMD="sudo $CMD"
 		else
 			info "Enter root password for 'su':"
@@ -135,6 +137,8 @@ install_deb()
 }
 
 
+# Usage:
+#	apply_stow STOW-DIRECTORY
 apply_stow()
 {
 	test -z "$1" && error "must provide .stow directory to apply_stow()"
@@ -166,6 +170,16 @@ apply_stow()
 }
 
 
+# Usage:
+#   apply_compile BUILD-DIRECTORY [BUILD-TARGET]
+apply_compile()
+{
+	test -z "$1" && error "must provide .build directory to apply_compile()"
+	test -f "$1/Makefile" || error "directory $1 does not exist"
+
+	local TARGET="${2-all}"
+	make -C "$1" "$TARGET"
+}
 
 
 #############################################################################
@@ -286,12 +300,6 @@ run()
 		}
 	}
 
-	# Run Makefile if it exists
-	if [ -f "$APPLY_UNIT.build/Makefile" ]; then
-		make --no-print-directory -C "$APPLY_UNIT.build" all
-		exit 99
-	fi
-
 	# Run script if it exists
 	if [ -f "$APPLY_UNIT" ]; then
 
@@ -320,7 +328,10 @@ run()
 		exit 0
 	fi
 
-	# But maybe we have something to stow?
+	# Maybe we have something to stow?
+	test -f "$APPLY_UNIT.build/Makefile" && apply_compile "$APPLY_UNIT.build" all
+
+	# Maybe we have something to stow?
 	if [ -d "$APPLY_UNIT.stow" ]; then
 		info "stowing"
 		apply_stow "$APPLY_UNIT"

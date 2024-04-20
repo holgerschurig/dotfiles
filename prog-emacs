@@ -1,0 +1,57 @@
+# -*- mode: shell-script -*-
+
+
+
+apply_run()
+{
+	install_deb \
+		build-essential \
+		\
+		autoconf \
+		automake \
+		bsd-mailx \
+		ca-certificates \
+		dbus-x11 \
+		git \
+		gnupg-agent \
+		imagemagick \
+		libacl1-dev \
+		libasound2-dev \
+		libcairo2-dev \
+		libdbus-1-dev \
+		libgccjit-12-dev \
+		libgif-dev \
+		libgmp-dev \
+		libgnutls28-dev \
+		libgtk-3-dev \
+		libharfbuzz-dev \
+		libjansson-dev \
+		libjpeg-dev \
+		liblcms2-dev \
+		liblockfile-dev \
+		libm17n-dev \
+		libncurses-dev \
+		libotf-dev \
+		libpng-dev \
+		librsvg2-dev \
+		libsqlite3-dev \
+		libsystemd-dev \
+		libtiff-dev \
+		libtree-sitter-dev \
+		libwebp-dev \
+		libxaw7-dev \
+		libxml2-dev \
+		procps \
+		sharutils \
+		texinfo \
+		xaw3dg-dev \
+		zlib1g-dev
+
+	# Check if we want these packages:
+	#		libgpm-dev [linux-any] \
+	#		libselinux1-dev [linux-any] \
+	# Check to find out why ./configure says "Does Emacs use imagemagick?                             no"
+
+	apply_compile "$APPLY_UNIT.build"
+	exit 98
+}

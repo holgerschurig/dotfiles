@@ -36,7 +36,7 @@ emacs.git/configure: emacs.git/.git/HEAD
 	@test $(UID) != 0 || { echo "\n---> Not as root, dude! ($@)\n"; exit 1; }
 	cd emacs.git; ./autogen.sh
 
-confemacs emacs.git/Makefile: emacs.git/configure
+configure emacs.git/Makefile: emacs.git/configure
 	@test $(UID) != 0 || { echo "\n---> Not as root, dude! ($@)\n"; exit 1; }
 	cd emacs.git; \
 	./configure \
@@ -77,13 +77,13 @@ confemacs emacs.git/Makefile: emacs.git/configure
 		CPPFLAGS='-Wdate-time -D_FORTIFY_SOURCE=2' \
 		LDFLAGS='-Wl,-z,relro'
 help::
-	@echo "make confemacs        configure Emacs"
+	@echo "make configure        configure Emacs"
 
 
 
 compile emacs.git/src/emacs: emacs.git/Makefile
 	@test $(UID) != 0 || { echo "\n---> Not as root, dude! ($@)\n"; exit 1; }
-	$(MAKE) --no-print-directory $(MFLAGS) -C emacs.git -j $(shell nproc --ignore 4)
+	$(MAKE) --no-print-directory $(MFLAGS) -C emacs.git -j $(shell nproc --ignore 2)
 help::
 	@echo "make compile          compile Emacs from source"
 
