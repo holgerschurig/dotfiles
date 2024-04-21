@@ -11,6 +11,7 @@ apply_run()
 		less \
 		pciutils \
 		plocate \
+		ripgrep \
 		rsync \
 		wget
 }
