@@ -51,6 +51,7 @@
 [log]
 	date = iso
 [pager]
+	diff = false
 	branch = false
 	tag = false
 [push]
