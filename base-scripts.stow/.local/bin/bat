@@ -1,0 +1,11 @@
+#!/bin/sh
+
+cat test -f /sys/class/power_supply/BAT0/uevent 2>/dev/null || { echo "no battery found"; exit 1; }
+
+source /sys/class/power_supply/BAT0/uevent
+
+
+
+test -z "$POWER_SUPPLY_CAPACITY" && { echo "no capacity known"; exit 1; }
+
+echo "Remaining capacity: $POWER_SUPPLY_CAPACITY"
