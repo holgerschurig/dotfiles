@@ -5,7 +5,6 @@ help::
 # Used to protect some makefile targets to be run as root. Or to elevate to root
 # for those things where this is needed (e.g. installing)
 UID := $(shell id -u)
-PWD := $(shell pwd)
 NPROC := $(shell nproc --ignore 8)
 
 
@@ -175,7 +174,5 @@ help::
 	@echo "make cleansource      clean Hyprland' source tree"
 
 
-
-# all: /usr/local/bin/emacs
 
 all: hyprland.git/build/Hyprland
