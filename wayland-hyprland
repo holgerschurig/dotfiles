@@ -4,8 +4,32 @@
 
 apply_run()
 {
+	# Check which programs are called from startup or bindings:
+	# cd wayland-hyprland.stow/.config/hypr; grep -h exec * | grep -v ^#
+
+	# Terminal program
 	apply wayland-foot
+
+	# Notification
 	apply wayland-dunst
+
+	# Application launcher
+	apply wayland-wofi
+
+	# Screenshot tool
+	install_deb flameshot
+
+	# Color picker
+	apply wayland-hyprpicker
+
+	# Screen locking tool
+	install_deb swaylock
+
+	# Sound control
+	install_deb pavucontrol pamixer
+
+	# Clipboard support
+	install_deb wl-clipboard
 
 	install_deb \
 		cmake \
@@ -15,11 +39,9 @@ apply_run()
 		xwayland \
 		xdg-desktop-portal-wlr \
 		xdg-desktop-portal-gtk \
-		pavucontrol \
 		pulseaudio-utils \
 		pipewire \
 		polkitd \
-		swaylock \
 		wl-clipboard \
 		\
 		libdisplay-info-dev \
