@@ -1,0 +1,36 @@
+# -*- mode: shell-script -*-
+
+
+
+apply_run()
+{
+	install_deb \
+		cmake \
+		hwdata \
+		meson \
+		ninja-build \
+		xwayland \
+		\
+		libdisplay-info-dev \
+		libdrm-dev \
+		libgbm-dev \
+		libinput-dev \
+		libliftoff-dev \
+		libseat-dev \
+		libtomlplusplus-dev \
+		libudev-dev \
+		libxcb-composite0-dev \
+		libxcb-ewmh-dev \
+		libxcb-icccm4-dev \
+		libxcb-res0-dev \
+		libxcb-util-dev \
+		libxcb-xfixes0-dev \
+		libzip-dev
+
+	apply_compile "$APPLY_UNIT.build"
+
+	mkdir -p ~/.config/hypr
+	apply_stow "$APPLY_UNIT"
+
+	exit 98
+}
