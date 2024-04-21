@@ -1,0 +1,13 @@
+# -*- mode: shell-script -*-
+
+
+
+apply_run()
+{
+	install_deb foot
+
+	mkdir -p ~/.config/foot
+	apply_stow "$APPLY_UNIT"
+
+	exit 98
+}
