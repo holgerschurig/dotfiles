@@ -4,12 +4,23 @@
 
 apply_run()
 {
+	apply wayland-foot
+	apply wayland-dunst
+
 	install_deb \
 		cmake \
 		hwdata \
 		meson \
 		ninja-build \
 		xwayland \
+		xdg-desktop-portal-wlr \
+		xdg-desktop-portal-gtk \
+		pavucontrol \
+		pulseaudio-utils \
+		pipewire \
+		polkitd \
+		swaylock \
+		wl-clipboard \
 		\
 		libdisplay-info-dev \
 		libdrm-dev \
