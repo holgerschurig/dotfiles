@@ -8,7 +8,7 @@ set -euo pipefail
 APPLY_FORCE=0
 APPLY_DRYRUN=0
 export APPLY_DEBUG=${APPLY_DEBUG:-0}
-APPLY_ARCH=$(dpkg-architecture -qDEB_BUILD_ARCH)
+APPLY_ARCH=$(dpkg-architecture -qDEB_BUILD_ARCH 2>&1 || echo amd64)
 
 # Add directory of this "apply" script to the path if not yet there.
 APPLY_DIR=${BASH_SOURCE[0]}
