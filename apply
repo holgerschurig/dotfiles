@@ -304,7 +304,7 @@ run()
 		}
 	}
 
-	# Run script if it exists
+	# Run script if it exists. Exit afterwards, because 'te script is 'de boss!
 	if [ -f "$APPLY_UNIT" ]; then
 
 		# source the script
@@ -333,18 +333,26 @@ run()
 	fi
 
 	# Maybe we have something to stow?
-	test -f "$APPLY_UNIT.build/Makefile" && apply_compile
+	local DONE=0
+	if [ -f "$APPLY_UNIT.build/Makefile" ]; then
+		apply_compile
+		DONE=1
+	fi
 
 	# Maybe we have something to stow?
 	if [ -d "$APPLY_UNIT.stow" ]; then
 		info "stowing"
 		apply_stow "$APPLY_UNIT"
+		DONE=1
+	fi
+
+	if [ "$DONE" = "1" ]; then
 		touch "$APPLY_DIR/.stamps/$APPLY_UNIT.stamp"
 		debug "done"
 		return
 	fi
 
-	error "neither script nor .stow directory found"
+	test "$DONE" = "0" && error "bbo script, stow or build Makefile found"
 }
 
 # shellcheck disable=SC2048
