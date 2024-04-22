@@ -176,14 +176,16 @@ apply_stow()
 
 
 # Usage:
-#   apply_compile BUILD-DIRECTORY [BUILD-TARGET]
+#   apply_compile [BUILD-DIRECTORY] [BUILD-TARGET]
 apply_compile()
 {
-	test -z "$1" && error "must provide .build directory to apply_compile()"
-	test -f "$1/Makefile" || error "directory $1 does not exist"
-
+	local DIRECTORY="${1:-$APPLY_UNIT.build}"
 	local TARGET="${2-all}"
-	make -C "$1" "$TARGET"
+
+	test -d "$DIRECTORY" || error "directory $DIRECTORY does not exist"
+	test -f "$DIRECTORY/Makefile" || error "directory $DIRECTORY has no Makefile"
+
+	make -C "$DIRECTORY" "$TARGET"
 }
 
 
@@ -334,7 +336,7 @@ run()
 	fi
 
 	# Maybe we have something to stow?
-	test -f "$APPLY_UNIT.build/Makefile" && apply_compile "$APPLY_UNIT.build" all
+	test -f "$APPLY_UNIT.build/Makefile" && apply_compile
 
 	# Maybe we have something to stow?
 	if [ -d "$APPLY_UNIT.stow" ]; then

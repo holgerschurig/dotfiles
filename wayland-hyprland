@@ -64,7 +64,7 @@ apply_run()
 		libxcb-xfixes0-dev \
 		libzip-dev
 
-	apply_compile "$APPLY_UNIT.build"
+	apply_compile
 
 	mkdir -p ~/.config/hypr
 	apply_stow "$APPLY_UNIT"

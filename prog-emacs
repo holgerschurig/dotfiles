@@ -52,5 +52,5 @@ apply_run()
 	#		libselinux1-dev [linux-any] \
 	# Check to find out why ./configure says "Does Emacs use imagemagick?                             no"
 
-	apply_compile "$APPLY_UNIT.build"
+	apply_compile
 }
