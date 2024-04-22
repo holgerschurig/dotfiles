@@ -94,6 +94,7 @@ compcursor hyprcursor.git/build/hyprcursor.pc: hyprcursor.git/.git/HEAD /usr/loc
 	@test $(UID) != 0 || { echo "\n---> Not as root, dude! ($@)\n"; exit 1; }
 	cd hyprcursor.git; cmake -B build
 	cd hyprcursor.git; cmake --build build -j
+	touch --no-create hyprcursor.git/build/hyprcursor.pc
 help::
 	@echo "make compcursor       compile hyprcursor library from source"
 
