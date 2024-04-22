@@ -4,4 +4,4 @@
 pgrep -f hyprland >/dev/null && exit
 
 rm -rf /tmp/hypr
-exec /usr/local/bin/hyprland
+exec /usr/local/bin/Hyprland
