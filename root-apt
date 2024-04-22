@@ -8,5 +8,5 @@ apply_run()
 	apply_deb eatmydata
 	apply_deb stow
 
-	apply_stow "$APPLY_UNIT"
+	apply_stow
 }

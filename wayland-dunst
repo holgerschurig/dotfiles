@@ -7,5 +7,5 @@ apply_run()
 	apply_deb dunst
 
 	mkdir -p ~/.config/dunst
-	apply_stow "$APPLY_UNIT"
+	apply_stow
 }

@@ -4,7 +4,7 @@ apply_run()
 {
 	apply_deb joe
 
-	apply_stow "$APPLY_UNIT"
+	apply_stow
 
 	ln -sf /usr/bin/joe /usr/local/bin/q
 }

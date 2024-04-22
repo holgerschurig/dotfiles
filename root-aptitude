@@ -5,5 +5,5 @@ apply_run()
 {
 	apply_deb aptitude
 
-	apply_stow "$APPLY_UNIT"
+	apply_stow
 }

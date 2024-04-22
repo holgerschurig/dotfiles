@@ -7,5 +7,5 @@ apply_run()
 	apply_deb foot
 
 	mkdir -p ~/.config/foot
-	apply_stow "$APPLY_UNIT"
+	apply_stow
 }

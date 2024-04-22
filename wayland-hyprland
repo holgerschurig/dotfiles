@@ -67,5 +67,5 @@ apply_run()
 	apply_compile
 
 	mkdir -p ~/.config/hypr
-	apply_stow "$APPLY_UNIT"
+	apply_stow
 }

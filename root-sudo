@@ -7,7 +7,7 @@ apply_run()
 
 	# I can't actually stow this, otherwise sudo will complain about the symlink
 	# and directory rights :-(
-	#apply_stow "$APPLY_UNIT"
+	#apply_stow
 
 	# So we use "install" for this :-)
 	# note that if a .data file exists, then ./apply will automatically switch into it
