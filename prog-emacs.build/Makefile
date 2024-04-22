@@ -103,22 +103,41 @@ help::
 	@echo "make install          install compiled Emacs (using stow)"
 
 
-uninstall:
+uninstemacs:
 ifeq ($(UID),0)
 	cd /usr/local/stow; stow --delete emacs
 else
 	sudo $(MAKE) --no-print-directory $(MFLAGS) uninstall
 endif
 help::
-	@echo "make uninstall        uninstall Emacs (using stow)"
+	@echo "make uninstemacs      uninstall Emacs (using stow)"
 
 
-
-cleansource:
+cleanemacs:
 	cd emacs.git; git clean -fdx
 help::
-	@echo "make cleansource      clean Emacs' source tree"
+	@echo "make cleanemacs       clean Emacs' source tree"
+	@echo
 
+
+
+
+
+pulldoom:
+ifeq ("$(wildcard ~/.emacs.d/.git/HEAD)","")
+	cd ~; git clone https://github.com/hlissner/doom-emacs .emacs.d
+else
+	cd ~/.emacs.d; git pull --rebase
+	cd ~/.emacs.d; bin/doom sync -u --rebuild
+	cd ~/.emacs.d; bin/doom gc -g
+endif
+help::
+	@echo "make pulldoom         pull new doom changes from git"
+
+syncdoom:
+	cd ~/.emacs.d; bin/doom sync -u -j 4
+help::
+	@echo "make syncdoom         sync doom repos with packages.el"
 
 
 all: /usr/local/bin/emacs
