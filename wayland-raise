@@ -4,7 +4,7 @@
 
 apply_run()
 {
-	install_deb cargo
+	apply_deb cargo
 
 	apply_compile "$APPLY_UNIT.build"
 }

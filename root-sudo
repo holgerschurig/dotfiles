@@ -3,7 +3,7 @@
 
 apply_run()
 {
-	install_deb sudo
+	apply_deb sudo
 
 	# I can't actually stow this, otherwise sudo will complain about the symlink
 	# and directory rights :-(

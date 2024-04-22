@@ -3,7 +3,7 @@
 
 apply_run()
 {
-	install_deb aptitude
+	apply_deb aptitude
 
 	apply_stow "$APPLY_UNIT"
 }

@@ -17,24 +17,24 @@ apply_run()
 	apply wayland-wofi
 
 	# Screenshot tool
-	install_deb flameshot
+	apply_deb flameshot
 
 	# Color picker
 	apply wayland-hyprpicker
 
 	# Screen locking tool
-	install_deb swaylock
+	apply_deb swaylock
 
 	# Sound control
-	install_deb pavucontrol pamixer
+	apply_deb pavucontrol pamixer
 
 	# Clipboard support
-	install_deb wl-clipboard
+	apply_deb wl-clipboard
 
 	# Run-or-raise feature
 	apply wayland-raise
 
-	install_deb \
+	apply_deb \
 		cmake \
 		hwdata \
 		meson \

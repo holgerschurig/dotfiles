@@ -104,8 +104,8 @@ install_one_deb()
 
 
 # Usage:
-#	install_deb DEB [DEB ...]
-install_deb()
+#	apply_deb DEB [DEB ...]
+apply_deb()
 {
 	APPLY_DEBS=()
 	# shellcheck disable=SC2048

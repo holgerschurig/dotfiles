@@ -3,7 +3,7 @@
 
 apply_run()
 {
-	install_deb \
+	apply_deb \
 		alacritty \
 		lxpanel \
 		openbox \

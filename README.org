@@ -226,13 +226,13 @@ However, the text is shown with a red "Error: " prefix to make it stand out.
 
 Also, "=apply=" is automatically aborted with an error level of 1.
 
-*** install_deb()
+*** apply_deb()
 
 Installs Debian packages. It is however a bit faster than normal "=apt-get=" in finding
 out if the package is already installed, since it checks files in "=/var/lib/dpkg/info/=" first. "=apt-get="
 first loads the complete package cache.
 
-"=install_deb()=" also uses "=eatmydata=" to make installation MUCH faster. This
+"=apply_deb()=" also uses "=eatmydata=" to make installation MUCH faster. This
 basically turns off all the "=sync(2)" calls.
 
 And finally, should you run "=./apply=" as user, then it will use "=sudo=" to
@@ -243,7 +243,7 @@ Example:
 #+begin_example
 apply_run()
 {
-    install_deb \
+    apply_deb \
         xserver-common \
         xserver-xorg-core \
         xserver-xorg-video-intel \
