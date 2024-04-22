@@ -90,14 +90,14 @@ endif
 help::
 	@echo "make pullcursor       clone or pull hyprcursor from git"
 
-compcursor hyprland.git/build/hyprcursor.pc: hyprcursor.git/.git/HEAD /usr/local/lib/libhyprlang.so
+compcursor hyprcursor.git/build/hyprcursor.pc: hyprcursor.git/.git/HEAD /usr/local/lib/libhyprlang.so
 	@test $(UID) != 0 || { echo "\n---> Not as root, dude! ($@)\n"; exit 1; }
 	cd hyprcursor.git; cmake -B build
 	cd hyprcursor.git; cmake --build build -j
 help::
 	@echo "make compcursor       compile hyprcursor library from source"
 
-instcursor /usr/local/lib/libhyprcursor.so: hyprlang.git/build/hyprlang.pc
+instcursor /usr/local/lib/libhyprcursor.so: hyprcursor.git/build/hyprcursor.pc
 ifeq ($(UID),0)
 	mkdir -p /usr/local/stow
 	cd /usr/local/stow; stow --delete hypr || true
@@ -135,7 +135,7 @@ compland hyprland.git/build/Hyprland: \
 help::
 	@echo "make compland         compile Hyprland from source"
 
-instland: hyprland.git/build/Hyprland
+instland /usr/local/bin/Hyprland: hyprland.git/build/Hyprland
 ifeq ($(UID),0)
 	mkdir -p /usr/local/stow
 	cd /usr/local/stow; stow --delete hypr || true
@@ -175,4 +175,4 @@ help::
 
 
 
-all: hyprland.git/build/Hyprland
+all: /usr/local/bin/Hyprland
