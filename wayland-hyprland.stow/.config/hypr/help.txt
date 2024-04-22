@@ -1,0 +1,21 @@
+Win-Enter            terminal emulator "foot"
+Win-H                Help text
+Win-E                Emacs (run or raise functionality)
+Win-W                Web browser "firefox" (run or raise functionality)
+Win-S                Sound setup "pavucontrol"
+Win-R                Run any desktop application
+Win-Ctrl-R           Run any executable
+Win-Ctrl-L           Lock screen
+Win-Ctrl-P           Pick color
+Print                Print screen utility "flameshot"
+
+Win-F                Fullscreen active client
+Win-L                fLoat active client
+Win-G                Group toggle
+Win-Shift-G          Group activate
+Win-Tab              switch to next client
+Win-Shift-Tab        switch to last client
+
+Win-Ctrl-E           Error removal
+Win-Ctrl-Q           Quit (kill) active client
+Ctrl-Alt-Backspace   Quit compositor

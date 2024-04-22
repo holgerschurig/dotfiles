@@ -46,6 +46,7 @@ apply_run()
 		pipewire \
 		polkitd \
 		wl-clipboard \
+		yad \
 		\
 		libdisplay-info-dev \
 		libdrm-dev \
