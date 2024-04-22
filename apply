@@ -150,29 +150,24 @@ apply_stow()
 	test "$APPLY_DEBUG" = "1" && VERBOSE=-v
 
 	# Let stow operate either on the / directory or the user's home directory:
-	if [ -d "STOW_DIR" ]; then
-
-		if [ "$UID" = 0 ]; then
-			APPLY_ROOT="/"
-		else
-			APPLY_ROOT="$HOME"
-		fi
-
-		# Remove all files that stow would install
-		(
-			# shellcheck disable=SC2164
-			cd "$APPLY_UNIT.stow"
-			find . -type f
-		) | (
-			cd "$APPLY_ROOT" || true
-			xargs rm -f "$VERBOSE"
-		)
-
-		# shellcheck disable=SC2086
-		stow -t "$APPLY_ROOT" $VERBOSE $APPLY_STOWFLAGS "$STOW_DIR"
+	if [ "$UID" = 0 ]; then
+		APPLY_ROOT="/"
 	else
-		error ".stow directory doesn't exist"
+		APPLY_ROOT="$HOME"
 	fi
+
+	# Remove all files that stow would install
+	(
+		# shellcheck disable=SC2164
+		cd "$APPLY_UNIT.stow"
+		find . -type f
+	) | (
+		cd "$APPLY_ROOT" || true
+		xargs rm -f "$VERBOSE"
+	)
+
+	# shellcheck disable=SC2086
+	stow -t "$APPLY_ROOT" $VERBOSE $APPLY_STOWFLAGS "$STOW_DIR"
 }
 
 
@@ -182,7 +177,7 @@ apply_stow()
 apply_compile()
 {
 	local DIRECTORY="${1:-$APPLY_UNIT.build}"
-	local TARGET="${2-:all}"
+	local TARGET="${2:-all}"
 
 	test -d "$DIRECTORY" || error "directory $DIRECTORY does not exist"
 	test -f "$DIRECTORY/Makefile" || error "directory $DIRECTORY has no Makefile"
