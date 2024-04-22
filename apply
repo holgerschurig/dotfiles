@@ -145,6 +145,9 @@ apply_stow()
 {
 	test -z "$1" && error "must provide .stow directory to apply_stow()"
 
+	local VERBOSE=""
+	test "$APPLY_DEBUG" = "1" && VERBOSE=-v
+
 	# Let stow operate either on the / directory or the user's home directory:
 	if [ -d "$1.stow" ]; then
 
@@ -161,11 +164,11 @@ apply_stow()
 			find . -type f
 		) | (
 			cd "$APPLY_ROOT" || true
-			xargs rm -fv
+			xargs rm -f "$VERBOSE"
 		)
 
 		# shellcheck disable=SC2086
-		stow -t "$APPLY_ROOT" $APPLY_STOWFLAGS "$1.stow"
+		stow -t "$APPLY_ROOT" $VERBOSE $APPLY_STOWFLAGS "$1.stow"
 	else
 		error ".stow directory doesn't exist"
 	fi
