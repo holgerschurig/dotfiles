@@ -182,7 +182,7 @@ apply_compile()
 	test -d "$DIRECTORY" || error "directory $DIRECTORY does not exist"
 	test -f "$DIRECTORY/Makefile" || error "directory $DIRECTORY has no Makefile"
 
-	make -C "$DIRECTORY" "$TARGET"
+	make -C "$DIRECTORY" --no-print-directory "$TARGET"
 }
 
 
