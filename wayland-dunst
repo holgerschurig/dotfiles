@@ -8,6 +8,3 @@ apply_run()
 
 	mkdir -p ~/.config/dunst
 	apply_stow "$APPLY_UNIT"
-
-	exit 98
-}

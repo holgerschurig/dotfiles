@@ -53,5 +53,4 @@ apply_run()
 	# Check to find out why ./configure says "Does Emacs use imagemagick?                             no"
 
 	apply_compile "$APPLY_UNIT.build"
-	exit 98
 }

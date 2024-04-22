@@ -1,0 +1,6 @@
+# -*- mode: shell-script -*-
+
+apply_run()
+{
+	return 1
+}

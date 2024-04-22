@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 # -*- mode: shell-script -*-
 #set -eio pipefail
 
@@ -295,7 +297,7 @@ run()
 	chmod a+rwX "$APPLY_DIR/.stamps"
 	test -e "$APPLY_DIR/.stamps/$APPLY_UNIT.stamp" && {
 		test "$APPLY_FORCE" == 1 || {
-			debug "$APPLY_UNIT: stamp exists"
+			debug "done (stamp existed)"
 			return
 		}
 	}
@@ -318,14 +320,14 @@ run()
 		cd "$APPLY_UNIT.data" 2>/dev/null || true
 
 		# should have been overridded/defined in the sourced script
-		apply_run
+		apply_run || warning "script failed"
 
-		debug "end"
 		touch "$APPLY_DIR/.stamps/$APPLY_UNIT.stamp"
 
 		# Not that we don't run the stow code below. If something should be
 		# stowed, then the script can invoce "apply_stow" by itself.
-		exit 0
+		debug "done"
+		return
 	fi
 
 	# Maybe we have something to stow?
@@ -336,12 +338,12 @@ run()
 		info "stowing"
 		apply_stow "$APPLY_UNIT"
 		touch "$APPLY_DIR/.stamps/$APPLY_UNIT.stamp"
-		exit 0
+		debug "done"
+		return
 	fi
 
 	error "neither script nor .stow directory found"
 }
-
 
 # shellcheck disable=SC2048
 for f in $*; do
