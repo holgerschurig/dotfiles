@@ -31,6 +31,9 @@ apply_run()
 	# Clipboard support
 	install_deb wl-clipboard
 
+	# Run-or-raise feature
+	apply wayland-raise
+
 	install_deb \
 		cmake \
 		hwdata \

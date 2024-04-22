@@ -1,0 +1,10 @@
+# -*- mode: shell-script -*-
+
+
+
+apply_run()
+{
+	install_deb cargo
+
+	apply_compile "$APPLY_UNIT.build"
+}
