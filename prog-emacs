@@ -12,9 +12,11 @@ apply_run()
 		mailutils \
 		ca-certificates \
 		dbus-x11 \
+		fonts-jetbrains-mono \
 		git \
 		gnupg-agent \
 		imagemagick \
+		\
 		libacl1-dev \
 		libasound2-dev \
 		libcairo2-dev \
