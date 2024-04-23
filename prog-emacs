@@ -9,7 +9,7 @@ apply_run()
 		\
 		autoconf \
 		automake \
-		bsd-mailx \
+		mailutils \
 		ca-certificates \
 		dbus-x11 \
 		git \
