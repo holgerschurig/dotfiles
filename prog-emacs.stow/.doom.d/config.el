@@ -2615,7 +2615,7 @@ re_W_rite      _t_ype definition
 
 
 
-;; Package: ox-reveal
+;;; Package: org-reveal
 
 ;; https://github.com/yjwen/org-reveal
 ;; https://revealjs.com/
