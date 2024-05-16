@@ -93,6 +93,9 @@
 
 (package! ox-hugo)              ;; https://github.com/kaushalmodi/ox-hugo
 
+(package! ob-pikchr            ;; https://github.com/reyman/ob-pikchr
+  :recipe (:host github :repo "reyman/ob-pikchr"))
+
 (package! pdf-tools)            ;; https://github.com/vedang/pdf-tools  -- PDF viewer on steroids
 
 (package! project :built-in 'prefer)

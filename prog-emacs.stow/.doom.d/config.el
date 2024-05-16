@@ -2614,6 +2614,25 @@ re_W_rite      _t_ype definition
   )
 
 
+;;; Package: org/ob-pikchr
+
+;; It would be nice if this worked. But the SVG files created by both the
+;; C based pikchr from the link below and the Debian package pikchr-cli
+;; isn't rednered by my Emacs. Which is weird, since a) my Emacs has not
+;; trouble rendering other SVG files and b) the pikchr-created SVG files
+;; are rendered in Firefox.
+;;
+;; :-(
+
+;; (use-package! ob-pikchr
+;;   :custom
+;;   ;; Compiled from https://pikchr.org/home/doc/trunk/doc/download.md
+;;   (org-babel-pikchr-path "/usr/local/bin/")
+;;   (org-babel-pikchr-cmd "pikchr")
+;; )
+
+
+
 
 ;;; Package: org-reveal
 
