@@ -1,0 +1,28 @@
+# -*- mode: shell-script -*-
+
+
+
+apply_run()
+{
+	# Terminal program
+	apply wayland-foot
+
+	# Notification
+    apply wayland-dunst
+
+	# application launcher
+	apply wayland-wofi
+
+	# Screenshot tool
+    apply_deb flameshot
+
+    # Screen locking tool
+    apply_deb swaylock
+
+    # Sound control
+    apply_deb pavucontrol pamixer
+
+
+	mkdir -p ~/.config/sway
+	apply_stow
+}

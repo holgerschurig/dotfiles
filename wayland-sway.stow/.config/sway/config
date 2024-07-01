@@ -1,7 +1,3 @@
-# useful .deb packages:
-#
-# apt-get install wev grim slurp wl-clipboard mako-notifier alacritty libnotify-bin
-
 include /etc/sway/config.d/*
 
 
@@ -212,7 +208,8 @@ bindsym Mod4+Shift+m swap container with mark Mark
 bindsym Mod4+o floating toggle
 bindsym Mod4+Shift+o focus mode_toggle     # toggle focus between float and tiling
 bindsym Mod4+p focus parent
-bindsym Mod4+r exec fuzzel
+bindsym Mod4+r exec killall wofi; wofi --show drun       # Run any XDG applications
+bindsym Mod4+Ctrl+r exec killall wofi; wofi --show run   # Run any executable in the path
 bindsym Mod4+s mode "resize"
 bindsym Mod4+v splitv
 bindsym Mod4+w exec ~/.config/sway/run-or-raise Firefox firefox
@@ -222,7 +219,8 @@ bindsym Mod4+Shift+k kill                 # kill client
 bindsym Mod4+Shift+r reload
 bindsym Mod4+Shift+s layout stacking
 bindsym Mod4+Shift+t layout tabbed
-bindsym Print exec slurp | grim -g - - | tee /tmp/pic-`date +%Y-%m-%d_%H:%M:%S`.png | wl-copy
+#bindsym Print exec slurp | grim -g - - | tee /tmp/pic-`date +%Y-%m-%d_%H:%M:%S`.png | wl-copy
+bindsym Print exec flameshot gui
 
 bindsym Mod4+Prior exec pactl set-sink-volume @DEFAULT_SINK@ +10%
 bindsym Mod4+Next  exec pactl set-sink-volume @DEFAULT_SINK@ -10%
