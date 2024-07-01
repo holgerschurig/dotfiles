@@ -68,7 +68,8 @@
 	fsckobjects = true
 [url "git@github.com:"]
 	pushInsteadOf = "https://github.com/"
-
+[submodule]
+	recurse = true
 
 #############################################################################
 #
