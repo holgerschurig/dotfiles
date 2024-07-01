@@ -1,0 +1,10 @@
+# -*- mode: shell-script -*-
+
+
+
+apply_run()
+{
+	apply_deb zdiff git
+
+	apply_stow
+}

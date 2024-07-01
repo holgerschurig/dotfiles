@@ -45,8 +45,8 @@
 	sslverify = false
 [init]
 	defaultBranch = main
-[merge]
-	conflictstyle = zdiff3
+# [merge]
+# 	conflictstyle = zdiff3
 [log]
 	date = iso
 [pager]
