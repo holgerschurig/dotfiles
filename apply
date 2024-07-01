@@ -143,7 +143,9 @@ apply_deb()
 #	apply_stow [STOW-DIRECTORY]
 apply_stow()
 {
-	local STOW_DIR="${1:-$APPLY_UNIT.stow}"
+	local STOW_DIR="${1:-$APPLY_UNIT}"
+	STOW_DIR="${STOW_DIR%%.stow}.stow" # add .stow once (must work if it is already there or not)
+
 	test -d "$STOW_DIR" || error "$STOW_DIR is not a directory"
 
 	local VERBOSE=""
