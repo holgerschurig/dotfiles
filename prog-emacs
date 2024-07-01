@@ -52,7 +52,13 @@ apply_run()
 	# Check if we want these packages:
 	#		libgpm-dev [linux-any] \
 	#		libselinux1-dev [linux-any] \
-	# Check to find out why ./configure says "Does Emacs use imagemagick?                             no"
+	# TODO: Check to find out why ./configure says "Does Emacs use imagemagick?                             no"
+
+	mkdir -p ~/.fonts/
+	wget -q -c -P ~/.fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+	wget -q -c -P ~/.fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+	wget -q -c -P ~/.fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+	wget -q -c -P ~/.fonts https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
 
 	mkdir -p ~/.doom.d
 	apply_stow
